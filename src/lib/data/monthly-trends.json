@@ -1,0 +1,2079 @@
+{
+  "metadata": {
+    "dataset": "Local data_raw CSV files",
+    "generatedAt": "2026-03-20T18:02:15.970368+00:00",
+    "recordCount": 4231262,
+    "skippedRows": 0
+  },
+  "seasons": [
+    "2003-04",
+    "2004-05",
+    "2005-06",
+    "2006-07",
+    "2007-08",
+    "2008-09",
+    "2009-10",
+    "2010-11",
+    "2011-12",
+    "2012-13",
+    "2013-14",
+    "2014-15",
+    "2015-16",
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "all": [
+    {
+      "month": "2003-10",
+      "attempts": 4254,
+      "made": 1774,
+      "missed": 2480,
+      "fgPct": 0.417
+    },
+    {
+      "month": "2003-11",
+      "attempts": 33233,
+      "made": 14332,
+      "missed": 18901,
+      "fgPct": 0.4313
+    },
+    {
+      "month": "2003-12",
+      "attempts": 34632,
+      "made": 15249,
+      "missed": 19383,
+      "fgPct": 0.4403
+    },
+    {
+      "month": "2004-01",
+      "attempts": 36131,
+      "made": 15866,
+      "missed": 20265,
+      "fgPct": 0.4391
+    },
+    {
+      "month": "2004-02",
+      "attempts": 29207,
+      "made": 12897,
+      "missed": 16310,
+      "fgPct": 0.4416
+    },
+    {
+      "month": "2004-03",
+      "attempts": 35738,
+      "made": 15759,
+      "missed": 19979,
+      "fgPct": 0.441
+    },
+    {
+      "month": "2004-04",
+      "attempts": 16608,
+      "made": 7378,
+      "missed": 9230,
+      "fgPct": 0.4442
+    },
+    {
+      "month": "2004-11",
+      "attempts": 33413,
+      "made": 14722,
+      "missed": 18691,
+      "fgPct": 0.4406
+    },
+    {
+      "month": "2004-12",
+      "attempts": 34924,
+      "made": 15541,
+      "missed": 19383,
+      "fgPct": 0.445
+    },
+    {
+      "month": "2005-01",
+      "attempts": 37230,
+      "made": 16683,
+      "missed": 20547,
+      "fgPct": 0.4481
+    },
+    {
+      "month": "2005-02",
+      "attempts": 28120,
+      "made": 12742,
+      "missed": 15378,
+      "fgPct": 0.4531
+    },
+    {
+      "month": "2005-03",
+      "attempts": 37094,
+      "made": 16625,
+      "missed": 20469,
+      "fgPct": 0.4482
+    },
+    {
+      "month": "2005-04",
+      "attempts": 26845,
+      "made": 12122,
+      "missed": 14723,
+      "fgPct": 0.4516
+    },
+    {
+      "month": "2005-11",
+      "attempts": 34294,
+      "made": 15171,
+      "missed": 19123,
+      "fgPct": 0.4424
+    },
+    {
+      "month": "2005-12",
+      "attempts": 34383,
+      "made": 15633,
+      "missed": 18750,
+      "fgPct": 0.4547
+    },
+    {
+      "month": "2006-01",
+      "attempts": 35858,
+      "made": 16313,
+      "missed": 19545,
+      "fgPct": 0.4549
+    },
+    {
+      "month": "2006-02",
+      "attempts": 28471,
+      "made": 12845,
+      "missed": 15626,
+      "fgPct": 0.4512
+    },
+    {
+      "month": "2006-03",
+      "attempts": 37301,
+      "made": 17220,
+      "missed": 20081,
+      "fgPct": 0.4616
+    },
+    {
+      "month": "2006-04",
+      "attempts": 24007,
+      "made": 10984,
+      "missed": 13023,
+      "fgPct": 0.4575
+    },
+    {
+      "month": "2006-10",
+      "attempts": 304,
+      "made": 150,
+      "missed": 154,
+      "fgPct": 0.4934
+    },
+    {
+      "month": "2006-11",
+      "attempts": 34981,
+      "made": 15839,
+      "missed": 19142,
+      "fgPct": 0.4528
+    },
+    {
+      "month": "2006-12",
+      "attempts": 37263,
+      "made": 17109,
+      "missed": 20154,
+      "fgPct": 0.4591
+    },
+    {
+      "month": "2007-01",
+      "attempts": 36581,
+      "made": 16766,
+      "missed": 19815,
+      "fgPct": 0.4583
+    },
+    {
+      "month": "2007-02",
+      "attempts": 28739,
+      "made": 13113,
+      "missed": 15626,
+      "fgPct": 0.4563
+    },
+    {
+      "month": "2007-03",
+      "attempts": 35339,
+      "made": 16220,
+      "missed": 19119,
+      "fgPct": 0.459
+    },
+    {
+      "month": "2007-04",
+      "attempts": 22865,
+      "made": 10663,
+      "missed": 12202,
+      "fgPct": 0.4663
+    },
+    {
+      "month": "2007-10",
+      "attempts": 1836,
+      "made": 802,
+      "missed": 1034,
+      "fgPct": 0.4368
+    },
+    {
+      "month": "2007-11",
+      "attempts": 36085,
+      "made": 16276,
+      "missed": 19809,
+      "fgPct": 0.451
+    },
+    {
+      "month": "2007-12",
+      "attempts": 36035,
+      "made": 16297,
+      "missed": 19738,
+      "fgPct": 0.4523
+    },
+    {
+      "month": "2008-01",
+      "attempts": 35939,
+      "made": 16430,
+      "missed": 19509,
+      "fgPct": 0.4572
+    },
+    {
+      "month": "2008-02",
+      "attempts": 31192,
+      "made": 14302,
+      "missed": 16890,
+      "fgPct": 0.4585
+    },
+    {
+      "month": "2008-03",
+      "attempts": 38569,
+      "made": 17933,
+      "missed": 20636,
+      "fgPct": 0.465
+    },
+    {
+      "month": "2008-04",
+      "attempts": 20845,
+      "made": 9629,
+      "missed": 11216,
+      "fgPct": 0.4619
+    },
+    {
+      "month": "2008-10",
+      "attempts": 3999,
+      "made": 1769,
+      "missed": 2230,
+      "fgPct": 0.4424
+    },
+    {
+      "month": "2008-11",
+      "attempts": 36475,
+      "made": 16455,
+      "missed": 20020,
+      "fgPct": 0.4511
+    },
+    {
+      "month": "2008-12",
+      "attempts": 35693,
+      "made": 16251,
+      "missed": 19442,
+      "fgPct": 0.4553
+    },
+    {
+      "month": "2009-01",
+      "attempts": 36621,
+      "made": 16936,
+      "missed": 19685,
+      "fgPct": 0.4625
+    },
+    {
+      "month": "2009-02",
+      "attempts": 29595,
+      "made": 13696,
+      "missed": 15899,
+      "fgPct": 0.4628
+    },
+    {
+      "month": "2009-03",
+      "attempts": 37475,
+      "made": 17342,
+      "missed": 20133,
+      "fgPct": 0.4628
+    },
+    {
+      "month": "2009-04",
+      "attempts": 19172,
+      "made": 8853,
+      "missed": 10319,
+      "fgPct": 0.4618
+    },
+    {
+      "month": "2009-10",
+      "attempts": 6061,
+      "made": 2744,
+      "missed": 3317,
+      "fgPct": 0.4527
+    },
+    {
+      "month": "2009-11",
+      "attempts": 34969,
+      "made": 16006,
+      "missed": 18963,
+      "fgPct": 0.4577
+    },
+    {
+      "month": "2009-12",
+      "attempts": 36119,
+      "made": 16553,
+      "missed": 19566,
+      "fgPct": 0.4583
+    },
+    {
+      "month": "2010-01",
+      "attempts": 37649,
+      "made": 17267,
+      "missed": 20382,
+      "fgPct": 0.4586
+    },
+    {
+      "month": "2010-02",
+      "attempts": 29604,
+      "made": 13676,
+      "missed": 15928,
+      "fgPct": 0.462
+    },
+    {
+      "month": "2010-03",
+      "attempts": 38397,
+      "made": 17874,
+      "missed": 20523,
+      "fgPct": 0.4655
+    },
+    {
+      "month": "2010-04",
+      "attempts": 18167,
+      "made": 8600,
+      "missed": 9567,
+      "fgPct": 0.4734
+    },
+    {
+      "month": "2010-10",
+      "attempts": 7003,
+      "made": 3107,
+      "missed": 3896,
+      "fgPct": 0.4437
+    },
+    {
+      "month": "2010-11",
+      "attempts": 34984,
+      "made": 16017,
+      "missed": 18967,
+      "fgPct": 0.4578
+    },
+    {
+      "month": "2010-12",
+      "attempts": 35873,
+      "made": 16334,
+      "missed": 19539,
+      "fgPct": 0.4553
+    },
+    {
+      "month": "2011-01",
+      "attempts": 37471,
+      "made": 17176,
+      "missed": 20295,
+      "fgPct": 0.4584
+    },
+    {
+      "month": "2011-02",
+      "attempts": 29228,
+      "made": 13426,
+      "missed": 15802,
+      "fgPct": 0.4594
+    },
+    {
+      "month": "2011-03",
+      "attempts": 37192,
+      "made": 17173,
+      "missed": 20019,
+      "fgPct": 0.4617
+    },
+    {
+      "month": "2011-04",
+      "attempts": 18010,
+      "made": 8380,
+      "missed": 9630,
+      "fgPct": 0.4653
+    },
+    {
+      "month": "2011-12",
+      "attempts": 9012,
+      "made": 3966,
+      "missed": 5046,
+      "fgPct": 0.4401
+    },
+    {
+      "month": "2012-01",
+      "attempts": 41490,
+      "made": 18405,
+      "missed": 23085,
+      "fgPct": 0.4436
+    },
+    {
+      "month": "2012-02",
+      "attempts": 34220,
+      "made": 15107,
+      "missed": 19113,
+      "fgPct": 0.4415
+    },
+    {
+      "month": "2012-03",
+      "attempts": 41381,
+      "made": 18848,
+      "missed": 22533,
+      "fgPct": 0.4555
+    },
+    {
+      "month": "2012-04",
+      "attempts": 35102,
+      "made": 15881,
+      "missed": 19221,
+      "fgPct": 0.4524
+    },
+    {
+      "month": "2012-10",
+      "attempts": 1961,
+      "made": 858,
+      "missed": 1103,
+      "fgPct": 0.4375
+    },
+    {
+      "month": "2012-11",
+      "attempts": 36065,
+      "made": 16055,
+      "missed": 20010,
+      "fgPct": 0.4452
+    },
+    {
+      "month": "2012-12",
+      "attempts": 36931,
+      "made": 16557,
+      "missed": 20374,
+      "fgPct": 0.4483
+    },
+    {
+      "month": "2013-01",
+      "attempts": 37075,
+      "made": 16827,
+      "missed": 20248,
+      "fgPct": 0.4539
+    },
+    {
+      "month": "2013-02",
+      "attempts": 29707,
+      "made": 13595,
+      "missed": 16112,
+      "fgPct": 0.4576
+    },
+    {
+      "month": "2013-03",
+      "attempts": 38405,
+      "made": 17619,
+      "missed": 20786,
+      "fgPct": 0.4588
+    },
+    {
+      "month": "2013-04",
+      "attempts": 21435,
+      "made": 9764,
+      "missed": 11671,
+      "fgPct": 0.4555
+    },
+    {
+      "month": "2013-10",
+      "attempts": 3103,
+      "made": 1409,
+      "missed": 1694,
+      "fgPct": 0.4541
+    },
+    {
+      "month": "2013-11",
+      "attempts": 37645,
+      "made": 16883,
+      "missed": 20762,
+      "fgPct": 0.4485
+    },
+    {
+      "month": "2013-12",
+      "attempts": 36821,
+      "made": 16597,
+      "missed": 20224,
+      "fgPct": 0.4507
+    },
+    {
+      "month": "2014-01",
+      "attempts": 37826,
+      "made": 17220,
+      "missed": 20606,
+      "fgPct": 0.4552
+    },
+    {
+      "month": "2014-02",
+      "attempts": 29400,
+      "made": 13323,
+      "missed": 16077,
+      "fgPct": 0.4532
+    },
+    {
+      "month": "2014-03",
+      "attempts": 39068,
+      "made": 17921,
+      "missed": 21147,
+      "fgPct": 0.4587
+    },
+    {
+      "month": "2014-04",
+      "attempts": 20263,
+      "made": 9413,
+      "missed": 10850,
+      "fgPct": 0.4645
+    },
+    {
+      "month": "2014-10",
+      "attempts": 4250,
+      "made": 1893,
+      "missed": 2357,
+      "fgPct": 0.4454
+    },
+    {
+      "month": "2014-11",
+      "attempts": 36496,
+      "made": 16476,
+      "missed": 20020,
+      "fgPct": 0.4514
+    },
+    {
+      "month": "2014-12",
+      "attempts": 39203,
+      "made": 17764,
+      "missed": 21439,
+      "fgPct": 0.4531
+    },
+    {
+      "month": "2015-01",
+      "attempts": 38884,
+      "made": 17308,
+      "missed": 21576,
+      "fgPct": 0.4451
+    },
+    {
+      "month": "2015-02",
+      "attempts": 27023,
+      "made": 11915,
+      "missed": 15108,
+      "fgPct": 0.4409
+    },
+    {
+      "month": "2015-03",
+      "attempts": 39494,
+      "made": 17746,
+      "missed": 21748,
+      "fgPct": 0.4493
+    },
+    {
+      "month": "2015-04",
+      "attempts": 20200,
+      "made": 9177,
+      "missed": 11023,
+      "fgPct": 0.4543
+    },
+    {
+      "month": "2015-10",
+      "attempts": 6530,
+      "made": 2832,
+      "missed": 3698,
+      "fgPct": 0.4337
+    },
+    {
+      "month": "2015-11",
+      "attempts": 37388,
+      "made": 16569,
+      "missed": 20819,
+      "fgPct": 0.4432
+    },
+    {
+      "month": "2015-12",
+      "attempts": 38226,
+      "made": 17288,
+      "missed": 20938,
+      "fgPct": 0.4523
+    },
+    {
+      "month": "2016-01",
+      "attempts": 38851,
+      "made": 17580,
+      "missed": 21271,
+      "fgPct": 0.4525
+    },
+    {
+      "month": "2016-02",
+      "attempts": 29097,
+      "made": 13404,
+      "missed": 15693,
+      "fgPct": 0.4607
+    },
+    {
+      "month": "2016-03",
+      "attempts": 40323,
+      "made": 18386,
+      "missed": 21937,
+      "fgPct": 0.456
+    },
+    {
+      "month": "2016-04",
+      "attempts": 17478,
+      "made": 7958,
+      "missed": 9520,
+      "fgPct": 0.4553
+    },
+    {
+      "month": "2016-10",
+      "attempts": 7767,
+      "made": 3429,
+      "missed": 4338,
+      "fgPct": 0.4415
+    },
+    {
+      "month": "2016-11",
+      "attempts": 39105,
+      "made": 17598,
+      "missed": 21507,
+      "fgPct": 0.45
+    },
+    {
+      "month": "2016-12",
+      "attempts": 39372,
+      "made": 17989,
+      "missed": 21383,
+      "fgPct": 0.4569
+    },
+    {
+      "month": "2017-01",
+      "attempts": 38181,
+      "made": 17613,
+      "missed": 20568,
+      "fgPct": 0.4613
+    },
+    {
+      "month": "2017-02",
+      "attempts": 28134,
+      "made": 12957,
+      "missed": 15177,
+      "fgPct": 0.4605
+    },
+    {
+      "month": "2017-03",
+      "attempts": 41060,
+      "made": 18865,
+      "missed": 22195,
+      "fgPct": 0.4594
+    },
+    {
+      "month": "2017-04",
+      "attempts": 16310,
+      "made": 7539,
+      "missed": 8771,
+      "fgPct": 0.4622
+    },
+    {
+      "month": "2017-10",
+      "attempts": 17843,
+      "made": 8041,
+      "missed": 9802,
+      "fgPct": 0.4507
+    },
+    {
+      "month": "2017-11",
+      "attempts": 36235,
+      "made": 16683,
+      "missed": 19552,
+      "fgPct": 0.4604
+    },
+    {
+      "month": "2017-12",
+      "attempts": 38563,
+      "made": 17772,
+      "missed": 20791,
+      "fgPct": 0.4609
+    },
+    {
+      "month": "2018-01",
+      "attempts": 37089,
+      "made": 17154,
+      "missed": 19935,
+      "fgPct": 0.4625
+    },
+    {
+      "month": "2018-02",
+      "attempts": 27948,
+      "made": 12937,
+      "missed": 15011,
+      "fgPct": 0.4629
+    },
+    {
+      "month": "2018-03",
+      "attempts": 38648,
+      "made": 17795,
+      "missed": 20853,
+      "fgPct": 0.4604
+    },
+    {
+      "month": "2018-04",
+      "attempts": 15381,
+      "made": 7053,
+      "missed": 8328,
+      "fgPct": 0.4586
+    },
+    {
+      "month": "2018-10",
+      "attempts": 19832,
+      "made": 9088,
+      "missed": 10744,
+      "fgPct": 0.4582
+    },
+    {
+      "month": "2018-11",
+      "attempts": 38706,
+      "made": 17756,
+      "missed": 20950,
+      "fgPct": 0.4587
+    },
+    {
+      "month": "2018-12",
+      "attempts": 38689,
+      "made": 17771,
+      "missed": 20918,
+      "fgPct": 0.4593
+    },
+    {
+      "month": "2019-01",
+      "attempts": 39277,
+      "made": 18154,
+      "missed": 21123,
+      "fgPct": 0.4622
+    },
+    {
+      "month": "2019-02",
+      "attempts": 28370,
+      "made": 13137,
+      "missed": 15233,
+      "fgPct": 0.4631
+    },
+    {
+      "month": "2019-03",
+      "attempts": 40202,
+      "made": 18442,
+      "missed": 21760,
+      "fgPct": 0.4587
+    },
+    {
+      "month": "2019-04",
+      "attempts": 14382,
+      "made": 6714,
+      "missed": 7668,
+      "fgPct": 0.4668
+    },
+    {
+      "month": "2019-10",
+      "attempts": 12089,
+      "made": 5418,
+      "missed": 6671,
+      "fgPct": 0.4482
+    },
+    {
+      "month": "2019-11",
+      "attempts": 38174,
+      "made": 17402,
+      "missed": 20772,
+      "fgPct": 0.4559
+    },
+    {
+      "month": "2019-12",
+      "attempts": 39196,
+      "made": 17844,
+      "missed": 21352,
+      "fgPct": 0.4553
+    },
+    {
+      "month": "2020-01",
+      "attempts": 39427,
+      "made": 18328,
+      "missed": 21099,
+      "fgPct": 0.4649
+    },
+    {
+      "month": "2020-02",
+      "attempts": 29900,
+      "made": 13917,
+      "missed": 15983,
+      "fgPct": 0.4655
+    },
+    {
+      "month": "2020-03",
+      "attempts": 13677,
+      "made": 6383,
+      "missed": 7294,
+      "fgPct": 0.4667
+    },
+    {
+      "month": "2020-07",
+      "attempts": 1433,
+      "made": 678,
+      "missed": 755,
+      "fgPct": 0.4731
+    },
+    {
+      "month": "2020-08",
+      "attempts": 14220,
+      "made": 6580,
+      "missed": 7640,
+      "fgPct": 0.4627
+    },
+    {
+      "month": "2020-12",
+      "attempts": 11916,
+      "made": 5505,
+      "missed": 6411,
+      "fgPct": 0.462
+    },
+    {
+      "month": "2021-01",
+      "attempts": 39213,
+      "made": 18064,
+      "missed": 21149,
+      "fgPct": 0.4607
+    },
+    {
+      "month": "2021-02",
+      "attempts": 37476,
+      "made": 17540,
+      "missed": 19936,
+      "fgPct": 0.468
+    },
+    {
+      "month": "2021-03",
+      "attempts": 35829,
+      "made": 16716,
+      "missed": 19113,
+      "fgPct": 0.4665
+    },
+    {
+      "month": "2021-04",
+      "attempts": 42433,
+      "made": 19863,
+      "missed": 22570,
+      "fgPct": 0.4681
+    },
+    {
+      "month": "2021-05",
+      "attempts": 24116,
+      "made": 11332,
+      "missed": 12784,
+      "fgPct": 0.4699
+    },
+    {
+      "month": "2021-10",
+      "attempts": 16707,
+      "made": 7433,
+      "missed": 9274,
+      "fgPct": 0.4449
+    },
+    {
+      "month": "2021-11",
+      "attempts": 39624,
+      "made": 17857,
+      "missed": 21767,
+      "fgPct": 0.4507
+    },
+    {
+      "month": "2021-12",
+      "attempts": 36565,
+      "made": 16724,
+      "missed": 19841,
+      "fgPct": 0.4574
+    },
+    {
+      "month": "2022-01",
+      "attempts": 40576,
+      "made": 18673,
+      "missed": 21903,
+      "fgPct": 0.4602
+    },
+    {
+      "month": "2022-02",
+      "attempts": 28902,
+      "made": 13509,
+      "missed": 15393,
+      "fgPct": 0.4674
+    },
+    {
+      "month": "2022-03",
+      "attempts": 40286,
+      "made": 19001,
+      "missed": 21285,
+      "fgPct": 0.4717
+    },
+    {
+      "month": "2022-04",
+      "attempts": 14062,
+      "made": 6733,
+      "missed": 7329,
+      "fgPct": 0.4788
+    },
+    {
+      "month": "2022-10",
+      "attempts": 18187,
+      "made": 8422,
+      "missed": 9765,
+      "fgPct": 0.4631
+    },
+    {
+      "month": "2022-11",
+      "attempts": 38901,
+      "made": 18332,
+      "missed": 20569,
+      "fgPct": 0.4712
+    },
+    {
+      "month": "2022-12",
+      "attempts": 39086,
+      "made": 18560,
+      "missed": 20526,
+      "fgPct": 0.4749
+    },
+    {
+      "month": "2023-01",
+      "attempts": 39271,
+      "made": 18741,
+      "missed": 20530,
+      "fgPct": 0.4772
+    },
+    {
+      "month": "2023-02",
+      "attempts": 28754,
+      "made": 13717,
+      "missed": 15037,
+      "fgPct": 0.477
+    },
+    {
+      "month": "2023-03",
+      "attempts": 40384,
+      "made": 19434,
+      "missed": 20950,
+      "fgPct": 0.4812
+    },
+    {
+      "month": "2023-04",
+      "attempts": 12637,
+      "made": 6054,
+      "missed": 6583,
+      "fgPct": 0.4791
+    },
+    {
+      "month": "2023-10",
+      "attempts": 9694,
+      "made": 4462,
+      "missed": 5232,
+      "fgPct": 0.4603
+    },
+    {
+      "month": "2023-11",
+      "attempts": 38928,
+      "made": 18353,
+      "missed": 20575,
+      "fgPct": 0.4715
+    },
+    {
+      "month": "2023-12",
+      "attempts": 37195,
+      "made": 17796,
+      "missed": 19399,
+      "fgPct": 0.4785
+    },
+    {
+      "month": "2024-01",
+      "attempts": 40931,
+      "made": 19649,
+      "missed": 21282,
+      "fgPct": 0.4801
+    },
+    {
+      "month": "2024-02",
+      "attempts": 31176,
+      "made": 14796,
+      "missed": 16380,
+      "fgPct": 0.4746
+    },
+    {
+      "month": "2024-03",
+      "attempts": 40375,
+      "made": 19092,
+      "missed": 21283,
+      "fgPct": 0.4729
+    },
+    {
+      "month": "2024-04",
+      "attempts": 20402,
+      "made": 9591,
+      "missed": 10811,
+      "fgPct": 0.4701
+    }
+  ],
+  "bySeason": {
+    "2003-04": [
+      {
+        "month": "2003-10",
+        "attempts": 4254,
+        "made": 1774,
+        "missed": 2480,
+        "fgPct": 0.417
+      },
+      {
+        "month": "2003-11",
+        "attempts": 33233,
+        "made": 14332,
+        "missed": 18901,
+        "fgPct": 0.4313
+      },
+      {
+        "month": "2003-12",
+        "attempts": 34632,
+        "made": 15249,
+        "missed": 19383,
+        "fgPct": 0.4403
+      },
+      {
+        "month": "2004-01",
+        "attempts": 36131,
+        "made": 15866,
+        "missed": 20265,
+        "fgPct": 0.4391
+      },
+      {
+        "month": "2004-02",
+        "attempts": 29207,
+        "made": 12897,
+        "missed": 16310,
+        "fgPct": 0.4416
+      },
+      {
+        "month": "2004-03",
+        "attempts": 35738,
+        "made": 15759,
+        "missed": 19979,
+        "fgPct": 0.441
+      },
+      {
+        "month": "2004-04",
+        "attempts": 16608,
+        "made": 7378,
+        "missed": 9230,
+        "fgPct": 0.4442
+      }
+    ],
+    "2004-05": [
+      {
+        "month": "2004-11",
+        "attempts": 33413,
+        "made": 14722,
+        "missed": 18691,
+        "fgPct": 0.4406
+      },
+      {
+        "month": "2004-12",
+        "attempts": 34924,
+        "made": 15541,
+        "missed": 19383,
+        "fgPct": 0.445
+      },
+      {
+        "month": "2005-01",
+        "attempts": 37230,
+        "made": 16683,
+        "missed": 20547,
+        "fgPct": 0.4481
+      },
+      {
+        "month": "2005-02",
+        "attempts": 28120,
+        "made": 12742,
+        "missed": 15378,
+        "fgPct": 0.4531
+      },
+      {
+        "month": "2005-03",
+        "attempts": 37094,
+        "made": 16625,
+        "missed": 20469,
+        "fgPct": 0.4482
+      },
+      {
+        "month": "2005-04",
+        "attempts": 26845,
+        "made": 12122,
+        "missed": 14723,
+        "fgPct": 0.4516
+      }
+    ],
+    "2005-06": [
+      {
+        "month": "2005-11",
+        "attempts": 34294,
+        "made": 15171,
+        "missed": 19123,
+        "fgPct": 0.4424
+      },
+      {
+        "month": "2005-12",
+        "attempts": 34383,
+        "made": 15633,
+        "missed": 18750,
+        "fgPct": 0.4547
+      },
+      {
+        "month": "2006-01",
+        "attempts": 35858,
+        "made": 16313,
+        "missed": 19545,
+        "fgPct": 0.4549
+      },
+      {
+        "month": "2006-02",
+        "attempts": 28471,
+        "made": 12845,
+        "missed": 15626,
+        "fgPct": 0.4512
+      },
+      {
+        "month": "2006-03",
+        "attempts": 37301,
+        "made": 17220,
+        "missed": 20081,
+        "fgPct": 0.4616
+      },
+      {
+        "month": "2006-04",
+        "attempts": 24007,
+        "made": 10984,
+        "missed": 13023,
+        "fgPct": 0.4575
+      }
+    ],
+    "2006-07": [
+      {
+        "month": "2006-10",
+        "attempts": 304,
+        "made": 150,
+        "missed": 154,
+        "fgPct": 0.4934
+      },
+      {
+        "month": "2006-11",
+        "attempts": 34981,
+        "made": 15839,
+        "missed": 19142,
+        "fgPct": 0.4528
+      },
+      {
+        "month": "2006-12",
+        "attempts": 37263,
+        "made": 17109,
+        "missed": 20154,
+        "fgPct": 0.4591
+      },
+      {
+        "month": "2007-01",
+        "attempts": 36581,
+        "made": 16766,
+        "missed": 19815,
+        "fgPct": 0.4583
+      },
+      {
+        "month": "2007-02",
+        "attempts": 28739,
+        "made": 13113,
+        "missed": 15626,
+        "fgPct": 0.4563
+      },
+      {
+        "month": "2007-03",
+        "attempts": 35339,
+        "made": 16220,
+        "missed": 19119,
+        "fgPct": 0.459
+      },
+      {
+        "month": "2007-04",
+        "attempts": 22865,
+        "made": 10663,
+        "missed": 12202,
+        "fgPct": 0.4663
+      }
+    ],
+    "2007-08": [
+      {
+        "month": "2007-10",
+        "attempts": 1836,
+        "made": 802,
+        "missed": 1034,
+        "fgPct": 0.4368
+      },
+      {
+        "month": "2007-11",
+        "attempts": 36085,
+        "made": 16276,
+        "missed": 19809,
+        "fgPct": 0.451
+      },
+      {
+        "month": "2007-12",
+        "attempts": 36035,
+        "made": 16297,
+        "missed": 19738,
+        "fgPct": 0.4523
+      },
+      {
+        "month": "2008-01",
+        "attempts": 35939,
+        "made": 16430,
+        "missed": 19509,
+        "fgPct": 0.4572
+      },
+      {
+        "month": "2008-02",
+        "attempts": 31192,
+        "made": 14302,
+        "missed": 16890,
+        "fgPct": 0.4585
+      },
+      {
+        "month": "2008-03",
+        "attempts": 38569,
+        "made": 17933,
+        "missed": 20636,
+        "fgPct": 0.465
+      },
+      {
+        "month": "2008-04",
+        "attempts": 20845,
+        "made": 9629,
+        "missed": 11216,
+        "fgPct": 0.4619
+      }
+    ],
+    "2008-09": [
+      {
+        "month": "2008-10",
+        "attempts": 3999,
+        "made": 1769,
+        "missed": 2230,
+        "fgPct": 0.4424
+      },
+      {
+        "month": "2008-11",
+        "attempts": 36475,
+        "made": 16455,
+        "missed": 20020,
+        "fgPct": 0.4511
+      },
+      {
+        "month": "2008-12",
+        "attempts": 35693,
+        "made": 16251,
+        "missed": 19442,
+        "fgPct": 0.4553
+      },
+      {
+        "month": "2009-01",
+        "attempts": 36621,
+        "made": 16936,
+        "missed": 19685,
+        "fgPct": 0.4625
+      },
+      {
+        "month": "2009-02",
+        "attempts": 29595,
+        "made": 13696,
+        "missed": 15899,
+        "fgPct": 0.4628
+      },
+      {
+        "month": "2009-03",
+        "attempts": 37475,
+        "made": 17342,
+        "missed": 20133,
+        "fgPct": 0.4628
+      },
+      {
+        "month": "2009-04",
+        "attempts": 19172,
+        "made": 8853,
+        "missed": 10319,
+        "fgPct": 0.4618
+      }
+    ],
+    "2009-10": [
+      {
+        "month": "2009-10",
+        "attempts": 6061,
+        "made": 2744,
+        "missed": 3317,
+        "fgPct": 0.4527
+      },
+      {
+        "month": "2009-11",
+        "attempts": 34969,
+        "made": 16006,
+        "missed": 18963,
+        "fgPct": 0.4577
+      },
+      {
+        "month": "2009-12",
+        "attempts": 36119,
+        "made": 16553,
+        "missed": 19566,
+        "fgPct": 0.4583
+      },
+      {
+        "month": "2010-01",
+        "attempts": 37649,
+        "made": 17267,
+        "missed": 20382,
+        "fgPct": 0.4586
+      },
+      {
+        "month": "2010-02",
+        "attempts": 29604,
+        "made": 13676,
+        "missed": 15928,
+        "fgPct": 0.462
+      },
+      {
+        "month": "2010-03",
+        "attempts": 38397,
+        "made": 17874,
+        "missed": 20523,
+        "fgPct": 0.4655
+      },
+      {
+        "month": "2010-04",
+        "attempts": 18167,
+        "made": 8600,
+        "missed": 9567,
+        "fgPct": 0.4734
+      }
+    ],
+    "2010-11": [
+      {
+        "month": "2010-10",
+        "attempts": 7003,
+        "made": 3107,
+        "missed": 3896,
+        "fgPct": 0.4437
+      },
+      {
+        "month": "2010-11",
+        "attempts": 34984,
+        "made": 16017,
+        "missed": 18967,
+        "fgPct": 0.4578
+      },
+      {
+        "month": "2010-12",
+        "attempts": 35873,
+        "made": 16334,
+        "missed": 19539,
+        "fgPct": 0.4553
+      },
+      {
+        "month": "2011-01",
+        "attempts": 37471,
+        "made": 17176,
+        "missed": 20295,
+        "fgPct": 0.4584
+      },
+      {
+        "month": "2011-02",
+        "attempts": 29228,
+        "made": 13426,
+        "missed": 15802,
+        "fgPct": 0.4594
+      },
+      {
+        "month": "2011-03",
+        "attempts": 37192,
+        "made": 17173,
+        "missed": 20019,
+        "fgPct": 0.4617
+      },
+      {
+        "month": "2011-04",
+        "attempts": 18010,
+        "made": 8380,
+        "missed": 9630,
+        "fgPct": 0.4653
+      }
+    ],
+    "2011-12": [
+      {
+        "month": "2011-12",
+        "attempts": 9012,
+        "made": 3966,
+        "missed": 5046,
+        "fgPct": 0.4401
+      },
+      {
+        "month": "2012-01",
+        "attempts": 41490,
+        "made": 18405,
+        "missed": 23085,
+        "fgPct": 0.4436
+      },
+      {
+        "month": "2012-02",
+        "attempts": 34220,
+        "made": 15107,
+        "missed": 19113,
+        "fgPct": 0.4415
+      },
+      {
+        "month": "2012-03",
+        "attempts": 41381,
+        "made": 18848,
+        "missed": 22533,
+        "fgPct": 0.4555
+      },
+      {
+        "month": "2012-04",
+        "attempts": 35102,
+        "made": 15881,
+        "missed": 19221,
+        "fgPct": 0.4524
+      }
+    ],
+    "2012-13": [
+      {
+        "month": "2012-10",
+        "attempts": 1961,
+        "made": 858,
+        "missed": 1103,
+        "fgPct": 0.4375
+      },
+      {
+        "month": "2012-11",
+        "attempts": 36065,
+        "made": 16055,
+        "missed": 20010,
+        "fgPct": 0.4452
+      },
+      {
+        "month": "2012-12",
+        "attempts": 36931,
+        "made": 16557,
+        "missed": 20374,
+        "fgPct": 0.4483
+      },
+      {
+        "month": "2013-01",
+        "attempts": 37075,
+        "made": 16827,
+        "missed": 20248,
+        "fgPct": 0.4539
+      },
+      {
+        "month": "2013-02",
+        "attempts": 29707,
+        "made": 13595,
+        "missed": 16112,
+        "fgPct": 0.4576
+      },
+      {
+        "month": "2013-03",
+        "attempts": 38405,
+        "made": 17619,
+        "missed": 20786,
+        "fgPct": 0.4588
+      },
+      {
+        "month": "2013-04",
+        "attempts": 21435,
+        "made": 9764,
+        "missed": 11671,
+        "fgPct": 0.4555
+      }
+    ],
+    "2013-14": [
+      {
+        "month": "2013-10",
+        "attempts": 3103,
+        "made": 1409,
+        "missed": 1694,
+        "fgPct": 0.4541
+      },
+      {
+        "month": "2013-11",
+        "attempts": 37645,
+        "made": 16883,
+        "missed": 20762,
+        "fgPct": 0.4485
+      },
+      {
+        "month": "2013-12",
+        "attempts": 36821,
+        "made": 16597,
+        "missed": 20224,
+        "fgPct": 0.4507
+      },
+      {
+        "month": "2014-01",
+        "attempts": 37826,
+        "made": 17220,
+        "missed": 20606,
+        "fgPct": 0.4552
+      },
+      {
+        "month": "2014-02",
+        "attempts": 29400,
+        "made": 13323,
+        "missed": 16077,
+        "fgPct": 0.4532
+      },
+      {
+        "month": "2014-03",
+        "attempts": 39068,
+        "made": 17921,
+        "missed": 21147,
+        "fgPct": 0.4587
+      },
+      {
+        "month": "2014-04",
+        "attempts": 20263,
+        "made": 9413,
+        "missed": 10850,
+        "fgPct": 0.4645
+      }
+    ],
+    "2014-15": [
+      {
+        "month": "2014-10",
+        "attempts": 4250,
+        "made": 1893,
+        "missed": 2357,
+        "fgPct": 0.4454
+      },
+      {
+        "month": "2014-11",
+        "attempts": 36496,
+        "made": 16476,
+        "missed": 20020,
+        "fgPct": 0.4514
+      },
+      {
+        "month": "2014-12",
+        "attempts": 39203,
+        "made": 17764,
+        "missed": 21439,
+        "fgPct": 0.4531
+      },
+      {
+        "month": "2015-01",
+        "attempts": 38884,
+        "made": 17308,
+        "missed": 21576,
+        "fgPct": 0.4451
+      },
+      {
+        "month": "2015-02",
+        "attempts": 27023,
+        "made": 11915,
+        "missed": 15108,
+        "fgPct": 0.4409
+      },
+      {
+        "month": "2015-03",
+        "attempts": 39494,
+        "made": 17746,
+        "missed": 21748,
+        "fgPct": 0.4493
+      },
+      {
+        "month": "2015-04",
+        "attempts": 20200,
+        "made": 9177,
+        "missed": 11023,
+        "fgPct": 0.4543
+      }
+    ],
+    "2015-16": [
+      {
+        "month": "2015-10",
+        "attempts": 6530,
+        "made": 2832,
+        "missed": 3698,
+        "fgPct": 0.4337
+      },
+      {
+        "month": "2015-11",
+        "attempts": 37388,
+        "made": 16569,
+        "missed": 20819,
+        "fgPct": 0.4432
+      },
+      {
+        "month": "2015-12",
+        "attempts": 38226,
+        "made": 17288,
+        "missed": 20938,
+        "fgPct": 0.4523
+      },
+      {
+        "month": "2016-01",
+        "attempts": 38851,
+        "made": 17580,
+        "missed": 21271,
+        "fgPct": 0.4525
+      },
+      {
+        "month": "2016-02",
+        "attempts": 29097,
+        "made": 13404,
+        "missed": 15693,
+        "fgPct": 0.4607
+      },
+      {
+        "month": "2016-03",
+        "attempts": 40323,
+        "made": 18386,
+        "missed": 21937,
+        "fgPct": 0.456
+      },
+      {
+        "month": "2016-04",
+        "attempts": 17478,
+        "made": 7958,
+        "missed": 9520,
+        "fgPct": 0.4553
+      }
+    ],
+    "2016-17": [
+      {
+        "month": "2016-10",
+        "attempts": 7767,
+        "made": 3429,
+        "missed": 4338,
+        "fgPct": 0.4415
+      },
+      {
+        "month": "2016-11",
+        "attempts": 39105,
+        "made": 17598,
+        "missed": 21507,
+        "fgPct": 0.45
+      },
+      {
+        "month": "2016-12",
+        "attempts": 39372,
+        "made": 17989,
+        "missed": 21383,
+        "fgPct": 0.4569
+      },
+      {
+        "month": "2017-01",
+        "attempts": 38181,
+        "made": 17613,
+        "missed": 20568,
+        "fgPct": 0.4613
+      },
+      {
+        "month": "2017-02",
+        "attempts": 28134,
+        "made": 12957,
+        "missed": 15177,
+        "fgPct": 0.4605
+      },
+      {
+        "month": "2017-03",
+        "attempts": 41060,
+        "made": 18865,
+        "missed": 22195,
+        "fgPct": 0.4594
+      },
+      {
+        "month": "2017-04",
+        "attempts": 16310,
+        "made": 7539,
+        "missed": 8771,
+        "fgPct": 0.4622
+      }
+    ],
+    "2017-18": [
+      {
+        "month": "2017-10",
+        "attempts": 17843,
+        "made": 8041,
+        "missed": 9802,
+        "fgPct": 0.4507
+      },
+      {
+        "month": "2017-11",
+        "attempts": 36235,
+        "made": 16683,
+        "missed": 19552,
+        "fgPct": 0.4604
+      },
+      {
+        "month": "2017-12",
+        "attempts": 38563,
+        "made": 17772,
+        "missed": 20791,
+        "fgPct": 0.4609
+      },
+      {
+        "month": "2018-01",
+        "attempts": 37089,
+        "made": 17154,
+        "missed": 19935,
+        "fgPct": 0.4625
+      },
+      {
+        "month": "2018-02",
+        "attempts": 27948,
+        "made": 12937,
+        "missed": 15011,
+        "fgPct": 0.4629
+      },
+      {
+        "month": "2018-03",
+        "attempts": 38648,
+        "made": 17795,
+        "missed": 20853,
+        "fgPct": 0.4604
+      },
+      {
+        "month": "2018-04",
+        "attempts": 15381,
+        "made": 7053,
+        "missed": 8328,
+        "fgPct": 0.4586
+      }
+    ],
+    "2018-19": [
+      {
+        "month": "2018-10",
+        "attempts": 19832,
+        "made": 9088,
+        "missed": 10744,
+        "fgPct": 0.4582
+      },
+      {
+        "month": "2018-11",
+        "attempts": 38706,
+        "made": 17756,
+        "missed": 20950,
+        "fgPct": 0.4587
+      },
+      {
+        "month": "2018-12",
+        "attempts": 38689,
+        "made": 17771,
+        "missed": 20918,
+        "fgPct": 0.4593
+      },
+      {
+        "month": "2019-01",
+        "attempts": 39277,
+        "made": 18154,
+        "missed": 21123,
+        "fgPct": 0.4622
+      },
+      {
+        "month": "2019-02",
+        "attempts": 28370,
+        "made": 13137,
+        "missed": 15233,
+        "fgPct": 0.4631
+      },
+      {
+        "month": "2019-03",
+        "attempts": 40202,
+        "made": 18442,
+        "missed": 21760,
+        "fgPct": 0.4587
+      },
+      {
+        "month": "2019-04",
+        "attempts": 14382,
+        "made": 6714,
+        "missed": 7668,
+        "fgPct": 0.4668
+      }
+    ],
+    "2019-20": [
+      {
+        "month": "2019-10",
+        "attempts": 12089,
+        "made": 5418,
+        "missed": 6671,
+        "fgPct": 0.4482
+      },
+      {
+        "month": "2019-11",
+        "attempts": 38174,
+        "made": 17402,
+        "missed": 20772,
+        "fgPct": 0.4559
+      },
+      {
+        "month": "2019-12",
+        "attempts": 39196,
+        "made": 17844,
+        "missed": 21352,
+        "fgPct": 0.4553
+      },
+      {
+        "month": "2020-01",
+        "attempts": 39427,
+        "made": 18328,
+        "missed": 21099,
+        "fgPct": 0.4649
+      },
+      {
+        "month": "2020-02",
+        "attempts": 29900,
+        "made": 13917,
+        "missed": 15983,
+        "fgPct": 0.4655
+      },
+      {
+        "month": "2020-03",
+        "attempts": 13677,
+        "made": 6383,
+        "missed": 7294,
+        "fgPct": 0.4667
+      },
+      {
+        "month": "2020-07",
+        "attempts": 1433,
+        "made": 678,
+        "missed": 755,
+        "fgPct": 0.4731
+      },
+      {
+        "month": "2020-08",
+        "attempts": 14220,
+        "made": 6580,
+        "missed": 7640,
+        "fgPct": 0.4627
+      }
+    ],
+    "2020-21": [
+      {
+        "month": "2020-12",
+        "attempts": 11916,
+        "made": 5505,
+        "missed": 6411,
+        "fgPct": 0.462
+      },
+      {
+        "month": "2021-01",
+        "attempts": 39213,
+        "made": 18064,
+        "missed": 21149,
+        "fgPct": 0.4607
+      },
+      {
+        "month": "2021-02",
+        "attempts": 37476,
+        "made": 17540,
+        "missed": 19936,
+        "fgPct": 0.468
+      },
+      {
+        "month": "2021-03",
+        "attempts": 35829,
+        "made": 16716,
+        "missed": 19113,
+        "fgPct": 0.4665
+      },
+      {
+        "month": "2021-04",
+        "attempts": 42433,
+        "made": 19863,
+        "missed": 22570,
+        "fgPct": 0.4681
+      },
+      {
+        "month": "2021-05",
+        "attempts": 24116,
+        "made": 11332,
+        "missed": 12784,
+        "fgPct": 0.4699
+      }
+    ],
+    "2021-22": [
+      {
+        "month": "2021-10",
+        "attempts": 16707,
+        "made": 7433,
+        "missed": 9274,
+        "fgPct": 0.4449
+      },
+      {
+        "month": "2021-11",
+        "attempts": 39624,
+        "made": 17857,
+        "missed": 21767,
+        "fgPct": 0.4507
+      },
+      {
+        "month": "2021-12",
+        "attempts": 36565,
+        "made": 16724,
+        "missed": 19841,
+        "fgPct": 0.4574
+      },
+      {
+        "month": "2022-01",
+        "attempts": 40576,
+        "made": 18673,
+        "missed": 21903,
+        "fgPct": 0.4602
+      },
+      {
+        "month": "2022-02",
+        "attempts": 28902,
+        "made": 13509,
+        "missed": 15393,
+        "fgPct": 0.4674
+      },
+      {
+        "month": "2022-03",
+        "attempts": 40286,
+        "made": 19001,
+        "missed": 21285,
+        "fgPct": 0.4717
+      },
+      {
+        "month": "2022-04",
+        "attempts": 14062,
+        "made": 6733,
+        "missed": 7329,
+        "fgPct": 0.4788
+      }
+    ],
+    "2022-23": [
+      {
+        "month": "2022-10",
+        "attempts": 18187,
+        "made": 8422,
+        "missed": 9765,
+        "fgPct": 0.4631
+      },
+      {
+        "month": "2022-11",
+        "attempts": 38901,
+        "made": 18332,
+        "missed": 20569,
+        "fgPct": 0.4712
+      },
+      {
+        "month": "2022-12",
+        "attempts": 39086,
+        "made": 18560,
+        "missed": 20526,
+        "fgPct": 0.4749
+      },
+      {
+        "month": "2023-01",
+        "attempts": 39271,
+        "made": 18741,
+        "missed": 20530,
+        "fgPct": 0.4772
+      },
+      {
+        "month": "2023-02",
+        "attempts": 28754,
+        "made": 13717,
+        "missed": 15037,
+        "fgPct": 0.477
+      },
+      {
+        "month": "2023-03",
+        "attempts": 40384,
+        "made": 19434,
+        "missed": 20950,
+        "fgPct": 0.4812
+      },
+      {
+        "month": "2023-04",
+        "attempts": 12637,
+        "made": 6054,
+        "missed": 6583,
+        "fgPct": 0.4791
+      }
+    ],
+    "2023-24": [
+      {
+        "month": "2023-10",
+        "attempts": 9694,
+        "made": 4462,
+        "missed": 5232,
+        "fgPct": 0.4603
+      },
+      {
+        "month": "2023-11",
+        "attempts": 38928,
+        "made": 18353,
+        "missed": 20575,
+        "fgPct": 0.4715
+      },
+      {
+        "month": "2023-12",
+        "attempts": 37195,
+        "made": 17796,
+        "missed": 19399,
+        "fgPct": 0.4785
+      },
+      {
+        "month": "2024-01",
+        "attempts": 40931,
+        "made": 19649,
+        "missed": 21282,
+        "fgPct": 0.4801
+      },
+      {
+        "month": "2024-02",
+        "attempts": 31176,
+        "made": 14796,
+        "missed": 16380,
+        "fgPct": 0.4746
+      },
+      {
+        "month": "2024-03",
+        "attempts": 40375,
+        "made": 19092,
+        "missed": 21283,
+        "fgPct": 0.4729
+      },
+      {
+        "month": "2024-04",
+        "attempts": 20402,
+        "made": 9591,
+        "missed": 10811,
+        "fgPct": 0.4701
+      }
+    ]
+  }
+}

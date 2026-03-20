@@ -1,0 +1,3313 @@
+{
+  "metadata": {
+    "dataset": "Local data_raw CSV files",
+    "generatedAt": "2026-03-20T18:02:15.970368+00:00",
+    "recordCount": 4231262,
+    "skippedRows": 0,
+    "bucketSize": 2,
+    "longDistanceBucket": 40
+  },
+  "seasons": [
+    "2003-04",
+    "2004-05",
+    "2005-06",
+    "2006-07",
+    "2007-08",
+    "2008-09",
+    "2009-10",
+    "2010-11",
+    "2011-12",
+    "2012-13",
+    "2013-14",
+    "2014-15",
+    "2015-16",
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "all": [
+    {
+      "distanceBucket": 0,
+      "attempts": 958529,
+      "made": 635009,
+      "missed": 323520,
+      "fgPct": 0.6625
+    },
+    {
+      "distanceBucket": 2,
+      "attempts": 385476,
+      "made": 192735,
+      "missed": 192741,
+      "fgPct": 0.5
+    },
+    {
+      "distanceBucket": 4,
+      "attempts": 207859,
+      "made": 83555,
+      "missed": 124304,
+      "fgPct": 0.402
+    },
+    {
+      "distanceBucket": 6,
+      "attempts": 186414,
+      "made": 75155,
+      "missed": 111259,
+      "fgPct": 0.4032
+    },
+    {
+      "distanceBucket": 8,
+      "attempts": 151007,
+      "made": 61058,
+      "missed": 89949,
+      "fgPct": 0.4043
+    },
+    {
+      "distanceBucket": 10,
+      "attempts": 134257,
+      "made": 54069,
+      "missed": 80188,
+      "fgPct": 0.4027
+    },
+    {
+      "distanceBucket": 12,
+      "attempts": 138366,
+      "made": 56041,
+      "missed": 82325,
+      "fgPct": 0.405
+    },
+    {
+      "distanceBucket": 14,
+      "attempts": 179664,
+      "made": 73238,
+      "missed": 106426,
+      "fgPct": 0.4076
+    },
+    {
+      "distanceBucket": 16,
+      "attempts": 240899,
+      "made": 97926,
+      "missed": 142973,
+      "fgPct": 0.4065
+    },
+    {
+      "distanceBucket": 18,
+      "attempts": 248604,
+      "made": 99997,
+      "missed": 148607,
+      "fgPct": 0.4022
+    },
+    {
+      "distanceBucket": 20,
+      "attempts": 156509,
+      "made": 61218,
+      "missed": 95291,
+      "fgPct": 0.3911
+    },
+    {
+      "distanceBucket": 22,
+      "attempts": 305864,
+      "made": 118774,
+      "missed": 187090,
+      "fgPct": 0.3883
+    },
+    {
+      "distanceBucket": 24,
+      "attempts": 619829,
+      "made": 225103,
+      "missed": 394726,
+      "fgPct": 0.3632
+    },
+    {
+      "distanceBucket": 26,
+      "attempts": 254749,
+      "made": 87603,
+      "missed": 167146,
+      "fgPct": 0.3439
+    },
+    {
+      "distanceBucket": 28,
+      "attempts": 36567,
+      "made": 11567,
+      "missed": 25000,
+      "fgPct": 0.3163
+    },
+    {
+      "distanceBucket": 30,
+      "attempts": 7782,
+      "made": 2129,
+      "missed": 5653,
+      "fgPct": 0.2736
+    },
+    {
+      "distanceBucket": 32,
+      "attempts": 2789,
+      "made": 619,
+      "missed": 2170,
+      "fgPct": 0.2219
+    },
+    {
+      "distanceBucket": 34,
+      "attempts": 1570,
+      "made": 217,
+      "missed": 1353,
+      "fgPct": 0.1382
+    },
+    {
+      "distanceBucket": 36,
+      "attempts": 1191,
+      "made": 117,
+      "missed": 1074,
+      "fgPct": 0.0982
+    },
+    {
+      "distanceBucket": 38,
+      "attempts": 1413,
+      "made": 65,
+      "missed": 1348,
+      "fgPct": 0.046
+    },
+    {
+      "distanceBucket": 40,
+      "attempts": 11924,
+      "made": 355,
+      "missed": 11569,
+      "fgPct": 0.0298
+    }
+  ],
+  "bySeason": {
+    "2003-04": [
+      {
+        "distanceBucket": 0,
+        "attempts": 53155,
+        "made": 31895,
+        "missed": 21260,
+        "fgPct": 0.6
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6203,
+        "made": 2647,
+        "missed": 3556,
+        "fgPct": 0.4267
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 8547,
+        "made": 3292,
+        "missed": 5255,
+        "fgPct": 0.3852
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8984,
+        "made": 3428,
+        "missed": 5556,
+        "fgPct": 0.3816
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7313,
+        "made": 2746,
+        "missed": 4567,
+        "fgPct": 0.3755
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6732,
+        "made": 2500,
+        "missed": 4232,
+        "fgPct": 0.3714
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 7926,
+        "made": 2941,
+        "missed": 4985,
+        "fgPct": 0.3711
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 12036,
+        "made": 4631,
+        "missed": 7405,
+        "fgPct": 0.3848
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 16240,
+        "made": 6193,
+        "missed": 10047,
+        "fgPct": 0.3813
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 15241,
+        "made": 5883,
+        "missed": 9358,
+        "fgPct": 0.386
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 9496,
+        "made": 3745,
+        "missed": 5751,
+        "fgPct": 0.3944
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 11014,
+        "made": 4321,
+        "missed": 6693,
+        "fgPct": 0.3923
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 20889,
+        "made": 7350,
+        "missed": 13539,
+        "fgPct": 0.3519
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 4827,
+        "made": 1555,
+        "missed": 3272,
+        "fgPct": 0.3221
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 331,
+        "made": 77,
+        "missed": 254,
+        "fgPct": 0.2326
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 84,
+        "made": 19,
+        "missed": 65,
+        "fgPct": 0.2262
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 69,
+        "made": 7,
+        "missed": 62,
+        "fgPct": 0.1014
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 51,
+        "made": 1,
+        "missed": 50,
+        "fgPct": 0.0196
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 55,
+        "made": 4,
+        "missed": 51,
+        "fgPct": 0.0727
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 66,
+        "made": 1,
+        "missed": 65,
+        "fgPct": 0.0152
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 544,
+        "made": 19,
+        "missed": 525,
+        "fgPct": 0.0349
+      }
+    ],
+    "2004-05": [
+      {
+        "distanceBucket": 0,
+        "attempts": 56456,
+        "made": 34024,
+        "missed": 22432,
+        "fgPct": 0.6027
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6707,
+        "made": 2950,
+        "missed": 3757,
+        "fgPct": 0.4398
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 8323,
+        "made": 3329,
+        "missed": 4994,
+        "fgPct": 0.4
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8362,
+        "made": 3300,
+        "missed": 5062,
+        "fgPct": 0.3946
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6957,
+        "made": 2659,
+        "missed": 4298,
+        "fgPct": 0.3822
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6123,
+        "made": 2269,
+        "missed": 3854,
+        "fgPct": 0.3706
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 7464,
+        "made": 2845,
+        "missed": 4619,
+        "fgPct": 0.3812
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 11895,
+        "made": 4636,
+        "missed": 7259,
+        "fgPct": 0.3897
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 16780,
+        "made": 6609,
+        "missed": 10171,
+        "fgPct": 0.3939
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 16630,
+        "made": 6612,
+        "missed": 10018,
+        "fgPct": 0.3976
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10569,
+        "made": 4294,
+        "missed": 6275,
+        "fgPct": 0.4063
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 12495,
+        "made": 4960,
+        "missed": 7535,
+        "fgPct": 0.397
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 22419,
+        "made": 8222,
+        "missed": 14197,
+        "fgPct": 0.3667
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 5099,
+        "made": 1600,
+        "missed": 3499,
+        "fgPct": 0.3138
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 395,
+        "made": 89,
+        "missed": 306,
+        "fgPct": 0.2253
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 99,
+        "made": 11,
+        "missed": 88,
+        "fgPct": 0.1111
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 62,
+        "made": 7,
+        "missed": 55,
+        "fgPct": 0.1129
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 57,
+        "made": 3,
+        "missed": 54,
+        "fgPct": 0.0526
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 68,
+        "made": 2,
+        "missed": 66,
+        "fgPct": 0.0294
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 76,
+        "made": 5,
+        "missed": 71,
+        "fgPct": 0.0658
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 590,
+        "made": 9,
+        "missed": 581,
+        "fgPct": 0.0153
+      }
+    ],
+    "2005-06": [
+      {
+        "distanceBucket": 0,
+        "attempts": 56211,
+        "made": 34095,
+        "missed": 22116,
+        "fgPct": 0.6066
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6806,
+        "made": 3209,
+        "missed": 3597,
+        "fgPct": 0.4715
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 8388,
+        "made": 3482,
+        "missed": 4906,
+        "fgPct": 0.4151
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8192,
+        "made": 3216,
+        "missed": 4976,
+        "fgPct": 0.3926
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6353,
+        "made": 2451,
+        "missed": 3902,
+        "fgPct": 0.3858
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5601,
+        "made": 2158,
+        "missed": 3443,
+        "fgPct": 0.3853
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6539,
+        "made": 2552,
+        "missed": 3987,
+        "fgPct": 0.3903
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 10986,
+        "made": 4339,
+        "missed": 6647,
+        "fgPct": 0.395
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 15933,
+        "made": 6460,
+        "missed": 9473,
+        "fgPct": 0.4054
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 16508,
+        "made": 6580,
+        "missed": 9928,
+        "fgPct": 0.3986
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10630,
+        "made": 4303,
+        "missed": 6327,
+        "fgPct": 0.4048
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 12384,
+        "made": 4952,
+        "missed": 7432,
+        "fgPct": 0.3999
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 22782,
+        "made": 8370,
+        "missed": 14412,
+        "fgPct": 0.3674
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 5643,
+        "made": 1837,
+        "missed": 3806,
+        "fgPct": 0.3255
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 414,
+        "made": 119,
+        "missed": 295,
+        "fgPct": 0.2874
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 102,
+        "made": 15,
+        "missed": 87,
+        "fgPct": 0.1471
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 63,
+        "made": 4,
+        "missed": 59,
+        "fgPct": 0.0635
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 50,
+        "made": 4,
+        "missed": 46,
+        "fgPct": 0.08
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 54,
+        "made": 2,
+        "missed": 52,
+        "fgPct": 0.037
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 77,
+        "made": 2,
+        "missed": 75,
+        "fgPct": 0.026
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 598,
+        "made": 16,
+        "missed": 582,
+        "fgPct": 0.0268
+      }
+    ],
+    "2006-07": [
+      {
+        "distanceBucket": 0,
+        "attempts": 57646,
+        "made": 35484,
+        "missed": 22162,
+        "fgPct": 0.6156
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6846,
+        "made": 3223,
+        "missed": 3623,
+        "fgPct": 0.4708
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 7937,
+        "made": 3373,
+        "missed": 4564,
+        "fgPct": 0.425
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8268,
+        "made": 3315,
+        "missed": 4953,
+        "fgPct": 0.4009
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6498,
+        "made": 2675,
+        "missed": 3823,
+        "fgPct": 0.4117
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5605,
+        "made": 2139,
+        "missed": 3466,
+        "fgPct": 0.3816
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6347,
+        "made": 2451,
+        "missed": 3896,
+        "fgPct": 0.3862
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 10285,
+        "made": 4119,
+        "missed": 6166,
+        "fgPct": 0.4005
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 15454,
+        "made": 6174,
+        "missed": 9280,
+        "fgPct": 0.3995
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 16596,
+        "made": 6698,
+        "missed": 9898,
+        "fgPct": 0.4036
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10545,
+        "made": 4314,
+        "missed": 6231,
+        "fgPct": 0.4091
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 12560,
+        "made": 4910,
+        "missed": 7650,
+        "fgPct": 0.3909
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 23736,
+        "made": 8771,
+        "missed": 14965,
+        "fgPct": 0.3695
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 6267,
+        "made": 2022,
+        "missed": 4245,
+        "fgPct": 0.3226
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 504,
+        "made": 126,
+        "missed": 378,
+        "fgPct": 0.25
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 113,
+        "made": 23,
+        "missed": 90,
+        "fgPct": 0.2035
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 65,
+        "made": 14,
+        "missed": 51,
+        "fgPct": 0.2154
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 55,
+        "made": 6,
+        "missed": 49,
+        "fgPct": 0.1091
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 45,
+        "made": 3,
+        "missed": 42,
+        "fgPct": 0.0667
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 92,
+        "made": 2,
+        "missed": 90,
+        "fgPct": 0.0217
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 608,
+        "made": 18,
+        "missed": 590,
+        "fgPct": 0.0296
+      }
+    ],
+    "2007-08": [
+      {
+        "distanceBucket": 0,
+        "attempts": 58249,
+        "made": 35579,
+        "missed": 22670,
+        "fgPct": 0.6108
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 5884,
+        "made": 2877,
+        "missed": 3007,
+        "fgPct": 0.489
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 6757,
+        "made": 2862,
+        "missed": 3895,
+        "fgPct": 0.4236
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8220,
+        "made": 3340,
+        "missed": 4880,
+        "fgPct": 0.4063
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7438,
+        "made": 2906,
+        "missed": 4532,
+        "fgPct": 0.3907
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6342,
+        "made": 2404,
+        "missed": 3938,
+        "fgPct": 0.3791
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6508,
+        "made": 2537,
+        "missed": 3971,
+        "fgPct": 0.3898
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9500,
+        "made": 3801,
+        "missed": 5699,
+        "fgPct": 0.4001
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 14558,
+        "made": 6006,
+        "missed": 8552,
+        "fgPct": 0.4126
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 17633,
+        "made": 7309,
+        "missed": 10324,
+        "fgPct": 0.4145
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 12189,
+        "made": 4897,
+        "missed": 7292,
+        "fgPct": 0.4018
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 13215,
+        "made": 5233,
+        "missed": 7982,
+        "fgPct": 0.396
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 25498,
+        "made": 9475,
+        "missed": 16023,
+        "fgPct": 0.3716
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 6723,
+        "made": 2184,
+        "missed": 4539,
+        "fgPct": 0.3249
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 672,
+        "made": 193,
+        "missed": 479,
+        "fgPct": 0.2872
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 122,
+        "made": 20,
+        "missed": 102,
+        "fgPct": 0.1639
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 70,
+        "made": 13,
+        "missed": 57,
+        "fgPct": 0.1857
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 71,
+        "made": 7,
+        "missed": 64,
+        "fgPct": 0.0986
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 65,
+        "made": 4,
+        "missed": 61,
+        "fgPct": 0.0615
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 99,
+        "made": 7,
+        "missed": 92,
+        "fgPct": 0.0707
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 688,
+        "made": 15,
+        "missed": 673,
+        "fgPct": 0.0218
+      }
+    ],
+    "2008-09": [
+      {
+        "distanceBucket": 0,
+        "attempts": 59073,
+        "made": 35826,
+        "missed": 23247,
+        "fgPct": 0.6065
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6079,
+        "made": 2992,
+        "missed": 3087,
+        "fgPct": 0.4922
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 6529,
+        "made": 2781,
+        "missed": 3748,
+        "fgPct": 0.4259
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8331,
+        "made": 3454,
+        "missed": 4877,
+        "fgPct": 0.4146
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7346,
+        "made": 2845,
+        "missed": 4501,
+        "fgPct": 0.3873
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6255,
+        "made": 2380,
+        "missed": 3875,
+        "fgPct": 0.3805
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6450,
+        "made": 2547,
+        "missed": 3903,
+        "fgPct": 0.3949
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9331,
+        "made": 3776,
+        "missed": 5555,
+        "fgPct": 0.4047
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 14868,
+        "made": 6131,
+        "missed": 8737,
+        "fgPct": 0.4124
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 16688,
+        "made": 6877,
+        "missed": 9811,
+        "fgPct": 0.4121
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10817,
+        "made": 4263,
+        "missed": 6554,
+        "fgPct": 0.3941
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 14074,
+        "made": 5622,
+        "missed": 8452,
+        "fgPct": 0.3995
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 24266,
+        "made": 9045,
+        "missed": 15221,
+        "fgPct": 0.3727
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 6946,
+        "made": 2440,
+        "missed": 4506,
+        "fgPct": 0.3513
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 928,
+        "made": 265,
+        "missed": 663,
+        "fgPct": 0.2856
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 117,
+        "made": 20,
+        "missed": 97,
+        "fgPct": 0.1709
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 67,
+        "made": 9,
+        "missed": 58,
+        "fgPct": 0.1343
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 56,
+        "made": 1,
+        "missed": 55,
+        "fgPct": 0.0179
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 57,
+        "made": 5,
+        "missed": 52,
+        "fgPct": 0.0877
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 78,
+        "made": 2,
+        "missed": 76,
+        "fgPct": 0.0256
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 674,
+        "made": 21,
+        "missed": 653,
+        "fgPct": 0.0312
+      }
+    ],
+    "2009-10": [
+      {
+        "distanceBucket": 0,
+        "attempts": 60404,
+        "made": 37409,
+        "missed": 22995,
+        "fgPct": 0.6193
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 6358,
+        "made": 3041,
+        "missed": 3317,
+        "fgPct": 0.4783
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 6727,
+        "made": 2933,
+        "missed": 3794,
+        "fgPct": 0.436
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9119,
+        "made": 3916,
+        "missed": 5203,
+        "fgPct": 0.4294
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7807,
+        "made": 3136,
+        "missed": 4671,
+        "fgPct": 0.4017
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6205,
+        "made": 2451,
+        "missed": 3754,
+        "fgPct": 0.395
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6430,
+        "made": 2566,
+        "missed": 3864,
+        "fgPct": 0.3991
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9548,
+        "made": 3856,
+        "missed": 5692,
+        "fgPct": 0.4039
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 14725,
+        "made": 6047,
+        "missed": 8678,
+        "fgPct": 0.4107
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 16253,
+        "made": 6605,
+        "missed": 9648,
+        "fgPct": 0.4064
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10263,
+        "made": 3978,
+        "missed": 6285,
+        "fgPct": 0.3876
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 13018,
+        "made": 5061,
+        "missed": 7957,
+        "fgPct": 0.3888
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 25745,
+        "made": 9322,
+        "missed": 16423,
+        "fgPct": 0.3621
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 6726,
+        "made": 2186,
+        "missed": 4540,
+        "fgPct": 0.325
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 564,
+        "made": 145,
+        "missed": 419,
+        "fgPct": 0.2571
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 133,
+        "made": 23,
+        "missed": 110,
+        "fgPct": 0.1729
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 68,
+        "made": 11,
+        "missed": 57,
+        "fgPct": 0.1618
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 62,
+        "made": 6,
+        "missed": 56,
+        "fgPct": 0.0968
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 57,
+        "made": 5,
+        "missed": 52,
+        "fgPct": 0.0877
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 82,
+        "made": 3,
+        "missed": 79,
+        "fgPct": 0.0366
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 672,
+        "made": 20,
+        "missed": 652,
+        "fgPct": 0.0298
+      }
+    ],
+    "2010-11": [
+      {
+        "distanceBucket": 0,
+        "attempts": 37867,
+        "made": 26061,
+        "missed": 11806,
+        "fgPct": 0.6882
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 25061,
+        "made": 12948,
+        "missed": 12113,
+        "fgPct": 0.5167
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10861,
+        "made": 4089,
+        "missed": 6772,
+        "fgPct": 0.3765
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9445,
+        "made": 3728,
+        "missed": 5717,
+        "fgPct": 0.3947
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7488,
+        "made": 2921,
+        "missed": 4567,
+        "fgPct": 0.3901
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6090,
+        "made": 2307,
+        "missed": 3783,
+        "fgPct": 0.3788
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6222,
+        "made": 2449,
+        "missed": 3773,
+        "fgPct": 0.3936
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9720,
+        "made": 4017,
+        "missed": 5703,
+        "fgPct": 0.4133
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 14519,
+        "made": 6017,
+        "missed": 8502,
+        "fgPct": 0.4144
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 15964,
+        "made": 6501,
+        "missed": 9463,
+        "fgPct": 0.4072
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 10009,
+        "made": 3893,
+        "missed": 6116,
+        "fgPct": 0.3889
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 13050,
+        "made": 5037,
+        "missed": 8013,
+        "fgPct": 0.386
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 25865,
+        "made": 9440,
+        "missed": 16425,
+        "fgPct": 0.365
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 6072,
+        "made": 2017,
+        "missed": 4055,
+        "fgPct": 0.3322
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 479,
+        "made": 130,
+        "missed": 349,
+        "fgPct": 0.2714
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 117,
+        "made": 15,
+        "missed": 102,
+        "fgPct": 0.1282
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 65,
+        "made": 9,
+        "missed": 56,
+        "fgPct": 0.1385
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 69,
+        "made": 3,
+        "missed": 66,
+        "fgPct": 0.0435
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 63,
+        "made": 5,
+        "missed": 58,
+        "fgPct": 0.0794
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 85,
+        "made": 4,
+        "missed": 81,
+        "fgPct": 0.0471
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 650,
+        "made": 22,
+        "missed": 628,
+        "fgPct": 0.0338
+      }
+    ],
+    "2011-12": [
+      {
+        "distanceBucket": 0,
+        "attempts": 32891,
+        "made": 22335,
+        "missed": 10556,
+        "fgPct": 0.6791
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 19208,
+        "made": 9177,
+        "missed": 10031,
+        "fgPct": 0.4778
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 8526,
+        "made": 3168,
+        "missed": 5358,
+        "fgPct": 0.3716
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 7085,
+        "made": 2676,
+        "missed": 4409,
+        "fgPct": 0.3777
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 5744,
+        "made": 2233,
+        "missed": 3511,
+        "fgPct": 0.3888
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 4878,
+        "made": 1846,
+        "missed": 3032,
+        "fgPct": 0.3784
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 5128,
+        "made": 1937,
+        "missed": 3191,
+        "fgPct": 0.3777
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 7788,
+        "made": 3127,
+        "missed": 4661,
+        "fgPct": 0.4015
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 11615,
+        "made": 4676,
+        "missed": 6939,
+        "fgPct": 0.4026
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 12519,
+        "made": 4892,
+        "missed": 7627,
+        "fgPct": 0.3908
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 7762,
+        "made": 2847,
+        "missed": 4915,
+        "fgPct": 0.3668
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 10324,
+        "made": 3896,
+        "missed": 6428,
+        "fgPct": 0.3774
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 21208,
+        "made": 7539,
+        "missed": 13669,
+        "fgPct": 0.3555
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 5250,
+        "made": 1695,
+        "missed": 3555,
+        "fgPct": 0.3229
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 512,
+        "made": 109,
+        "missed": 403,
+        "fgPct": 0.2129
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 108,
+        "made": 20,
+        "missed": 88,
+        "fgPct": 0.1852
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 63,
+        "made": 10,
+        "missed": 53,
+        "fgPct": 0.1587
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 53,
+        "made": 5,
+        "missed": 48,
+        "fgPct": 0.0943
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 52,
+        "made": 1,
+        "missed": 51,
+        "fgPct": 0.0192
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 64,
+        "made": 4,
+        "missed": 60,
+        "fgPct": 0.0625
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 427,
+        "made": 14,
+        "missed": 413,
+        "fgPct": 0.0328
+      }
+    ],
+    "2012-13": [
+      {
+        "distanceBucket": 0,
+        "attempts": 43180,
+        "made": 29266,
+        "missed": 13914,
+        "fgPct": 0.6778
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 22955,
+        "made": 10722,
+        "missed": 12233,
+        "fgPct": 0.4671
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10271,
+        "made": 3787,
+        "missed": 6484,
+        "fgPct": 0.3687
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8757,
+        "made": 3371,
+        "missed": 5386,
+        "fgPct": 0.3849
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6929,
+        "made": 2736,
+        "missed": 4193,
+        "fgPct": 0.3949
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5785,
+        "made": 2227,
+        "missed": 3558,
+        "fgPct": 0.385
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6394,
+        "made": 2493,
+        "missed": 3901,
+        "fgPct": 0.3899
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9346,
+        "made": 3782,
+        "missed": 5564,
+        "fgPct": 0.4047
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 13485,
+        "made": 5527,
+        "missed": 7958,
+        "fgPct": 0.4099
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 14391,
+        "made": 5649,
+        "missed": 8742,
+        "fgPct": 0.3925
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 8990,
+        "made": 3355,
+        "missed": 5635,
+        "fgPct": 0.3732
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 13778,
+        "made": 5346,
+        "missed": 8432,
+        "fgPct": 0.388
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 27395,
+        "made": 9976,
+        "missed": 17419,
+        "fgPct": 0.3642
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 8130,
+        "made": 2766,
+        "missed": 5364,
+        "fgPct": 0.3402
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 842,
+        "made": 212,
+        "missed": 630,
+        "fgPct": 0.2518
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 146,
+        "made": 27,
+        "missed": 119,
+        "fgPct": 0.1849
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 71,
+        "made": 10,
+        "missed": 61,
+        "fgPct": 0.1408
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 55,
+        "made": 4,
+        "missed": 51,
+        "fgPct": 0.0727
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 44,
+        "made": 0,
+        "missed": 44,
+        "fgPct": 0.0
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 76,
+        "made": 3,
+        "missed": 73,
+        "fgPct": 0.0395
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 559,
+        "made": 16,
+        "missed": 543,
+        "fgPct": 0.0286
+      }
+    ],
+    "2013-14": [
+      {
+        "distanceBucket": 0,
+        "attempts": 42158,
+        "made": 28775,
+        "missed": 13383,
+        "fgPct": 0.6826
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 23858,
+        "made": 11384,
+        "missed": 12474,
+        "fgPct": 0.4772
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10953,
+        "made": 4236,
+        "missed": 6717,
+        "fgPct": 0.3867
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9166,
+        "made": 3562,
+        "missed": 5604,
+        "fgPct": 0.3886
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6912,
+        "made": 2694,
+        "missed": 4218,
+        "fgPct": 0.3898
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5898,
+        "made": 2314,
+        "missed": 3584,
+        "fgPct": 0.3923
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6272,
+        "made": 2506,
+        "missed": 3766,
+        "fgPct": 0.3996
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9175,
+        "made": 3737,
+        "missed": 5438,
+        "fgPct": 0.4073
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 13001,
+        "made": 5250,
+        "missed": 7751,
+        "fgPct": 0.4038
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 13621,
+        "made": 5438,
+        "missed": 8183,
+        "fgPct": 0.3992
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 8430,
+        "made": 3192,
+        "missed": 5238,
+        "fgPct": 0.3786
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 13499,
+        "made": 5197,
+        "missed": 8302,
+        "fgPct": 0.385
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 30811,
+        "made": 11322,
+        "missed": 19489,
+        "fgPct": 0.3675
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 8536,
+        "made": 2862,
+        "missed": 5674,
+        "fgPct": 0.3353
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 807,
+        "made": 214,
+        "missed": 593,
+        "fgPct": 0.2652
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 158,
+        "made": 42,
+        "missed": 116,
+        "fgPct": 0.2658
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 83,
+        "made": 12,
+        "missed": 71,
+        "fgPct": 0.1446
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 58,
+        "made": 4,
+        "missed": 54,
+        "fgPct": 0.069
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 55,
+        "made": 2,
+        "missed": 53,
+        "fgPct": 0.0364
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 76,
+        "made": 3,
+        "missed": 73,
+        "fgPct": 0.0395
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 599,
+        "made": 20,
+        "missed": 579,
+        "fgPct": 0.0334
+      }
+    ],
+    "2014-15": [
+      {
+        "distanceBucket": 0,
+        "attempts": 43931,
+        "made": 29970,
+        "missed": 13961,
+        "fgPct": 0.6822
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 22203,
+        "made": 9765,
+        "missed": 12438,
+        "fgPct": 0.4398
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10748,
+        "made": 4042,
+        "missed": 6706,
+        "fgPct": 0.3761
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9424,
+        "made": 3640,
+        "missed": 5784,
+        "fgPct": 0.3862
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6904,
+        "made": 2830,
+        "missed": 4074,
+        "fgPct": 0.4099
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5934,
+        "made": 2300,
+        "missed": 3634,
+        "fgPct": 0.3876
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6270,
+        "made": 2541,
+        "missed": 3729,
+        "fgPct": 0.4053
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 9020,
+        "made": 3705,
+        "missed": 5315,
+        "fgPct": 0.4108
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 12703,
+        "made": 5081,
+        "missed": 7622,
+        "fgPct": 0.4
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 13474,
+        "made": 5421,
+        "missed": 8053,
+        "fgPct": 0.4023
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 8208,
+        "made": 3103,
+        "missed": 5105,
+        "fgPct": 0.378
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 14107,
+        "made": 5427,
+        "missed": 8680,
+        "fgPct": 0.3847
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 31479,
+        "made": 11069,
+        "missed": 20410,
+        "fgPct": 0.3516
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 9275,
+        "made": 3063,
+        "missed": 6212,
+        "fgPct": 0.3302
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 897,
+        "made": 248,
+        "missed": 649,
+        "fgPct": 0.2765
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 169,
+        "made": 39,
+        "missed": 130,
+        "fgPct": 0.2308
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 79,
+        "made": 13,
+        "missed": 66,
+        "fgPct": 0.1646
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 48,
+        "made": 4,
+        "missed": 44,
+        "fgPct": 0.0833
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 46,
+        "made": 1,
+        "missed": 45,
+        "fgPct": 0.0217
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 68,
+        "made": 2,
+        "missed": 66,
+        "fgPct": 0.0294
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 563,
+        "made": 15,
+        "missed": 548,
+        "fgPct": 0.0266
+      }
+    ],
+    "2015-16": [
+      {
+        "distanceBucket": 0,
+        "attempts": 44381,
+        "made": 29959,
+        "missed": 14422,
+        "fgPct": 0.675
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 23062,
+        "made": 10675,
+        "missed": 12387,
+        "fgPct": 0.4629
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10263,
+        "made": 3952,
+        "missed": 6311,
+        "fgPct": 0.3851
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9073,
+        "made": 3603,
+        "missed": 5470,
+        "fgPct": 0.3971
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7053,
+        "made": 2901,
+        "missed": 4152,
+        "fgPct": 0.4113
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6198,
+        "made": 2435,
+        "missed": 3763,
+        "fgPct": 0.3929
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6614,
+        "made": 2707,
+        "missed": 3907,
+        "fgPct": 0.4093
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 8554,
+        "made": 3495,
+        "missed": 5059,
+        "fgPct": 0.4086
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 11935,
+        "made": 4851,
+        "missed": 7084,
+        "fgPct": 0.4065
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 12878,
+        "made": 5132,
+        "missed": 7746,
+        "fgPct": 0.3985
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 7358,
+        "made": 2868,
+        "missed": 4490,
+        "fgPct": 0.3898
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 14279,
+        "made": 5394,
+        "missed": 8885,
+        "fgPct": 0.3778
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 35403,
+        "made": 12707,
+        "missed": 22696,
+        "fgPct": 0.3589
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 8801,
+        "made": 2947,
+        "missed": 5854,
+        "fgPct": 0.3348
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 1011,
+        "made": 298,
+        "missed": 713,
+        "fgPct": 0.2948
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 213,
+        "made": 42,
+        "missed": 171,
+        "fgPct": 0.1972
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 77,
+        "made": 11,
+        "missed": 66,
+        "fgPct": 0.1429
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 66,
+        "made": 6,
+        "missed": 60,
+        "fgPct": 0.0909
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 55,
+        "made": 7,
+        "missed": 48,
+        "fgPct": 0.1273
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 58,
+        "made": 2,
+        "missed": 56,
+        "fgPct": 0.0345
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 561,
+        "made": 25,
+        "missed": 536,
+        "fgPct": 0.0446
+      }
+    ],
+    "2016-17": [
+      {
+        "distanceBucket": 0,
+        "attempts": 44735,
+        "made": 30213,
+        "missed": 14522,
+        "fgPct": 0.6754
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 22554,
+        "made": 10900,
+        "missed": 11654,
+        "fgPct": 0.4833
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 9745,
+        "made": 4019,
+        "missed": 5726,
+        "fgPct": 0.4124
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8882,
+        "made": 3697,
+        "missed": 5185,
+        "fgPct": 0.4162
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7018,
+        "made": 2859,
+        "missed": 4159,
+        "fgPct": 0.4074
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 5980,
+        "made": 2424,
+        "missed": 3556,
+        "fgPct": 0.4054
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6563,
+        "made": 2690,
+        "missed": 3873,
+        "fgPct": 0.4099
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 8289,
+        "made": 3461,
+        "missed": 4828,
+        "fgPct": 0.4175
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 10802,
+        "made": 4448,
+        "missed": 6354,
+        "fgPct": 0.4118
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 11258,
+        "made": 4546,
+        "missed": 6712,
+        "fgPct": 0.4038
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 6356,
+        "made": 2478,
+        "missed": 3878,
+        "fgPct": 0.3899
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 14108,
+        "made": 5434,
+        "missed": 8674,
+        "fgPct": 0.3852
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 39347,
+        "made": 14274,
+        "missed": 25073,
+        "fgPct": 0.3628
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 11587,
+        "made": 3956,
+        "missed": 7631,
+        "fgPct": 0.3414
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 1487,
+        "made": 452,
+        "missed": 1035,
+        "fgPct": 0.304
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 299,
+        "made": 77,
+        "missed": 222,
+        "fgPct": 0.2575
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 128,
+        "made": 29,
+        "missed": 99,
+        "fgPct": 0.2266
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 58,
+        "made": 9,
+        "missed": 49,
+        "fgPct": 0.1552
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 46,
+        "made": 6,
+        "missed": 40,
+        "fgPct": 0.1304
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 56,
+        "made": 2,
+        "missed": 54,
+        "fgPct": 0.0357
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 631,
+        "made": 16,
+        "missed": 615,
+        "fgPct": 0.0254
+      }
+    ],
+    "2017-18": [
+      {
+        "distanceBucket": 0,
+        "attempts": 43740,
+        "made": 30997,
+        "missed": 12743,
+        "fgPct": 0.7087
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 23135,
+        "made": 11191,
+        "missed": 11944,
+        "fgPct": 0.4837
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 9448,
+        "made": 3548,
+        "missed": 5900,
+        "fgPct": 0.3755
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8577,
+        "made": 3365,
+        "missed": 5212,
+        "fgPct": 0.3923
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7628,
+        "made": 3050,
+        "missed": 4578,
+        "fgPct": 0.3998
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 7337,
+        "made": 3026,
+        "missed": 4311,
+        "fgPct": 0.4124
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 7381,
+        "made": 3113,
+        "missed": 4268,
+        "fgPct": 0.4218
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 7770,
+        "made": 3190,
+        "missed": 4580,
+        "fgPct": 0.4106
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 8598,
+        "made": 3542,
+        "missed": 5056,
+        "fgPct": 0.412
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 8751,
+        "made": 3490,
+        "missed": 5261,
+        "fgPct": 0.3988
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 6316,
+        "made": 2488,
+        "missed": 3828,
+        "fgPct": 0.3939
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 15966,
+        "made": 6247,
+        "missed": 9719,
+        "fgPct": 0.3913
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 35589,
+        "made": 13076,
+        "missed": 22513,
+        "fgPct": 0.3674
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 17397,
+        "made": 6124,
+        "missed": 11273,
+        "fgPct": 0.352
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 2609,
+        "made": 812,
+        "missed": 1797,
+        "fgPct": 0.3112
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 511,
+        "made": 120,
+        "missed": 391,
+        "fgPct": 0.2348
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 152,
+        "made": 33,
+        "missed": 119,
+        "fgPct": 0.2171
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 78,
+        "made": 7,
+        "missed": 71,
+        "fgPct": 0.0897
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 51,
+        "made": 5,
+        "missed": 46,
+        "fgPct": 0.098
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 43,
+        "made": 1,
+        "missed": 42,
+        "fgPct": 0.0233
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 630,
+        "made": 10,
+        "missed": 620,
+        "fgPct": 0.0159
+      }
+    ],
+    "2018-19": [
+      {
+        "distanceBucket": 0,
+        "attempts": 47013,
+        "made": 33209,
+        "missed": 13804,
+        "fgPct": 0.7064
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 25414,
+        "made": 12365,
+        "missed": 13049,
+        "fgPct": 0.4865
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 10643,
+        "made": 4118,
+        "missed": 6525,
+        "fgPct": 0.3869
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8902,
+        "made": 3542,
+        "missed": 5360,
+        "fgPct": 0.3979
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 7603,
+        "made": 3124,
+        "missed": 4479,
+        "fgPct": 0.4109
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 7251,
+        "made": 3023,
+        "missed": 4228,
+        "fgPct": 0.4169
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 7104,
+        "made": 2930,
+        "missed": 4174,
+        "fgPct": 0.4124
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 6746,
+        "made": 2762,
+        "missed": 3984,
+        "fgPct": 0.4094
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 7223,
+        "made": 2972,
+        "missed": 4251,
+        "fgPct": 0.4115
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 6980,
+        "made": 2846,
+        "missed": 4134,
+        "fgPct": 0.4077
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 4640,
+        "made": 1816,
+        "missed": 2824,
+        "fgPct": 0.3914
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 17253,
+        "made": 6549,
+        "missed": 10704,
+        "fgPct": 0.3796
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 37830,
+        "made": 13477,
+        "missed": 24353,
+        "fgPct": 0.3563
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 20106,
+        "made": 6992,
+        "missed": 13114,
+        "fgPct": 0.3478
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 3202,
+        "made": 1068,
+        "missed": 2134,
+        "fgPct": 0.3335
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 615,
+        "made": 177,
+        "missed": 438,
+        "fgPct": 0.2878
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 191,
+        "made": 48,
+        "missed": 143,
+        "fgPct": 0.2513
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 88,
+        "made": 12,
+        "missed": 76,
+        "fgPct": 0.1364
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 50,
+        "made": 8,
+        "missed": 42,
+        "fgPct": 0.16
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 62,
+        "made": 5,
+        "missed": 57,
+        "fgPct": 0.0806
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 542,
+        "made": 19,
+        "missed": 523,
+        "fgPct": 0.0351
+      }
+    ],
+    "2019-20": [
+      {
+        "distanceBucket": 0,
+        "attempts": 38057,
+        "made": 27128,
+        "missed": 10929,
+        "fgPct": 0.7128
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 22446,
+        "made": 11313,
+        "missed": 11133,
+        "fgPct": 0.504
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 9355,
+        "made": 3515,
+        "missed": 5840,
+        "fgPct": 0.3757
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 7551,
+        "made": 3000,
+        "missed": 4551,
+        "fgPct": 0.3973
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6537,
+        "made": 2633,
+        "missed": 3904,
+        "fgPct": 0.4028
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6070,
+        "made": 2522,
+        "missed": 3548,
+        "fgPct": 0.4155
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6021,
+        "made": 2511,
+        "missed": 3510,
+        "fgPct": 0.417
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 5447,
+        "made": 2253,
+        "missed": 3194,
+        "fgPct": 0.4136
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 5542,
+        "made": 2319,
+        "missed": 3223,
+        "fgPct": 0.4184
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 4910,
+        "made": 1990,
+        "missed": 2920,
+        "fgPct": 0.4053
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 3055,
+        "made": 1205,
+        "missed": 1850,
+        "fgPct": 0.3944
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 15310,
+        "made": 5941,
+        "missed": 9369,
+        "fgPct": 0.388
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 32502,
+        "made": 11675,
+        "missed": 20827,
+        "fgPct": 0.3592
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 20223,
+        "made": 7036,
+        "missed": 13187,
+        "fgPct": 0.3479
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 3401,
+        "made": 1144,
+        "missed": 2257,
+        "fgPct": 0.3364
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 748,
+        "made": 239,
+        "missed": 509,
+        "fgPct": 0.3195
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 228,
+        "made": 61,
+        "missed": 167,
+        "fgPct": 0.2675
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 122,
+        "made": 34,
+        "missed": 88,
+        "fgPct": 0.2787
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 65,
+        "made": 11,
+        "missed": 54,
+        "fgPct": 0.1692
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 42,
+        "made": 5,
+        "missed": 37,
+        "fgPct": 0.119
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 484,
+        "made": 15,
+        "missed": 469,
+        "fgPct": 0.031
+      }
+    ],
+    "2020-21": [
+      {
+        "distanceBucket": 0,
+        "attempts": 33448,
+        "made": 24150,
+        "missed": 9298,
+        "fgPct": 0.722
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 23992,
+        "made": 12668,
+        "missed": 11324,
+        "fgPct": 0.528
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 11179,
+        "made": 4632,
+        "missed": 6547,
+        "fgPct": 0.4143
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 8628,
+        "made": 3596,
+        "missed": 5032,
+        "fgPct": 0.4168
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 6778,
+        "made": 2923,
+        "missed": 3855,
+        "fgPct": 0.4312
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 6679,
+        "made": 2928,
+        "missed": 3751,
+        "fgPct": 0.4384
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6029,
+        "made": 2641,
+        "missed": 3388,
+        "fgPct": 0.438
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 5740,
+        "made": 2459,
+        "missed": 3281,
+        "fgPct": 0.4284
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 5428,
+        "made": 2273,
+        "missed": 3155,
+        "fgPct": 0.4188
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 4508,
+        "made": 1847,
+        "missed": 2661,
+        "fgPct": 0.4097
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 2865,
+        "made": 1134,
+        "missed": 1731,
+        "fgPct": 0.3958
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 16659,
+        "made": 6562,
+        "missed": 10097,
+        "fgPct": 0.3939
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 32499,
+        "made": 12012,
+        "missed": 20487,
+        "fgPct": 0.3696
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 20767,
+        "made": 7402,
+        "missed": 13365,
+        "fgPct": 0.3564
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 4041,
+        "made": 1382,
+        "missed": 2659,
+        "fgPct": 0.342
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 862,
+        "made": 279,
+        "missed": 583,
+        "fgPct": 0.3237
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 282,
+        "made": 79,
+        "missed": 203,
+        "fgPct": 0.2801
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 103,
+        "made": 26,
+        "missed": 77,
+        "fgPct": 0.2524
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 60,
+        "made": 11,
+        "missed": 49,
+        "fgPct": 0.1833
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 54,
+        "made": 3,
+        "missed": 51,
+        "fgPct": 0.0556
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 382,
+        "made": 13,
+        "missed": 369,
+        "fgPct": 0.034
+      }
+    ],
+    "2021-22": [
+      {
+        "distanceBucket": 0,
+        "attempts": 34918,
+        "made": 25704,
+        "missed": 9214,
+        "fgPct": 0.7361
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 28069,
+        "made": 15436,
+        "missed": 12633,
+        "fgPct": 0.5499
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 13416,
+        "made": 5646,
+        "missed": 7770,
+        "fgPct": 0.4208
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 9916,
+        "made": 4162,
+        "missed": 5754,
+        "fgPct": 0.4197
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 8080,
+        "made": 3429,
+        "missed": 4651,
+        "fgPct": 0.4244
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 7342,
+        "made": 3243,
+        "missed": 4099,
+        "fgPct": 0.4417
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6798,
+        "made": 2907,
+        "missed": 3891,
+        "fgPct": 0.4276
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 6356,
+        "made": 2689,
+        "missed": 3667,
+        "fgPct": 0.4231
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 6147,
+        "made": 2564,
+        "missed": 3583,
+        "fgPct": 0.4171
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 5197,
+        "made": 2113,
+        "missed": 3084,
+        "fgPct": 0.4066
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 3094,
+        "made": 1133,
+        "missed": 1961,
+        "fgPct": 0.3662
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 19904,
+        "made": 7570,
+        "missed": 12334,
+        "fgPct": 0.3803
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 35629,
+        "made": 12691,
+        "missed": 22938,
+        "fgPct": 0.3562
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 25302,
+        "made": 8756,
+        "missed": 16546,
+        "fgPct": 0.3461
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 4366,
+        "made": 1418,
+        "missed": 2948,
+        "fgPct": 0.3248
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 1072,
+        "made": 326,
+        "missed": 746,
+        "fgPct": 0.3041
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 322,
+        "made": 80,
+        "missed": 242,
+        "fgPct": 0.2484
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 139,
+        "made": 26,
+        "missed": 113,
+        "fgPct": 0.1871
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 77,
+        "made": 16,
+        "missed": 61,
+        "fgPct": 0.2078
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 63,
+        "made": 4,
+        "missed": 59,
+        "fgPct": 0.0635
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 515,
+        "made": 17,
+        "missed": 498,
+        "fgPct": 0.033
+      }
+    ],
+    "2022-23": [
+      {
+        "distanceBucket": 0,
+        "attempts": 35842,
+        "made": 26720,
+        "missed": 9122,
+        "fgPct": 0.7455
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 29141,
+        "made": 16578,
+        "missed": 12563,
+        "fgPct": 0.5689
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 14254,
+        "made": 6203,
+        "missed": 8051,
+        "fgPct": 0.4352
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 10677,
+        "made": 4590,
+        "missed": 6087,
+        "fgPct": 0.4299
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 8315,
+        "made": 3702,
+        "missed": 4613,
+        "fgPct": 0.4452
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 8133,
+        "made": 3680,
+        "missed": 4453,
+        "fgPct": 0.4525
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 6859,
+        "made": 3048,
+        "missed": 3811,
+        "fgPct": 0.4444
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 6036,
+        "made": 2668,
+        "missed": 3368,
+        "fgPct": 0.442
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 5863,
+        "made": 2514,
+        "missed": 3349,
+        "fgPct": 0.4288
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 4457,
+        "made": 1877,
+        "missed": 2580,
+        "fgPct": 0.4211
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 2709,
+        "made": 1038,
+        "missed": 1671,
+        "fgPct": 0.3832
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 19125,
+        "made": 7387,
+        "missed": 11738,
+        "fgPct": 0.3862
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 34213,
+        "made": 12476,
+        "missed": 21737,
+        "fgPct": 0.3647
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 25244,
+        "made": 8907,
+        "missed": 16337,
+        "fgPct": 0.3528
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 4342,
+        "made": 1430,
+        "missed": 2912,
+        "fgPct": 0.3293
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 977,
+        "made": 297,
+        "missed": 680,
+        "fgPct": 0.304
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 289,
+        "made": 76,
+        "missed": 213,
+        "fgPct": 0.263
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 119,
+        "made": 32,
+        "missed": 87,
+        "fgPct": 0.2689
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 74,
+        "made": 12,
+        "missed": 62,
+        "fgPct": 0.1622
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 43,
+        "made": 2,
+        "missed": 41,
+        "fgPct": 0.0465
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 508,
+        "made": 23,
+        "missed": 485,
+        "fgPct": 0.0453
+      }
+    ],
+    "2023-24": [
+      {
+        "distanceBucket": 0,
+        "attempts": 35174,
+        "made": 26210,
+        "missed": 8964,
+        "fgPct": 0.7452
+      },
+      {
+        "distanceBucket": 2,
+        "attempts": 29495,
+        "made": 16674,
+        "missed": 12821,
+        "fgPct": 0.5653
+      },
+      {
+        "distanceBucket": 4,
+        "attempts": 14989,
+        "made": 6548,
+        "missed": 8441,
+        "fgPct": 0.4369
+      },
+      {
+        "distanceBucket": 6,
+        "attempts": 10855,
+        "made": 4654,
+        "missed": 6201,
+        "fgPct": 0.4287
+      },
+      {
+        "distanceBucket": 8,
+        "attempts": 8306,
+        "made": 3605,
+        "missed": 4701,
+        "fgPct": 0.434
+      },
+      {
+        "distanceBucket": 10,
+        "attempts": 7819,
+        "made": 3493,
+        "missed": 4326,
+        "fgPct": 0.4467
+      },
+      {
+        "distanceBucket": 12,
+        "attempts": 7047,
+        "made": 3129,
+        "missed": 3918,
+        "fgPct": 0.444
+      },
+      {
+        "distanceBucket": 14,
+        "attempts": 6096,
+        "made": 2735,
+        "missed": 3361,
+        "fgPct": 0.4487
+      },
+      {
+        "distanceBucket": 16,
+        "attempts": 5480,
+        "made": 2272,
+        "missed": 3208,
+        "fgPct": 0.4146
+      },
+      {
+        "distanceBucket": 18,
+        "attempts": 4147,
+        "made": 1691,
+        "missed": 2456,
+        "fgPct": 0.4078
+      },
+      {
+        "distanceBucket": 20,
+        "attempts": 2208,
+        "made": 874,
+        "missed": 1334,
+        "fgPct": 0.3958
+      },
+      {
+        "distanceBucket": 22,
+        "attempts": 19742,
+        "made": 7728,
+        "missed": 12014,
+        "fgPct": 0.3914
+      },
+      {
+        "distanceBucket": 24,
+        "attempts": 34724,
+        "made": 12814,
+        "missed": 21910,
+        "fgPct": 0.369
+      },
+      {
+        "distanceBucket": 26,
+        "attempts": 25828,
+        "made": 9256,
+        "missed": 16572,
+        "fgPct": 0.3584
+      },
+      {
+        "distanceBucket": 28,
+        "attempts": 4763,
+        "made": 1636,
+        "missed": 3127,
+        "fgPct": 0.3435
+      },
+      {
+        "distanceBucket": 30,
+        "attempts": 1017,
+        "made": 298,
+        "missed": 719,
+        "fgPct": 0.293
+      },
+      {
+        "distanceBucket": 32,
+        "attempts": 295,
+        "made": 83,
+        "missed": 212,
+        "fgPct": 0.2814
+      },
+      {
+        "distanceBucket": 34,
+        "attempts": 112,
+        "made": 17,
+        "missed": 95,
+        "fgPct": 0.1518
+      },
+      {
+        "distanceBucket": 36,
+        "attempts": 52,
+        "made": 7,
+        "missed": 45,
+        "fgPct": 0.1346
+      },
+      {
+        "distanceBucket": 38,
+        "attempts": 53,
+        "made": 3,
+        "missed": 50,
+        "fgPct": 0.0566
+      },
+      {
+        "distanceBucket": 40,
+        "attempts": 499,
+        "made": 12,
+        "missed": 487,
+        "fgPct": 0.024
+      }
+    ]
+  }
+}

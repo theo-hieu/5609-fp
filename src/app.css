@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #e2e8f0;
+  --color-mist: #94a3b8;
+  --color-panel: #111827;
+  --color-panel-strong: #0f172a;
+  --color-border: rgba(148, 163, 184, 0.16);
+  --color-accent: #f59e0b;
+  --color-accent-soft: #fbbf24;
+  --color-made: #14b8a6;
+  --color-missed: #f97316;
+}
+
+@layer base {
+  html, body {
+    @apply min-h-screen bg-slate-950 text-slate-100;
+    font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    background-image:
+      radial-gradient(circle at top left, rgba(245, 158, 11, 0.14), transparent 28%),
+      radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 24%),
+      linear-gradient(180deg, #020617 0%, #0f172a 42%, #020617 100%);
+  }
+
+  body {
+    @apply antialiased;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .panel {
+    @apply rounded-3xl border border-white/10 bg-slate-900/75 shadow-2xl shadow-slate-950/35 backdrop-blur;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold uppercase tracking-[0.22em] text-slate-300;
+  }
+}

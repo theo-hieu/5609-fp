@@ -21,6 +21,12 @@ HEATMAP_CELL_SIZE = 2.0
 DISTANCE_BUCKET_SIZE = 2
 LONG_DISTANCE_BUCKET = 40
 DATASET_LABEL = "Local data_raw CSV files"
+PLAYER_FOCUS_NAMES = (
+    "LeBron James",
+    "Stephen Curry",
+    "James Harden",
+    "Kevin Durant",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -96,6 +102,10 @@ def parse_date(raw: str) -> datetime | None:
     return None
 
 
+def normalize_name(raw: str) -> str:
+    return " ".join(raw.strip().lower().split())
+
+
 def fold_to_half_court(x: float, y: float) -> tuple[float, float]:
     if y > HALF_COURT_LENGTH:
         return (-x, FULL_COURT_LENGTH - y)
@@ -110,12 +120,34 @@ def make_counter() -> dict[str, int]:
     return {"attempts": 0, "made": 0, "missed": 0}
 
 
+def make_distance_counter() -> dict[str, float]:
+    return {
+        "attempts": 0,
+        "made": 0,
+        "missed": 0,
+        "distanceTotal": 0.0,
+        "madeDistanceTotal": 0.0,
+        "missedDistanceTotal": 0.0,
+    }
+
+
 def update_counter(counter: dict[str, int], made: bool) -> None:
     counter["attempts"] += 1
     if made:
         counter["made"] += 1
     else:
         counter["missed"] += 1
+
+
+def update_distance_counter(counter: dict[str, float], shot_distance: float, made: bool) -> None:
+    counter["attempts"] += 1
+    counter["distanceTotal"] += shot_distance
+    if made:
+        counter["made"] += 1
+        counter["madeDistanceTotal"] += shot_distance
+    else:
+        counter["missed"] += 1
+        counter["missedDistanceTotal"] += shot_distance
 
 
 def finalize_counter(counter: dict[str, int]) -> dict[str, Any]:
@@ -127,6 +159,23 @@ def finalize_counter(counter: dict[str, int]) -> dict[str, Any]:
         "made": made,
         "missed": counter["missed"],
         "fgPct": fg_pct,
+    }
+
+
+def finalize_distance_counter(counter: dict[str, float]) -> dict[str, Any]:
+    attempts = int(counter["attempts"])
+    made = int(counter["made"])
+    missed = int(counter["missed"])
+    distance_total = counter["distanceTotal"]
+    made_distance_total = counter["madeDistanceTotal"]
+    missed_distance_total = counter["missedDistanceTotal"]
+    return {
+        "attempts": attempts,
+        "made": made,
+        "missed": missed,
+        "avgShotDistance": round(distance_total / attempts, 2) if attempts else 0.0,
+        "avgMadeShotDistance": round(made_distance_total / made, 2) if made else 0.0,
+        "avgMissedShotDistance": round(missed_distance_total / missed, 2) if missed else 0.0,
     }
 
 
@@ -176,6 +225,11 @@ def main() -> None:
     monthly_by_season: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
     distance_all: dict[int, dict[str, int]] = defaultdict(make_counter)
     distance_by_season: dict[str, dict[int, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
+    season_distance_all: dict[str, dict[str, float]] = defaultdict(make_distance_counter)
+    player_distance_by_player: dict[str, dict[str, dict[str, float]]] = {
+        player: defaultdict(make_distance_counter) for player in PLAYER_FOCUS_NAMES
+    }
+    player_name_map = {normalize_name(player): player for player in PLAYER_FOCUS_NAMES}
 
     seasons_set: set[str] = set()
     skipped_rows = 0
@@ -187,6 +241,13 @@ def main() -> None:
         y = parse_float(row.get("LOC_Y", ""))
         shot_distance = parse_float(row.get("SHOT_DISTANCE", ""))
         game_date = parse_date(row.get("GAME_DATE", "") or row.get("DATE", ""))
+        player_name = (
+            row.get("PLAYER_NAME")
+            or row.get("PLAYER")
+            or row.get("NAME")
+            or row.get("PLAYER_1")
+            or ""
+        )
 
         if not season or made is None or x is None or y is None or shot_distance is None or game_date is None:
             skipped_rows += 1
@@ -210,6 +271,10 @@ def main() -> None:
         update_counter(monthly_by_season[season][month], made)
         update_counter(distance_all[distance_bucket], made)
         update_counter(distance_by_season[season][distance_bucket], made)
+        update_distance_counter(season_distance_all[season], shot_distance, made)
+        matched_player = player_name_map.get(normalize_name(player_name))
+        if matched_player:
+            update_distance_counter(player_distance_by_player[matched_player][season], shot_distance, made)
         seasons_set.add(season)
 
     seasons = sorted(seasons_set, key=season_sort_key)
@@ -271,9 +336,46 @@ def main() -> None:
         ),
     }
 
+    season_distance_payload = {
+        "metadata": metadata,
+        "seasons": seasons,
+        "all": [
+            {
+                "season": season,
+                **finalize_distance_counter(season_distance_all[season]),
+            }
+            for season in seasons
+        ],
+    }
+
+    player_distance_payload = {
+        "metadata": metadata,
+        "seasons": seasons,
+        "players": [
+            {
+                "player": player,
+                "firstSeason": next(
+                    (season for season in seasons if season in player_distance_by_player[player]),
+                    None,
+                ),
+                "seasons": [
+                    {
+                        "season": season,
+                        **finalize_distance_counter(player_distance_by_player[player][season]),
+                    }
+                    for season in seasons
+                    if season in player_distance_by_player[player]
+                ],
+            }
+            for player in PLAYER_FOCUS_NAMES
+        ],
+    }
+
     write_json(out_dir, "heatmap.json", heatmap_payload)
     write_json(out_dir, "monthly-trends.json", monthly_payload)
     write_json(out_dir, "distance-profile.json", distance_payload)
+    write_json(out_dir, "season-distance-trend.json", season_distance_payload)
+    write_json(out_dir, "player-distance-trend.json", player_distance_payload)
 
     log("")
     log("Data pipeline complete.")

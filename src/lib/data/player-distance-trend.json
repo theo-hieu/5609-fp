@@ -1,0 +1,660 @@
+{
+  "metadata": {
+    "dataset": "Local data_raw CSV files",
+    "generatedAt": "2026-03-27T23:38:21.067088+00:00",
+    "recordCount": 4231262,
+    "skippedRows": 0
+  },
+  "seasons": [
+    "2003-04",
+    "2004-05",
+    "2005-06",
+    "2006-07",
+    "2007-08",
+    "2008-09",
+    "2009-10",
+    "2010-11",
+    "2011-12",
+    "2012-13",
+    "2013-14",
+    "2014-15",
+    "2015-16",
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "players": [
+    {
+      "player": "LeBron James",
+      "firstSeason": "2003-04",
+      "seasons": [
+        {
+          "season": "2003-04",
+          "attempts": 1492,
+          "made": 622,
+          "missed": 870,
+          "avgShotDistance": 10.74,
+          "avgMadeShotDistance": 8.33,
+          "avgMissedShotDistance": 12.45
+        },
+        {
+          "season": "2004-05",
+          "attempts": 1684,
+          "made": 795,
+          "missed": 889,
+          "avgShotDistance": 11.69,
+          "avgMadeShotDistance": 8.85,
+          "avgMissedShotDistance": 14.22
+        },
+        {
+          "season": "2005-06",
+          "attempts": 1823,
+          "made": 875,
+          "missed": 948,
+          "avgShotDistance": 11.97,
+          "avgMadeShotDistance": 9.02,
+          "avgMissedShotDistance": 14.7
+        },
+        {
+          "season": "2006-07",
+          "attempts": 1621,
+          "made": 772,
+          "missed": 849,
+          "avgShotDistance": 11.75,
+          "avgMadeShotDistance": 8.42,
+          "avgMissedShotDistance": 14.78
+        },
+        {
+          "season": "2007-08",
+          "attempts": 1642,
+          "made": 794,
+          "missed": 848,
+          "avgShotDistance": 11.77,
+          "avgMadeShotDistance": 8.35,
+          "avgMissedShotDistance": 14.98
+        },
+        {
+          "season": "2008-09",
+          "attempts": 1613,
+          "made": 789,
+          "missed": 824,
+          "avgShotDistance": 12.96,
+          "avgMadeShotDistance": 9.46,
+          "avgMissedShotDistance": 16.3
+        },
+        {
+          "season": "2009-10",
+          "attempts": 1528,
+          "made": 768,
+          "missed": 760,
+          "avgShotDistance": 13.02,
+          "avgMadeShotDistance": 9.46,
+          "avgMissedShotDistance": 16.62
+        },
+        {
+          "season": "2010-11",
+          "attempts": 1485,
+          "made": 758,
+          "missed": 727,
+          "avgShotDistance": 12.25,
+          "avgMadeShotDistance": 9.71,
+          "avgMissedShotDistance": 14.91
+        },
+        {
+          "season": "2011-12",
+          "attempts": 1169,
+          "made": 621,
+          "missed": 548,
+          "avgShotDistance": 11.05,
+          "avgMadeShotDistance": 8.4,
+          "avgMissedShotDistance": 14.05
+        },
+        {
+          "season": "2012-13",
+          "attempts": 1354,
+          "made": 765,
+          "missed": 589,
+          "avgShotDistance": 10.75,
+          "avgMadeShotDistance": 8.29,
+          "avgMissedShotDistance": 13.95
+        },
+        {
+          "season": "2013-14",
+          "attempts": 1353,
+          "made": 767,
+          "missed": 586,
+          "avgShotDistance": 10.88,
+          "avgMadeShotDistance": 7.56,
+          "avgMissedShotDistance": 15.23
+        },
+        {
+          "season": "2014-15",
+          "attempts": 1279,
+          "made": 624,
+          "missed": 655,
+          "avgShotDistance": 12.14,
+          "avgMadeShotDistance": 8.99,
+          "avgMissedShotDistance": 15.13
+        },
+        {
+          "season": "2015-16",
+          "attempts": 1415,
+          "made": 737,
+          "missed": 678,
+          "avgShotDistance": 9.62,
+          "avgMadeShotDistance": 6.49,
+          "avgMissedShotDistance": 13.03
+        },
+        {
+          "season": "2016-17",
+          "attempts": 1343,
+          "made": 736,
+          "missed": 607,
+          "avgShotDistance": 10.55,
+          "avgMadeShotDistance": 7.13,
+          "avgMissedShotDistance": 14.69
+        },
+        {
+          "season": "2017-18",
+          "attempts": 1580,
+          "made": 857,
+          "missed": 723,
+          "avgShotDistance": 10.95,
+          "avgMadeShotDistance": 7.78,
+          "avgMissedShotDistance": 14.71
+        },
+        {
+          "season": "2018-19",
+          "attempts": 1095,
+          "made": 558,
+          "missed": 537,
+          "avgShotDistance": 11.84,
+          "avgMadeShotDistance": 8.69,
+          "avgMissedShotDistance": 15.1
+        },
+        {
+          "season": "2019-20",
+          "attempts": 1303,
+          "made": 643,
+          "missed": 660,
+          "avgShotDistance": 12.38,
+          "avgMadeShotDistance": 9.09,
+          "avgMissedShotDistance": 15.59
+        },
+        {
+          "season": "2020-21",
+          "attempts": 823,
+          "made": 422,
+          "missed": 401,
+          "avgShotDistance": 13.38,
+          "avgMadeShotDistance": 9.95,
+          "avgMissedShotDistance": 17.0
+        },
+        {
+          "season": "2021-22",
+          "attempts": 1221,
+          "made": 640,
+          "missed": 581,
+          "avgShotDistance": 13.28,
+          "avgMadeShotDistance": 9.74,
+          "avgMissedShotDistance": 17.18
+        },
+        {
+          "season": "2022-23",
+          "attempts": 1219,
+          "made": 609,
+          "missed": 610,
+          "avgShotDistance": 12.31,
+          "avgMadeShotDistance": 8.72,
+          "avgMissedShotDistance": 15.9
+        },
+        {
+          "season": "2023-24",
+          "attempts": 1269,
+          "made": 685,
+          "missed": 584,
+          "avgShotDistance": 11.16,
+          "avgMadeShotDistance": 8.54,
+          "avgMissedShotDistance": 14.22
+        }
+      ]
+    },
+    {
+      "player": "Stephen Curry",
+      "firstSeason": "2009-10",
+      "seasons": [
+        {
+          "season": "2009-10",
+          "attempts": 1143,
+          "made": 528,
+          "missed": 615,
+          "avgShotDistance": 16.02,
+          "avgMadeShotDistance": 14.99,
+          "avgMissedShotDistance": 16.9
+        },
+        {
+          "season": "2010-11",
+          "attempts": 1053,
+          "made": 505,
+          "missed": 548,
+          "avgShotDistance": 15.72,
+          "avgMadeShotDistance": 14.76,
+          "avgMissedShotDistance": 16.61
+        },
+        {
+          "season": "2011-12",
+          "attempts": 296,
+          "made": 145,
+          "missed": 151,
+          "avgShotDistance": 17.55,
+          "avgMadeShotDistance": 17.72,
+          "avgMissedShotDistance": 17.4
+        },
+        {
+          "season": "2012-13",
+          "attempts": 1388,
+          "made": 626,
+          "missed": 762,
+          "avgShotDistance": 18.02,
+          "avgMadeShotDistance": 17.62,
+          "avgMissedShotDistance": 18.35
+        },
+        {
+          "season": "2013-14",
+          "attempts": 1383,
+          "made": 652,
+          "missed": 731,
+          "avgShotDistance": 17.61,
+          "avgMadeShotDistance": 16.41,
+          "avgMissedShotDistance": 18.69
+        },
+        {
+          "season": "2014-15",
+          "attempts": 1341,
+          "made": 653,
+          "missed": 688,
+          "avgShotDistance": 17.11,
+          "avgMadeShotDistance": 15.19,
+          "avgMissedShotDistance": 18.93
+        },
+        {
+          "season": "2015-16",
+          "attempts": 1596,
+          "made": 804,
+          "missed": 792,
+          "avgShotDistance": 17.36,
+          "avgMadeShotDistance": 15.53,
+          "avgMissedShotDistance": 19.22
+        },
+        {
+          "season": "2016-17",
+          "attempts": 1442,
+          "made": 674,
+          "missed": 768,
+          "avgShotDistance": 17.88,
+          "avgMadeShotDistance": 15.65,
+          "avgMissedShotDistance": 19.83
+        },
+        {
+          "season": "2017-18",
+          "attempts": 864,
+          "made": 428,
+          "missed": 436,
+          "avgShotDistance": 18.45,
+          "avgMadeShotDistance": 16.6,
+          "avgMissedShotDistance": 20.26
+        },
+        {
+          "season": "2018-19",
+          "attempts": 1340,
+          "made": 632,
+          "missed": 708,
+          "avgShotDistance": 19.26,
+          "avgMadeShotDistance": 17.62,
+          "avgMissedShotDistance": 20.72
+        },
+        {
+          "season": "2019-20",
+          "attempts": 82,
+          "made": 33,
+          "missed": 49,
+          "avgShotDistance": 19.3,
+          "avgMadeShotDistance": 14.88,
+          "avgMissedShotDistance": 22.29
+        },
+        {
+          "season": "2020-21",
+          "attempts": 1365,
+          "made": 658,
+          "missed": 707,
+          "avgShotDistance": 18.81,
+          "avgMadeShotDistance": 16.7,
+          "avgMissedShotDistance": 20.78
+        },
+        {
+          "season": "2021-22",
+          "attempts": 1224,
+          "made": 535,
+          "missed": 689,
+          "avgShotDistance": 19.31,
+          "avgMadeShotDistance": 17.18,
+          "avgMissedShotDistance": 20.97
+        },
+        {
+          "season": "2022-23",
+          "attempts": 1133,
+          "made": 559,
+          "missed": 574,
+          "avgShotDistance": 18.33,
+          "avgMadeShotDistance": 16.04,
+          "avgMissedShotDistance": 20.57
+        },
+        {
+          "season": "2023-24",
+          "attempts": 1445,
+          "made": 650,
+          "missed": 795,
+          "avgShotDistance": 19.34,
+          "avgMadeShotDistance": 17.69,
+          "avgMissedShotDistance": 20.68
+        }
+      ]
+    },
+    {
+      "player": "James Harden",
+      "firstSeason": "2009-10",
+      "seasons": [
+        {
+          "season": "2009-10",
+          "attempts": 578,
+          "made": 233,
+          "missed": 345,
+          "avgShotDistance": 14.41,
+          "avgMadeShotDistance": 13.23,
+          "avgMissedShotDistance": 15.2
+        },
+        {
+          "season": "2010-11",
+          "attempts": 684,
+          "made": 298,
+          "missed": 386,
+          "avgShotDistance": 14.92,
+          "avgMadeShotDistance": 12.29,
+          "avgMissedShotDistance": 16.95
+        },
+        {
+          "season": "2011-12",
+          "attempts": 629,
+          "made": 309,
+          "missed": 320,
+          "avgShotDistance": 13.84,
+          "avgMadeShotDistance": 11.0,
+          "avgMissedShotDistance": 16.58
+        },
+        {
+          "season": "2012-13",
+          "attempts": 1337,
+          "made": 585,
+          "missed": 752,
+          "avgShotDistance": 13.21,
+          "avgMadeShotDistance": 10.85,
+          "avgMissedShotDistance": 15.05
+        },
+        {
+          "season": "2013-14",
+          "attempts": 1205,
+          "made": 549,
+          "missed": 656,
+          "avgShotDistance": 14.26,
+          "avgMadeShotDistance": 12.05,
+          "avgMissedShotDistance": 16.12
+        },
+        {
+          "season": "2014-15",
+          "attempts": 1470,
+          "made": 647,
+          "missed": 823,
+          "avgShotDistance": 13.51,
+          "avgMadeShotDistance": 11.41,
+          "avgMissedShotDistance": 15.16
+        },
+        {
+          "season": "2015-16",
+          "attempts": 1617,
+          "made": 710,
+          "missed": 907,
+          "avgShotDistance": 14.42,
+          "avgMadeShotDistance": 12.34,
+          "avgMissedShotDistance": 16.04
+        },
+        {
+          "season": "2016-17",
+          "attempts": 1531,
+          "made": 674,
+          "missed": 857,
+          "avgShotDistance": 15.41,
+          "avgMadeShotDistance": 12.61,
+          "avgMissedShotDistance": 17.62
+        },
+        {
+          "season": "2017-18",
+          "attempts": 1449,
+          "made": 651,
+          "missed": 798,
+          "avgShotDistance": 15.3,
+          "avgMadeShotDistance": 12.66,
+          "avgMissedShotDistance": 17.44
+        },
+        {
+          "season": "2018-19",
+          "attempts": 1909,
+          "made": 843,
+          "missed": 1066,
+          "avgShotDistance": 15.86,
+          "avgMadeShotDistance": 13.54,
+          "avgMissedShotDistance": 17.7
+        },
+        {
+          "season": "2019-20",
+          "attempts": 1514,
+          "made": 672,
+          "missed": 842,
+          "avgShotDistance": 16.09,
+          "avgMadeShotDistance": 13.2,
+          "avgMissedShotDistance": 18.39
+        },
+        {
+          "season": "2020-21",
+          "attempts": 734,
+          "made": 342,
+          "missed": 392,
+          "avgShotDistance": 14.02,
+          "avgMadeShotDistance": 11.46,
+          "avgMissedShotDistance": 16.26
+        },
+        {
+          "season": "2021-22",
+          "attempts": 992,
+          "made": 407,
+          "missed": 585,
+          "avgShotDistance": 14.15,
+          "avgMadeShotDistance": 11.9,
+          "avgMissedShotDistance": 15.72
+        },
+        {
+          "season": "2022-23",
+          "attempts": 842,
+          "made": 371,
+          "missed": 471,
+          "avgShotDistance": 16.14,
+          "avgMadeShotDistance": 14.67,
+          "avgMissedShotDistance": 17.29
+        },
+        {
+          "season": "2023-24",
+          "attempts": 822,
+          "made": 352,
+          "missed": 470,
+          "avgShotDistance": 17.96,
+          "avgMadeShotDistance": 16.17,
+          "avgMissedShotDistance": 19.3
+        }
+      ]
+    },
+    {
+      "player": "Kevin Durant",
+      "firstSeason": "2007-08",
+      "seasons": [
+        {
+          "season": "2007-08",
+          "attempts": 1366,
+          "made": 587,
+          "missed": 779,
+          "avgShotDistance": 12.38,
+          "avgMadeShotDistance": 10.45,
+          "avgMissedShotDistance": 13.83
+        },
+        {
+          "season": "2008-09",
+          "attempts": 1390,
+          "made": 661,
+          "missed": 729,
+          "avgShotDistance": 12.5,
+          "avgMadeShotDistance": 10.72,
+          "avgMissedShotDistance": 14.11
+        },
+        {
+          "season": "2009-10",
+          "attempts": 1668,
+          "made": 794,
+          "missed": 874,
+          "avgShotDistance": 12.85,
+          "avgMadeShotDistance": 10.51,
+          "avgMissedShotDistance": 14.98
+        },
+        {
+          "season": "2010-11",
+          "attempts": 1538,
+          "made": 711,
+          "missed": 827,
+          "avgShotDistance": 14.98,
+          "avgMadeShotDistance": 12.64,
+          "avgMissedShotDistance": 16.99
+        },
+        {
+          "season": "2011-12",
+          "attempts": 1297,
+          "made": 643,
+          "missed": 654,
+          "avgShotDistance": 13.27,
+          "avgMadeShotDistance": 11.32,
+          "avgMissedShotDistance": 15.19
+        },
+        {
+          "season": "2012-13",
+          "attempts": 1433,
+          "made": 731,
+          "missed": 702,
+          "avgShotDistance": 12.8,
+          "avgMadeShotDistance": 11.01,
+          "avgMissedShotDistance": 14.67
+        },
+        {
+          "season": "2013-14",
+          "attempts": 1688,
+          "made": 849,
+          "missed": 839,
+          "avgShotDistance": 13.3,
+          "avgMadeShotDistance": 10.91,
+          "avgMissedShotDistance": 15.72
+        },
+        {
+          "season": "2014-15",
+          "attempts": 467,
+          "made": 238,
+          "missed": 229,
+          "avgShotDistance": 14.42,
+          "avgMadeShotDistance": 12.1,
+          "avgMissedShotDistance": 16.83
+        },
+        {
+          "season": "2015-16",
+          "attempts": 1381,
+          "made": 698,
+          "missed": 683,
+          "avgShotDistance": 14.58,
+          "avgMadeShotDistance": 12.39,
+          "avgMissedShotDistance": 16.82
+        },
+        {
+          "season": "2016-17",
+          "attempts": 1026,
+          "made": 551,
+          "missed": 475,
+          "avgShotDistance": 13.35,
+          "avgMadeShotDistance": 10.57,
+          "avgMissedShotDistance": 16.57
+        },
+        {
+          "season": "2017-18",
+          "attempts": 1222,
+          "made": 630,
+          "missed": 592,
+          "avgShotDistance": 15.38,
+          "avgMadeShotDistance": 13.43,
+          "avgMissedShotDistance": 17.47
+        },
+        {
+          "season": "2018-19",
+          "attempts": 1383,
+          "made": 721,
+          "missed": 662,
+          "avgShotDistance": 14.45,
+          "avgMadeShotDistance": 12.25,
+          "avgMissedShotDistance": 16.85
+        },
+        {
+          "season": "2020-21",
+          "attempts": 603,
+          "made": 324,
+          "missed": 279,
+          "avgShotDistance": 14.45,
+          "avgMadeShotDistance": 12.88,
+          "avgMissedShotDistance": 16.27
+        },
+        {
+          "season": "2021-22",
+          "attempts": 1115,
+          "made": 578,
+          "missed": 537,
+          "avgShotDistance": 14.66,
+          "avgMadeShotDistance": 13.32,
+          "avgMissedShotDistance": 16.1
+        },
+        {
+          "season": "2022-23",
+          "attempts": 862,
+          "made": 483,
+          "missed": 379,
+          "avgShotDistance": 14.64,
+          "avgMadeShotDistance": 13.0,
+          "avgMissedShotDistance": 16.72
+        },
+        {
+          "season": "2023-24",
+          "attempts": 1436,
+          "made": 751,
+          "missed": 685,
+          "avgShotDistance": 14.51,
+          "avgMadeShotDistance": 12.85,
+          "avgMissedShotDistance": 16.34
+        }
+      ]
+    }
+  ]
+}

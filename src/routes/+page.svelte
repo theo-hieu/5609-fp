@@ -2,6 +2,8 @@
   import CourtHeatmap from '$lib/components/CourtHeatmap.svelte';
   import DistanceChart from '$lib/components/DistanceChart.svelte';
   import FilterBar from '$lib/components/FilterBar.svelte';
+  import PlayerDistanceChart from '$lib/components/PlayerDistanceChart.svelte';
+  import SeasonDistanceChart from '$lib/components/SeasonDistanceChart.svelte';
   import type { DistanceBucket, FilterState, HeatmapCell, ShotOutcome } from '$lib/types';
   import type { PageData } from './$types';
 
@@ -55,6 +57,9 @@
 
   let filter: FilterState = { shotOutcome: 'all', season: 'all' };
   let activeScene: SceneId = 1;
+  let seasonDistanceOutcome: ShotOutcome = 'all';
+  let playerDistanceOutcome: ShotOutcome = 'all';
+  let selectedPlayer = 'LeBron James';
 
   $: effectiveShotOutcome =
     activeScene === 3 ? 'made' : activeScene === 2 ? 'all' : filter.shotOutcome;
@@ -62,6 +67,59 @@
   $: activeSceneCopy = scenes.find((scene) => scene.id === activeScene) ?? scenes[0];
   $: selectedHeatmap = selectCollection<HeatmapCell>(data.heatmap, filter.season);
   $: selectedDistance = selectCollection<DistanceBucket>(data.distance, filter.season);
+  $: seasonDistanceLabel =
+    seasonDistanceOutcome === 'made'
+      ? 'Made shots'
+      : seasonDistanceOutcome === 'missed'
+        ? 'Missed shots'
+        : 'All shots';
+  $: seasonDistanceStatLabel =
+    seasonDistanceOutcome === 'made'
+      ? 'Made-shot distance'
+      : seasonDistanceOutcome === 'missed'
+        ? 'Missed-shot distance'
+        : 'Average distance';
+  $: seasonDistancePeak = (data.seasonDistance?.all ?? []).reduce(
+    (best, row) => {
+      const value =
+        seasonDistanceOutcome === 'made'
+          ? row.avgMadeShotDistance
+          : seasonDistanceOutcome === 'missed'
+            ? row.avgMissedShotDistance
+            : row.avgShotDistance;
+      return !best || value > best.value ? { season: row.season, value } : best;
+    },
+    null as { season: string; value: number } | null
+  );
+  $: playerDistanceLabel =
+    playerDistanceOutcome === 'made'
+      ? 'Made shots'
+      : playerDistanceOutcome === 'missed'
+        ? 'Missed shots'
+        : 'All shots';
+  $: playerDistanceStatLabel =
+    playerDistanceOutcome === 'made'
+      ? 'Made-shot distance'
+      : playerDistanceOutcome === 'missed'
+        ? 'Missed-shot distance'
+        : 'Average distance';
+  $: availablePlayers = data.playerDistance?.players ?? [];
+  $: if (availablePlayers.length && !availablePlayers.some((player) => player.player === selectedPlayer)) {
+    selectedPlayer = availablePlayers[0].player;
+  }
+  $: selectedPlayerSeries = availablePlayers.find((player) => player.player === selectedPlayer) ?? null;
+  $: selectedPlayerPeak = (selectedPlayerSeries?.seasons ?? []).reduce(
+    (best, row) => {
+      const value =
+        playerDistanceOutcome === 'made'
+          ? row.avgMadeShotDistance
+          : playerDistanceOutcome === 'missed'
+            ? row.avgMissedShotDistance
+            : row.avgShotDistance;
+      return !best || value > best.value ? { season: row.season, value } : best;
+    },
+    null as { season: string; value: number } | null
+  );
   $: headlineSeason = filter.season === 'all' ? 'All Seasons' : filter.season;
   $: shotOutcomeLabel =
     effectiveShotOutcome === 'all'
@@ -70,7 +128,7 @@
         ? 'Made shots'
         : 'Missed shots';
   $: featuredCardClass = [
-    'panel flex min-h-0 flex-col overflow-hidden border transition-all duration-500',
+    'panel flex flex-col overflow-hidden border transition-all duration-500',
     activeScene === 1
       ? 'border-amber-300/40 bg-slate-900/95 shadow-2xl shadow-amber-950/20'
       : 'border-teal-300/30 bg-slate-900/95 shadow-2xl shadow-teal-950/20'
@@ -98,17 +156,13 @@
     filter = event.detail;
   }
 
-  function handleSceneChange(event: CustomEvent<SceneId>) {
-    activeScene = event.detail;
-  }
-
   function observeScene(node: HTMLElement, scene: SceneId) {
     let sceneId = scene;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          node.dispatchEvent(new CustomEvent<SceneId>('scenechange', { detail: sceneId }));
+          activeScene = sceneId;
         }
       },
       {
@@ -200,7 +254,6 @@
             {#each scenes as scene}
               <article
                 use:observeScene={scene.id}
-                on:scenechange={handleSceneChange}
                 class={[
                   'panel flex min-h-[80vh] flex-col justify-center p-6 transition-all duration-500 sm:p-8',
                   activeScene === scene.id
@@ -222,8 +275,8 @@
           </div>
         </div>
 
-        <aside class="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
-          <div class="flex h-full min-h-0 flex-col gap-4 overflow-hidden py-8 lg:py-10">
+        <aside class="lg:sticky lg:top-6 lg:self-start">
+          <div class="flex min-h-0 flex-col gap-4 py-8 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto lg:pr-2 lg:py-6">
             <section class="panel p-5">
               <FilterBar seasons={data.seasons} filter={displayedFilter} on:change={handleFilterChange} />
               <p class="mt-4 text-xs leading-6 text-slate-400">
@@ -246,14 +299,14 @@
               <p class="mt-4 text-sm leading-6 text-slate-400">{activeSceneCopy.description}</p>
             </section>
 
-            <div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+            <div class="flex flex-col">
               <article class={featuredCardClass}>
                 <div class="border-b border-white/10 px-5 py-4">
                   <p class="panel-title">{featuredPanelTitle}</p>
                   <h3 class="mt-2 text-xl font-bold text-white">{featuredPanelHeading}</h3>
                   <p class="mt-2 text-sm leading-6 text-slate-400">{featuredPanelDescription}</p>
                 </div>
-                <div class="min-h-[22rem] flex-1 p-5 lg:min-h-0">
+                <div class="min-h-[24rem] p-5 lg:min-h-[34rem]">
                   <div class="grid h-full min-h-0 w-full">
                     <div class={activeScene === 1 ? visibleVisualizationClass : hiddenVisualizationClass}>
                       <DistanceChart
@@ -280,6 +333,128 @@
         </aside>
       </section>
 
+      <section class="mt-10">
+        <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90">
+          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season Trend</p>
+              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Average shot distance over time.</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                This view summarizes every season with one number: the average distance, in feet, of all recorded shots.
+                As teams leaned harder into spacing and 3-point volume, that average moved farther from the basket.
+              </p>
+              <div class="mt-5 inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                {#each [
+                  { value: 'all', label: 'All Shots' },
+                  { value: 'made', label: 'Made' },
+                  { value: 'missed', label: 'Missed' }
+                ] as option}
+                  <button
+                    type="button"
+                    class:selected={seasonDistanceOutcome === option.value}
+                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                    on:click={() => (seasonDistanceOutcome = option.value as ShotOutcome)}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lens</p>
+                <p class="mt-2 text-2xl font-bold text-white">{seasonDistanceLabel}</p>
+                <p class="mt-1 text-sm text-slate-400">Comparing the same seasons through a different shot outcome filter</p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Peak Season</p>
+                <p class="mt-2 text-2xl font-bold text-white">{seasonDistancePeak?.season ?? 'N/A'}</p>
+                <p class="mt-1 text-sm text-slate-400">
+                  {seasonDistancePeak ? `${seasonDistanceStatLabel}: ${seasonDistancePeak.value.toFixed(2)} ft` : 'No season trend data available'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-6 py-6 lg:px-8">
+            <SeasonDistanceChart data={data.seasonDistance?.all ?? []} shotOutcome={seasonDistanceOutcome} />
+          </div>
+        </article>
+      </section>
+
+      <section class="mt-10">
+        <article class="panel overflow-hidden border border-teal-300/20 bg-slate-900/90">
+          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">Player Focus</p>
+              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">How star players'shot profiles drifted over their careers.</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                Choose one featured player at a time to trace how their shot profile changed across seasons. The chart
+                starts at that player&apos;s first shot attempt in the dataset and tracks the average distance of their shots throughout the years.
+              </p>
+              <div class="mt-5 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <label class="flex items-center gap-3 text-sm text-slate-300">
+                  <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Player</span>
+                  <select
+                    class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-teal-400/60"
+                    bind:value={selectedPlayer}
+                  >
+                    {#each availablePlayers as player}
+                      <option value={player.player}>{player.player}</option>
+                    {/each}
+                  </select>
+                </label>
+
+                <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                  {#each [
+                    { value: 'all', label: 'All Shots' },
+                    { value: 'made', label: 'Made' },
+                    { value: 'missed', label: 'Missed' }
+                  ] as option}
+                    <button
+                      type="button"
+                      class:selected={playerDistanceOutcome === option.value}
+                      class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                      on:click={() => (playerDistanceOutcome = option.value as ShotOutcome)}
+                    >
+                      {option.label}
+                    </button>
+                  {/each}
+                </div>
+              </div>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Selected Player</p>
+                <p class="mt-2 text-2xl font-bold text-white">{selectedPlayerSeries?.player ?? 'N/A'}</p>
+                <p class="mt-1 text-sm text-slate-400">{playerDistanceLabel} view across this player&apos;s career arc</p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Career Window</p>
+                <p class="mt-2 text-2xl font-bold text-white">{selectedPlayerSeries?.firstSeason ?? 'N/A'}</p>
+                <p class="mt-1 text-sm text-slate-400">
+                  {selectedPlayerPeak
+                    ? `Peak ${playerDistanceStatLabel.toLowerCase()}: ${selectedPlayerPeak.value.toFixed(2)} ft in ${selectedPlayerPeak.season}`
+                    : 'No player trend data available'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b border-white/10 px-6 py-4 text-sm text-slate-400 lg:px-8">
+            Hover any point to compare {playerDistanceStatLabel.toLowerCase()} and shot volume for the selected player-season.
+          </div>
+
+          <div class="px-6 py-6 lg:px-8">
+            <PlayerDistanceChart player={selectedPlayerSeries} shotOutcome={playerDistanceOutcome} />
+          </div>
+        </article>
+      </section>
+
       <footer class="pb-4 text-sm text-slate-400">
         Aggregated from Kaggle dataset
         <a
@@ -295,3 +470,10 @@
     {/if}
   </main>
 </div>
+
+<style>
+  button.selected {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), rgba(249, 115, 22, 0.85));
+    color: #020617;
+  }
+</style>

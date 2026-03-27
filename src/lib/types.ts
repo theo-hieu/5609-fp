@@ -25,6 +25,24 @@ export interface DistanceBucket extends AggregateStats {
   distanceBucket: number;
 }
 
+export interface SeasonDistanceTrend {
+  season: string;
+  attempts: number;
+  made: number;
+  missed: number;
+  avgShotDistance: number;
+  avgMadeShotDistance: number;
+  avgMissedShotDistance: number;
+}
+
+export interface PlayerSeasonDistanceTrend extends SeasonDistanceTrend {}
+
+export interface PlayerDistanceSeries {
+  player: string;
+  firstSeason: string | null;
+  seasons: PlayerSeasonDistanceTrend[];
+}
+
 export interface DataCollection<T> {
   seasons: string[];
   all: T[];
@@ -60,4 +78,16 @@ export interface MonthlyPayload extends DataCollection<MonthlyTrend> {
 
 export interface DistancePayload extends DataCollection<DistanceBucket> {
   metadata: DistanceMetadata;
+}
+
+export interface SeasonDistancePayload {
+  metadata: DataMetadata;
+  seasons: string[];
+  all: SeasonDistanceTrend[];
+}
+
+export interface PlayerDistancePayload {
+  metadata: DataMetadata;
+  seasons: string[];
+  players: PlayerDistanceSeries[];
 }

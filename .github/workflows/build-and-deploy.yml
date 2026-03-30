@@ -24,7 +24,7 @@ jobs:
 
       - name: build
         env:
-           BASE_PATH: '/nba-shot-evolution/'
+           BASE_PATH: '/5609-fp/'
         run: npm run build
 
       - name: Upload Artifacts

@@ -1,6 +1,3 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
-
 import type {
   DistancePayload,
   HeatmapPayload,
@@ -8,18 +5,7 @@ import type {
   PlayerDistancePayload,
   SeasonDistancePayload
 } from '$lib/types';
-import type { PageServerLoad } from './$types';
-
-const DATA_DIR = resolve('src/lib/data');
-
-async function readJson<T>(filename: string): Promise<T | null> {
-  try {
-    const content = await readFile(resolve(DATA_DIR, filename), 'utf-8');
-    return JSON.parse(content) as T;
-  } catch {
-    return null;
-  }
-}
+import type { PageLoad } from './$types';
 
 function deriveSeasonDistancePayload(distance: DistancePayload | null): SeasonDistancePayload | null {
   if (!distance) return null;
@@ -70,14 +56,16 @@ function deriveSeasonDistancePayload(distance: DistancePayload | null): SeasonDi
   };
 }
 
-export const load: PageServerLoad = async () => {
-  const [heatmap, monthly, distance, seasonDistance, playerDistance] = await Promise.all([
-    readJson<HeatmapPayload>('heatmap.json'),
-    readJson<MonthlyPayload>('monthly-trends.json'),
-    readJson<DistancePayload>('distance-profile.json'),
-    readJson<SeasonDistancePayload>('season-distance-trend.json'),
-    readJson<PlayerDistancePayload>('player-distance-trend.json')
-  ]);
+export const load: PageLoad = async () => {
+  // Use Vite's dynamic imports to safely load the JSON files from $lib/data.
+  // This works in the browser and during static prerendering, completely replacing node:fs.
+  let heatmap = null, monthly = null, distance = null, seasonDistance = null, playerDistance = null;
+
+  try { heatmap = (await import('$lib/data/heatmap.json')).default as HeatmapPayload; } catch {}
+  try { monthly = (await import('$lib/data/monthly-trends.json')).default as MonthlyPayload; } catch {}
+  try { distance = (await import('$lib/data/distance-profile.json')).default as DistancePayload; } catch {}
+  try { seasonDistance = (await import('$lib/data/season-distance-trend.json')).default as SeasonDistancePayload; } catch {}
+  try { playerDistance = (await import('$lib/data/player-distance-trend.json')).default as PlayerDistancePayload; } catch {}
 
   const ready = Boolean(heatmap && monthly && distance);
   const resolvedSeasonDistance = seasonDistance ?? deriveSeasonDistancePayload(distance);

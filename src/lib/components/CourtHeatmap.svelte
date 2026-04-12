@@ -15,9 +15,11 @@
     tooltipLabel: string;
     legendMinLabel: string;
     legendMaxLabel: string;
+    legendNote: string;
     palette: string[];
     gradient: string;
     domain: [number, number];
+    scale: 'linear' | 'log';
     getValue: (cell: HeatmapCell) => number;
     formatValue: (value: number) => string;
   };
@@ -42,50 +44,58 @@
 
   function getMetricConfig(): MetricConfig {
     const maxAttempts = Math.max(d3.max(cells, (cell) => cell.attempts) ?? 0, 1);
+    const maxMade = Math.max(d3.max(cells, (cell) => cell.made) ?? 0, 1);
+    const maxMissed = Math.max(d3.max(cells, (cell) => cell.missed) ?? 0, 1);
 
     if (shotOutcome === 'made') {
       return {
-        title: 'Field Goal %',
-        tooltipLabel: 'FG%',
-        legendMinLabel: '0%',
-        legendMaxLabel: '100%',
+        title: 'Made Shot Density',
+        tooltipLabel: 'Made',
+        legendMinLabel: '1',
+        legendMaxLabel: maxMade.toLocaleString(),
+        legendNote: 'Log color scale',
         palette: efficiencyPalette,
         gradient: buildGradient(efficiencyPalette),
-        domain: [0, 1],
-        getValue: (cell) => cell.fgPct,
-        formatValue: (value) => `${(value * 100).toFixed(1)}%`
+        domain: [1, Math.max(maxMade, 2)],
+        scale: 'log',
+        getValue: (cell) => cell.made,
+        formatValue: (value) => Math.round(value).toLocaleString()
       };
     }
 
     if (shotOutcome === 'missed') {
       return {
-        title: 'Miss Rate',
-        tooltipLabel: 'Miss Rate',
-        legendMinLabel: '0%',
-        legendMaxLabel: '100%',
+        title: 'Missed Shot Density',
+        tooltipLabel: 'Missed',
+        legendMinLabel: '1',
+        legendMaxLabel: maxMissed.toLocaleString(),
+        legendNote: 'Log color scale',
         palette: missPalette,
         gradient: buildGradient(missPalette),
-        domain: [0, 1],
-        getValue: (cell) => (cell.attempts ? cell.missed / cell.attempts : 0),
-        formatValue: (value) => `${(value * 100).toFixed(1)}%`
+        domain: [1, Math.max(maxMissed, 2)],
+        scale: 'log',
+        getValue: (cell) => cell.missed,
+        formatValue: (value) => Math.round(value).toLocaleString()
       };
     }
 
     return {
-      title: 'Shot Volume',
+      title: 'Shot Density',
       tooltipLabel: 'Attempts',
-      legendMinLabel: '0',
+      legendMinLabel: '1',
       legendMaxLabel: maxAttempts.toLocaleString(),
+      legendNote: 'Log color scale',
       palette: volumePalette,
       gradient: buildGradient(volumePalette),
-      domain: [0, maxAttempts],
+      domain: [1, Math.max(maxAttempts, 2)],
+      scale: 'log',
       getValue: (cell) => cell.attempts,
       formatValue: (value) => Math.round(value).toLocaleString()
     };
   }
 
-  function hasData(cell: HeatmapCell) {
-    return cell.attempts > 0;
+  function hasMetricData(cell: HeatmapCell, metricConfig: MetricConfig) {
+    return metricConfig.getValue(cell) > 0;
   }
 
   function updateTooltipPosition(event: PointerEvent) {
@@ -265,10 +275,11 @@
     if (!svgElement) return;
 
     const metricConfig = getMetricConfig();
-    const colorScale = d3
-      .scaleSequential(d3.interpolateRgbBasis(metricConfig.palette))
-      .domain(metricConfig.domain)
-      .clamp(true);
+    const interpolator = d3.interpolateRgbBasis(metricConfig.palette);
+    const colorScale =
+      metricConfig.scale === 'log'
+        ? d3.scaleSequentialLog(interpolator).domain(metricConfig.domain).clamp(true)
+        : d3.scaleSequential(interpolator).domain(metricConfig.domain).clamp(true);
 
     const svg = d3.select(svgElement);
     svg.selectAll('*').remove();
@@ -290,11 +301,11 @@
       .attr('height', cellSize)
       .attr('rx', 0.35)
       .attr('ry', 0.35)
-      .attr('fill', (d) => (hasData(d) ? colorScale(metricConfig.getValue(d)) : 'transparent'))
+      .attr('fill', (d) => (hasMetricData(d, metricConfig) ? colorScale(metricConfig.getValue(d)) : 'transparent'))
       .attr('fill-opacity', 0.92)
       .attr('stroke', 'rgba(15, 23, 42, 0.18)')
       .attr('stroke-width', 0.08)
-      .attr('pointer-events', (d) => (hasData(d) ? 'auto' : 'none'))
+      .attr('pointer-events', (d) => (hasMetricData(d, metricConfig) ? 'auto' : 'none'))
       .on('pointerenter', function (event, d) {
         showTooltip(event, d);
         d3.select(this).attr('stroke', 'rgba(248, 250, 252, 0.8)').attr('stroke-width', 0.2);
@@ -356,6 +367,7 @@
             <span>{metricConfig.legendMinLabel}</span>
             <span>{metricConfig.legendMaxLabel}</span>
           </div>
+          <p class="mt-2 text-[0.68rem] uppercase tracking-[0.18em] text-slate-500">{metricConfig.legendNote}</p>
         </div>
       </div>
 

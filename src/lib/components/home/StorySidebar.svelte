@@ -41,11 +41,11 @@
   $: featuredPanelHeading =
     activeScene === 1
       ? 'Volume and efficiency by distance'
-      : 'Where shot volume and efficiency live on the floor';
+      : 'Where log-scaled shot density lives on the floor';
   $: featuredPanelDescription =
     activeScene === 1
       ? 'Scene 1 gives this chart the spotlight so the tradeoff between accuracy and shot value is easier to see.'
-      : 'Scenes 2 and 3 shift attention here to compare raw attempt density against made-shot hotspots.';
+      : "Scenes 2 and 3 use a log color scale so the rim's massive shot volume does not drown out the arc, corners, and quieter mid-range pockets.";
   $: selectedHeatmap = selectCollection<HeatmapCell>(heatmap, filter.season);
   $: selectedDistance = selectCollection<DistanceBucket>(distance, filter.season);
 
@@ -70,8 +70,8 @@
     <section class="panel p-5">
       <FilterBar seasons={seasons} filter={displayedFilter} on:change={handleFilterChange} />
       <p class="mt-4 text-xs leading-6 text-slate-400">
-        Scene 2 automatically shows all shot attempts to reveal overall volume. Scene 3 switches to made shots so the
-        heatmap highlights efficiency hotspots.
+        Scene 2 automatically shows all shot attempts to reveal overall volume. Scene 3 switches to made shots, and
+        both heatmap views use a log color scale so the basket area does not wash out the rest of the floor.
       </p>
     </section>
 

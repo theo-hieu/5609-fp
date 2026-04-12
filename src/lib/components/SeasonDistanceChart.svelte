@@ -18,6 +18,7 @@
 
   export let data: SeasonDistanceTrend[] = [];
   export let shotOutcome: ShotOutcome = 'all';
+  export let revealProgress = 100;
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -29,6 +30,25 @@
         ? row.avgMissedShotDistance
         : row.avgShotDistance
   );
+  $: revealStartOffset = 25;
+  $: adjustedRevealProgress = Math.max(0, revealProgress - revealStartOffset);
+  $: revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
+  $: revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;
+  $: revealIndex = Math.floor(revealIndexFloat);
+  $: revealRemainder = revealIndexFloat - revealIndex;
+  $: fullSeriesMin = points.length ? Math.min(...points) : 0;
+  $: fullSeriesMax = points.length ? Math.max(...points) : 0;
+  $: yPadding = Math.max(0.35, (fullSeriesMax - fullSeriesMin) * 0.18);
+  $: fixedYMin = Math.max(0, +(fullSeriesMin - yPadding).toFixed(2));
+  $: fixedYMax = +(fullSeriesMax + yPadding).toFixed(2);
+  $: revealedPoints = points.map((value, index) => {
+    if (index <= revealIndex) return value;
+    if (index === revealIndex + 1 && revealRemainder > 0 && revealIndex >= 0 && revealIndex < points.length - 1) {
+      const previous = points[revealIndex];
+      return previous + (value - previous) * revealRemainder;
+    }
+    return null;
+  });
   $: datasetLabel =
     shotOutcome === 'made'
       ? 'Average Made Shot Distance'
@@ -49,12 +69,12 @@
     datasets: [
       {
         label: datasetLabel,
-        data: points,
+        data: revealedPoints,
         borderColor: strokeColor,
         backgroundColor: fillColor,
         fill: true,
         tension: 0.28,
-        pointRadius: 3,
+        pointRadius: revealedPoints.map((value, index) => (value === null || index > revealIndex + 1 ? 0 : 3)),
         pointHoverRadius: 5,
         pointBackgroundColor,
         pointBorderColor,
@@ -67,6 +87,7 @@
   $: options = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: false,
     interaction: { mode: 'index', intersect: false },
     plugins: {
       legend: {
@@ -102,6 +123,8 @@
         }
       },
       y: {
+        min: fixedYMin,
+        max: fixedYMax,
         ticks: {
           color: '#cbd5e1',
           callback: (value) => `${value} ft`

@@ -1,0 +1,495 @@
+{
+  "metadata": {
+    "dataset": "Local data_raw CSV files",
+    "generatedAt": "2026-04-12T10:21:12.493405+00:00",
+    "recordCount": 4231262,
+    "skippedRows": 0
+  },
+  "seasons": [
+    "2003-04",
+    "2004-05",
+    "2005-06",
+    "2006-07",
+    "2007-08",
+    "2008-09",
+    "2009-10",
+    "2010-11",
+    "2011-12",
+    "2012-13",
+    "2013-14",
+    "2014-15",
+    "2015-16",
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "all": [
+    {
+      "season": "2003-04",
+      "totalAttempts": 189803,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 154310,
+          "made": 70933,
+          "missed": 83377,
+          "fgPct": 0.4597,
+          "share": 0.813
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 35493,
+          "made": 12322,
+          "missed": 23171,
+          "fgPct": 0.3472,
+          "share": 0.187
+        }
+      ]
+    },
+    {
+      "season": "2004-05",
+      "totalAttempts": 197626,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 158878,
+          "made": 74658,
+          "missed": 84220,
+          "fgPct": 0.4699,
+          "share": 0.8039
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 38748,
+          "made": 13777,
+          "missed": 24971,
+          "fgPct": 0.3556,
+          "share": 0.1961
+        }
+      ]
+    },
+    {
+      "season": "2005-06",
+      "totalAttempts": 194314,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 155001,
+          "made": 74080,
+          "missed": 80921,
+          "fgPct": 0.4779,
+          "share": 0.7977
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 39313,
+          "made": 14086,
+          "missed": 25227,
+          "fgPct": 0.3583,
+          "share": 0.2023
+        }
+      ]
+    },
+    {
+      "season": "2006-07",
+      "totalAttempts": 196072,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 154401,
+          "made": 74934,
+          "missed": 79467,
+          "fgPct": 0.4853,
+          "share": 0.7875
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 41671,
+          "made": 14926,
+          "missed": 26745,
+          "fgPct": 0.3582,
+          "share": 0.2125
+        }
+      ]
+    },
+    {
+      "season": "2007-08",
+      "totalAttempts": 200501,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 155957,
+          "made": 75545,
+          "missed": 80412,
+          "fgPct": 0.4844,
+          "share": 0.7778
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 44544,
+          "made": 16124,
+          "missed": 28420,
+          "fgPct": 0.362,
+          "share": 0.2222
+        }
+      ]
+    },
+    {
+      "season": "2008-09",
+      "totalAttempts": 199030,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 154471,
+          "made": 74958,
+          "missed": 79513,
+          "fgPct": 0.4853,
+          "share": 0.7761
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 44559,
+          "made": 16344,
+          "missed": 28215,
+          "fgPct": 0.3668,
+          "share": 0.2239
+        }
+      ]
+    },
+    {
+      "season": "2009-10",
+      "totalAttempts": 200966,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 156367,
+          "made": 76908,
+          "missed": 79459,
+          "fgPct": 0.4918,
+          "share": 0.7781
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 44599,
+          "made": 15812,
+          "missed": 28787,
+          "fgPct": 0.3545,
+          "share": 0.2219
+        }
+      ]
+    },
+    {
+      "season": "2010-11",
+      "totalAttempts": 199761,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 155477,
+          "made": 75738,
+          "missed": 79739,
+          "fgPct": 0.4871,
+          "share": 0.7783
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 44284,
+          "made": 15875,
+          "missed": 28409,
+          "fgPct": 0.3585,
+          "share": 0.2217
+        }
+      ]
+    },
+    {
+      "season": "2011-12",
+      "totalAttempts": 161205,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 124830,
+          "made": 59525,
+          "missed": 65305,
+          "fgPct": 0.4768,
+          "share": 0.7744
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 36375,
+          "made": 12682,
+          "missed": 23693,
+          "fgPct": 0.3486,
+          "share": 0.2256
+        }
+      ]
+    },
+    {
+      "season": "2012-13",
+      "totalAttempts": 201579,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 152542,
+          "made": 73679,
+          "missed": 78863,
+          "fgPct": 0.483,
+          "share": 0.7567
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 49037,
+          "made": 17596,
+          "missed": 31441,
+          "fgPct": 0.3588,
+          "share": 0.2433
+        }
+      ]
+    },
+    {
+      "season": "2013-14",
+      "totalAttempts": 204126,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 151198,
+          "made": 73725,
+          "missed": 77473,
+          "fgPct": 0.4876,
+          "share": 0.7407
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 52928,
+          "made": 19041,
+          "missed": 33887,
+          "fgPct": 0.3598,
+          "share": 0.2593
+        }
+      ]
+    },
+    {
+      "season": "2014-15",
+      "totalAttempts": 205550,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 150433,
+          "made": 72987,
+          "missed": 77446,
+          "fgPct": 0.4852,
+          "share": 0.7319
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 55117,
+          "made": 19292,
+          "missed": 35825,
+          "fgPct": 0.35,
+          "share": 0.2681
+        }
+      ]
+    },
+    {
+      "season": "2015-16",
+      "totalAttempts": 207893,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 148808,
+          "made": 73112,
+          "missed": 75696,
+          "fgPct": 0.4913,
+          "share": 0.7158
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 59085,
+          "made": 20905,
+          "missed": 38180,
+          "fgPct": 0.3538,
+          "share": 0.2842
+        }
+      ]
+    },
+    {
+      "season": "2016-17",
+      "totalAttempts": 209929,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 143692,
+          "made": 72313,
+          "missed": 71379,
+          "fgPct": 0.5033,
+          "share": 0.6845
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 66237,
+          "made": 23677,
+          "missed": 42560,
+          "fgPct": 0.3575,
+          "share": 0.3155
+        }
+      ]
+    },
+    {
+      "season": "2017-18",
+      "totalAttempts": 211707,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 140368,
+          "made": 71628,
+          "missed": 68740,
+          "fgPct": 0.5103,
+          "share": 0.663
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 71339,
+          "made": 25807,
+          "missed": 45532,
+          "fgPct": 0.3618,
+          "share": 0.337
+        }
+      ]
+    },
+    {
+      "season": "2018-19",
+      "totalAttempts": 219458,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 140716,
+          "made": 73107,
+          "missed": 67609,
+          "fgPct": 0.5195,
+          "share": 0.6412
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 78742,
+          "made": 27955,
+          "missed": 50787,
+          "fgPct": 0.355,
+          "share": 0.3588
+        }
+      ]
+    },
+    {
+      "season": "2019-20",
+      "totalAttempts": 188116,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 115864,
+          "made": 60688,
+          "missed": 55176,
+          "fgPct": 0.5238,
+          "share": 0.6159
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 72252,
+          "made": 25862,
+          "missed": 46390,
+          "fgPct": 0.3579,
+          "share": 0.3841
+        }
+      ]
+    },
+    {
+      "season": "2020-21",
+      "totalAttempts": 190983,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 116161,
+          "made": 61593,
+          "missed": 54568,
+          "fgPct": 0.5302,
+          "share": 0.6082
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 74822,
+          "made": 27427,
+          "missed": 47395,
+          "fgPct": 0.3666,
+          "share": 0.3918
+        }
+      ]
+    },
+    {
+      "season": "2021-22",
+      "totalAttempts": 216722,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 130187,
+          "made": 69332,
+          "missed": 60855,
+          "fgPct": 0.5326,
+          "share": 0.6007
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 86535,
+          "made": 30598,
+          "missed": 55937,
+          "fgPct": 0.3536,
+          "share": 0.3993
+        }
+      ]
+    },
+    {
+      "season": "2022-23",
+      "totalAttempts": 217220,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 133056,
+          "made": 72901,
+          "missed": 60155,
+          "fgPct": 0.5479,
+          "share": 0.6125
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 84164,
+          "made": 30359,
+          "missed": 53805,
+          "fgPct": 0.3607,
+          "share": 0.3875
+        }
+      ]
+    },
+    {
+      "season": "2023-24",
+      "totalAttempts": 218701,
+      "shotTypes": [
+        {
+          "shotType": "2PT Field Goal",
+          "attempts": 132346,
+          "made": 72160,
+          "missed": 60186,
+          "fgPct": 0.5452,
+          "share": 0.6051
+        },
+        {
+          "shotType": "3PT Field Goal",
+          "attempts": 86355,
+          "made": 31579,
+          "missed": 54776,
+          "fgPct": 0.3657,
+          "share": 0.3949
+        }
+      ]
+    }
+  ]
+}

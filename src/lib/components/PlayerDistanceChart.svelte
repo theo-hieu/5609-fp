@@ -17,8 +17,18 @@
 
   export let player: PlayerDistanceSeries | null = null;
   export let shotOutcome: ShotOutcome = 'all';
+  export let revealProgress = 100;
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+  function withOpacity(hex: string, opacity: number) {
+    const normalized = hex.replace('#', '');
+    const bigint = Number.parseInt(normalized, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
 
   function outcomeValue(
     row: PlayerDistanceSeries['seasons'][number] | undefined,
@@ -40,6 +50,29 @@
     return row.attempts;
   }
 
+  function revealSeries(points: number[], progress: number) {
+    const revealStartOffset = 10;
+    const adjustedRevealProgress = Math.max(0, progress - revealStartOffset);
+    const revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
+    const revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;
+    const revealIndex = Math.floor(revealIndexFloat);
+    const revealRemainder = revealIndexFloat - revealIndex;
+
+    return points.map((value, index) => {
+      if (index <= revealIndex) return value;
+      if (index === revealIndex + 1 && revealRemainder > 0 && revealIndex >= 0 && revealIndex < points.length - 1) {
+        const previous = points[revealIndex];
+        return previous + (value - previous) * revealRemainder;
+      }
+      return null;
+    });
+  }
+
+  function playerPoints(series: PlayerDistanceSeries | null, selectedOutcome: ShotOutcome) {
+    if (!series) return [];
+    return series.seasons.map((row) => outcomeValue(row, selectedOutcome) ?? 0);
+  }
+
   $: datasetLabel =
     shotOutcome === 'made'
       ? 'Average Made Shot Distance'
@@ -53,25 +86,34 @@
         ? { border: '#f97316', point: '#fdba74', fill: 'rgba(249, 115, 22, 0.14)' }
         : { border: '#fbbf24', point: '#fde68a', fill: 'rgba(251, 191, 36, 0.14)' };
   $: labels = player?.seasons.map((row) => row.season) ?? [];
-  $: datasets = player
-    ? [
-        {
-          label: player.player,
-          data: player.seasons.map((row) => outcomeValue(row, shotOutcome)),
-          borderColor: activeColor.border,
-          backgroundColor: activeColor.fill,
-          pointBackgroundColor: activeColor.point,
-          pointBorderColor: activeColor.border,
-          pointBorderWidth: 1.4,
-          pointRadius: 3,
-          pointHoverRadius: 5,
-          spanGaps: false,
-          tension: 0.28,
-          fill: true,
-          borderWidth: 2.5
-        }
-      ]
-    : [];
+  $: currentPoints = playerPoints(player, shotOutcome);
+  $: revealedCurrentPoints = revealSeries(currentPoints, revealProgress);
+  $: fullSeriesMin = currentPoints.length ? Math.min(...currentPoints) : 0;
+  $: fullSeriesMax = currentPoints.length ? Math.max(...currentPoints) : 0;
+  $: yPadding = Math.max(0.35, (fullSeriesMax - fullSeriesMin) * 0.18);
+  $: fixedYMin = Math.max(0, +(fullSeriesMin - yPadding).toFixed(2));
+  $: fixedYMax = +(fullSeriesMax + yPadding).toFixed(2);
+  $: datasets = [
+    ...(player
+      ? [
+          {
+            label: player.player,
+            data: revealedCurrentPoints,
+            borderColor: activeColor.border,
+            backgroundColor: activeColor.fill,
+            pointBackgroundColor: activeColor.point,
+            pointBorderColor: activeColor.border,
+            pointBorderWidth: 1.4,
+            pointRadius: revealedCurrentPoints.map((value) => (value === null ? 0 : 3)),
+            pointHoverRadius: 5,
+            spanGaps: false,
+            tension: 0.28,
+            fill: true,
+            borderWidth: 2.5
+          }
+        ]
+      : [])
+  ];
   $: chartData = {
     labels,
     datasets
@@ -80,6 +122,7 @@
   $: options = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: false,
     interaction: { mode: 'nearest', intersect: false },
     plugins: {
       legend: {
@@ -115,6 +158,8 @@
         }
       },
       y: {
+        min: fixedYMin,
+        max: fixedYMax,
         ticks: {
           color: '#cbd5e1',
           callback: (value) => `${value} ft`

@@ -27,6 +27,16 @@ PLAYER_FOCUS_NAMES = (
     "James Harden",
     "Kevin Durant",
 )
+SHOT_TYPE_ORDER = ("2PT Field Goal", "3PT Field Goal")
+ZONE_ORDER = (
+    "Restricted Area",
+    "In The Paint (Non-RA)",
+    "Mid-Range",
+    "Left Corner 3",
+    "Right Corner 3",
+    "Above the Break 3",
+    "Backcourt",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -60,21 +70,17 @@ def discover_csv_files(raw_dir: Path) -> list[Path]:
     return sorted(raw_dir.glob("*.csv"))
 
 
-def load_rows(raw_dir: Path) -> list[dict[str, str]]:
+def iter_rows(raw_dir: Path):
     csv_files = discover_csv_files(raw_dir)
     if not csv_files:
         raise SystemExit(f"No CSV files found in {raw_dir}. Add season CSVs to data_raw and rerun.")
 
-    rows: list[dict[str, str]] = []
     for csv_path in csv_files:
         log(f"Reading {csv_path.name} ...")
         with csv_path.open("r", encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
             for row in reader:
-                rows.append({(key or "").strip().upper(): (value or "").strip() for key, value in row.items()})
-
-    log(f"Loaded {len(rows):,} shots from {len(csv_files)} CSV files.")
-    return rows
+                yield {(key or "").strip().upper(): (value or "").strip() for key, value in row.items()}
 
 
 def parse_bool(raw: str) -> bool | None:
@@ -215,7 +221,9 @@ def main() -> None:
     raw_dir = args.raw_dir.resolve()
     out_dir = args.out_dir.resolve()
 
-    rows = load_rows(raw_dir)
+    csv_files = discover_csv_files(raw_dir)
+    if not csv_files:
+        raise SystemExit(f"No CSV files found in {raw_dir}. Add season CSVs to data_raw and rerun.")
 
     heatmap_all: dict[tuple[float, float], dict[str, int]] = defaultdict(make_counter)
     heatmap_by_season: dict[str, dict[tuple[float, float], dict[str, int]]] = defaultdict(
@@ -225,6 +233,8 @@ def main() -> None:
     monthly_by_season: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
     distance_all: dict[int, dict[str, int]] = defaultdict(make_counter)
     distance_by_season: dict[str, dict[int, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
+    shot_type_by_season: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
+    zone_by_season: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(make_counter))
     season_distance_all: dict[str, dict[str, float]] = defaultdict(make_distance_counter)
     player_distance_by_player: dict[str, dict[str, dict[str, float]]] = {
         player: defaultdict(make_distance_counter) for player in PLAYER_FOCUS_NAMES
@@ -233,14 +243,17 @@ def main() -> None:
 
     seasons_set: set[str] = set()
     skipped_rows = 0
+    processed_rows = 0
 
-    for row in rows:
+    for row in iter_rows(raw_dir):
         season = row.get("SEASON_2") or row.get("SEASON") or row.get("SEASON_1")
         made = parse_bool(row.get("SHOT_MADE", "") or row.get("SHOT_MADE_FLAG", ""))
         x = parse_float(row.get("LOC_X", ""))
         y = parse_float(row.get("LOC_Y", ""))
         shot_distance = parse_float(row.get("SHOT_DISTANCE", ""))
         game_date = parse_date(row.get("GAME_DATE", "") or row.get("DATE", ""))
+        shot_type = row.get("SHOT_TYPE", "")
+        basic_zone = row.get("BASIC_ZONE", "")
         player_name = (
             row.get("PLAYER_NAME")
             or row.get("PLAYER")
@@ -248,6 +261,7 @@ def main() -> None:
             or row.get("PLAYER_1")
             or ""
         )
+        processed_rows += 1
 
         if not season or made is None or x is None or y is None or shot_distance is None or game_date is None:
             skipped_rows += 1
@@ -271,18 +285,24 @@ def main() -> None:
         update_counter(monthly_by_season[season][month], made)
         update_counter(distance_all[distance_bucket], made)
         update_counter(distance_by_season[season][distance_bucket], made)
+        if shot_type in SHOT_TYPE_ORDER:
+            update_counter(shot_type_by_season[season][shot_type], made)
+        if basic_zone:
+            update_counter(zone_by_season[season][basic_zone], made)
         update_distance_counter(season_distance_all[season], shot_distance, made)
         matched_player = player_name_map.get(normalize_name(player_name))
         if matched_player:
             update_distance_counter(player_distance_by_player[matched_player][season], shot_distance, made)
         seasons_set.add(season)
 
+    log(f"Loaded {processed_rows:,} shots from {len(csv_files)} CSV files.")
+
     seasons = sorted(seasons_set, key=season_sort_key)
     generated_at = datetime.now(timezone.utc).isoformat()
     metadata = {
         "dataset": DATASET_LABEL,
         "generatedAt": generated_at,
-        "recordCount": len(rows) - skipped_rows,
+        "recordCount": processed_rows - skipped_rows,
         "skippedRows": skipped_rows,
     }
 
@@ -371,11 +391,88 @@ def main() -> None:
         ],
     }
 
+    shot_type_payload = {
+        "metadata": metadata,
+        "seasons": seasons,
+        "all": [
+            {
+                "season": season,
+                "totalAttempts": sum(
+                    shot_type_by_season[season][shot_type]["attempts"]
+                    for shot_type in SHOT_TYPE_ORDER
+                    if shot_type in shot_type_by_season[season]
+                ),
+                "shotTypes": [
+                    {
+                        "shotType": shot_type,
+                        **finalize_counter(shot_type_by_season[season][shot_type]),
+                        "share": round(
+                            shot_type_by_season[season][shot_type]["attempts"]
+                            / max(
+                                1,
+                                sum(
+                                    shot_type_by_season[season][candidate]["attempts"]
+                                    for candidate in SHOT_TYPE_ORDER
+                                    if candidate in shot_type_by_season[season]
+                                ),
+                            ),
+                            4,
+                        ),
+                    }
+                    for shot_type in SHOT_TYPE_ORDER
+                    if shot_type in shot_type_by_season[season]
+                ],
+            }
+            for season in seasons
+        ],
+    }
+
+    zone_names = [
+        zone
+        for zone in ZONE_ORDER
+        if any(zone in zone_by_season[season] for season in seasons)
+    ] + sorted(
+        {
+            zone
+            for season in seasons
+            for zone in zone_by_season[season]
+            if zone not in ZONE_ORDER
+        }
+    )
+
+    zone_trend_payload = {
+        "metadata": metadata,
+        "seasons": seasons,
+        "zones": zone_names,
+        "all": [
+            {
+                "season": season,
+                "totalAttempts": sum(counter["attempts"] for counter in zone_by_season[season].values()),
+                "zones": [
+                    {
+                        "zone": zone,
+                        **finalize_counter(zone_by_season[season][zone]),
+                        "share": round(
+                            zone_by_season[season][zone]["attempts"]
+                            / max(1, sum(counter["attempts"] for counter in zone_by_season[season].values())),
+                            4,
+                        ),
+                    }
+                    for zone in zone_names
+                    if zone in zone_by_season[season]
+                ],
+            }
+            for season in seasons
+        ],
+    }
+
     write_json(out_dir, "heatmap.json", heatmap_payload)
     write_json(out_dir, "monthly-trends.json", monthly_payload)
     write_json(out_dir, "distance-profile.json", distance_payload)
     write_json(out_dir, "season-distance-trend.json", season_distance_payload)
     write_json(out_dir, "player-distance-trend.json", player_distance_payload)
+    write_json(out_dir, "shot-type-trend.json", shot_type_payload)
+    write_json(out_dir, "zone-trend.json", zone_trend_payload)
 
     log("")
     log("Data pipeline complete.")

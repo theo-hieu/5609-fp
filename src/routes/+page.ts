@@ -2,8 +2,10 @@ import type {
   DistancePayload,
   HeatmapPayload,
   MonthlyPayload,
+  ShotTypeTrendPayload,
   PlayerDistancePayload,
-  SeasonDistancePayload
+  SeasonDistancePayload,
+  ZoneTrendPayload
 } from '$lib/types';
 import type { PageLoad } from './$types';
 
@@ -59,13 +61,23 @@ function deriveSeasonDistancePayload(distance: DistancePayload | null): SeasonDi
 export const load: PageLoad = async () => {
   // Use Vite's dynamic imports to safely load the JSON files from $lib/data.
   // This works in the browser and during static prerendering, completely replacing node:fs.
-  let heatmap = null, monthly = null, distance = null, seasonDistance = null, playerDistance = null;
+  let heatmap = null, monthly = null, distance = null, seasonDistance = null, playerDistance = null,
+    shotTypeTrend = null, zoneTrend = null;
+  const optionalDataModules = import.meta.glob('../lib/data/*.json');
 
   try { heatmap = (await import('$lib/data/heatmap.json')).default as HeatmapPayload; } catch {}
   try { monthly = (await import('$lib/data/monthly-trends.json')).default as MonthlyPayload; } catch {}
   try { distance = (await import('$lib/data/distance-profile.json')).default as DistancePayload; } catch {}
   try { seasonDistance = (await import('$lib/data/season-distance-trend.json')).default as SeasonDistancePayload; } catch {}
   try { playerDistance = (await import('$lib/data/player-distance-trend.json')).default as PlayerDistancePayload; } catch {}
+  try {
+    const importer = optionalDataModules['../lib/data/shot-type-trend.json'];
+    if (importer) shotTypeTrend = ((await importer()) as { default: ShotTypeTrendPayload }).default;
+  } catch {}
+  try {
+    const importer = optionalDataModules['../lib/data/zone-trend.json'];
+    if (importer) zoneTrend = ((await importer()) as { default: ZoneTrendPayload }).default;
+  } catch {}
 
   const ready = Boolean(heatmap && monthly && distance);
   const resolvedSeasonDistance = seasonDistance ?? deriveSeasonDistancePayload(distance);
@@ -77,6 +89,8 @@ export const load: PageLoad = async () => {
     distance,
     seasonDistance: resolvedSeasonDistance,
     playerDistance,
+    shotTypeTrend,
+    zoneTrend,
     seasons: ready && heatmap ? heatmap.seasons : []
   };
 };

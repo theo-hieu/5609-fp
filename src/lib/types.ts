@@ -52,6 +52,28 @@ export interface PlayerDistanceSeries {
   seasons: PlayerSeasonDistanceTrend[];
 }
 
+export interface ShotTypeShare extends AggregateStats {
+  shotType: string;
+  share: number;
+}
+
+export interface ShotTypeSeasonTrend {
+  season: string;
+  totalAttempts: number;
+  shotTypes: ShotTypeShare[];
+}
+
+export interface ZoneShare extends AggregateStats {
+  zone: string;
+  share: number;
+}
+
+export interface ZoneSeasonTrend {
+  season: string;
+  totalAttempts: number;
+  zones: ZoneShare[];
+}
+
 export interface DataCollection<T> {
   seasons: string[];
   all: T[];
@@ -99,4 +121,17 @@ export interface PlayerDistancePayload {
   metadata: DataMetadata;
   seasons: string[];
   players: PlayerDistanceSeries[];
+}
+
+export interface ShotTypeTrendPayload {
+  metadata: DataMetadata;
+  seasons: string[];
+  all: ShotTypeSeasonTrend[];
+}
+
+export interface ZoneTrendPayload {
+  metadata: DataMetadata;
+  seasons: string[];
+  zones: string[];
+  all: ZoneSeasonTrend[];
 }

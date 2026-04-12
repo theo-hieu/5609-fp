@@ -9,10 +9,10 @@
   import PlayerDistanceChart from '$lib/components/PlayerDistanceChart.svelte';
   import Scroll from '$lib/components/Scroll.svelte';
   import SeasonDistanceChart from '$lib/components/SeasonDistanceChart.svelte';
-  import ShotTypeTrendChart from '$lib/components/ShotTypeTrendChart.svelte';
   import ShotTimeline3D from '$lib/components/ShotTimeline3D.svelte';
+  import ShotTypeTrendChart from '$lib/components/ShotTypeTrendChart.svelte';
   import ZoneTrendChart from '$lib/components/ZoneTrendChart.svelte';
-  import type { DistanceBucket, FilterState, HeatmapCell, SceneCopy, SceneId, ShotOutcome } from '$lib/types';
+  import type { DistanceBucket, FilterState, HeatmapCell, SceneCopy, SceneId, SeasonDistanceTrend, ShotOutcome } from '$lib/types';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -53,9 +53,59 @@
     }
   ];
 
+  type SeasonHighlight = {
+    season: string;
+    title: string;
+    detail: string;
+  };
+
+  const seasonHighlights: SeasonHighlight[] = [
+    {
+      season: '2003-04',
+      title: 'LeBron enters the league',
+      detail: 'LeBron James debuts and marks the start of a new high-usage wing era.'
+    },
+    {
+      season: '2004-05',
+      title: 'Hand-check era fades',
+      detail: 'Perimeter freedom rules reduce hand-checking and gradually open drive-and-kick offense.'
+    },
+    {
+      season: '2009-10',
+      title: 'Curry joins the NBA',
+      detail: 'Stephen Curry arrives and accelerates the long-term jump in three-point volume.'
+    },
+    {
+      season: '2010-11',
+      title: 'LeBron forms Miami Big 3',
+      detail: 'LeBron teams with Wade and Bosh, amplifying spread lineups and pace in contender offenses.'
+    },
+    {
+      season: '2014-15',
+      title: 'Warriors spacing blueprint',
+      detail: 'Golden State wins with pace, spacing, and heavy three-point usage at title level.'
+    },
+    {
+      season: '2015-16',
+      title: 'Curry MVP shooting peak',
+      detail: 'An all-time high-volume shooting season normalizes deep pull-ups and early-clock threes.'
+    },
+    {
+      season: '2018-19',
+      title: 'Freedom-of-movement emphasis',
+      detail: 'Rule enforcement on off-ball contact further helps shooters and spacing actions.'
+    },
+    {
+      season: '2020-21',
+      title: 'Post-bubble pace and space',
+      detail: 'Teams lean further into perimeter-heavy offense after the bubble and short offseason cycles.'
+    }
+  ];
+
   let filter: FilterState = { shotOutcome: 'all', season: 'all' };
   let activeScene: SceneId = 1;
   let seasonDistanceOutcome: ShotOutcome = 'all';
+  let seasonScrollProgress = 0;
   let shotTypeScrollProgress = 0;
   let zoneScrollProgress = 0;
   let playerScrollProgress = 0;
@@ -80,24 +130,46 @@
       : seasonDistanceOutcome === 'missed'
         ? 'Missed shots'
         : 'All shots';
-  $: seasonDistanceStatLabel =
-    seasonDistanceOutcome === 'made'
-      ? 'Made-shot distance'
-      : seasonDistanceOutcome === 'missed'
-        ? 'Missed-shot distance'
-        : 'Average distance';
-  $: seasonDistancePeak = (data.seasonDistance?.all ?? []).reduce(
-    (best, row) => {
-      const value =
-        seasonDistanceOutcome === 'made'
-          ? row.avgMadeShotDistance
-          : seasonDistanceOutcome === 'missed'
-            ? row.avgMissedShotDistance
-            : row.avgShotDistance;
-      return !best || value > best.value ? { season: row.season, value } : best;
-    },
-    null as { season: string; value: number } | null
-  );
+  $: seasonTrendRows = data.seasonDistance?.all ?? [];
+  $: clampedSeasonScrollProgress = Math.max(0, Math.min(seasonScrollProgress, 100));
+  $: seasonRevealIndex =
+    seasonTrendRows.length > 1
+      ? Math.round((clampedSeasonScrollProgress / 100) * (seasonTrendRows.length - 1))
+      : 0;
+  $: activeSeasonTrend = seasonTrendRows[Math.max(0, Math.min(seasonRevealIndex, seasonTrendRows.length - 1))] ?? null;
+  $: activeSeason = activeSeasonTrend?.season ?? null;
+  $: activeSeasonValue = activeSeasonTrend ? seasonDistanceValue(activeSeasonTrend) : null;
+  $: seasonHighlightsWithIndex = seasonHighlights
+    .map((highlight) => ({
+      ...highlight,
+      index: seasonTrendRows.findIndex((row) => row.season === highlight.season)
+    }))
+    .filter((highlight) => highlight.index >= 0)
+    .sort((a, b) => a.index - b.index);
+  $: currentHighlight = (() => {
+    if (!seasonHighlightsWithIndex.length) return null;
+    if (!activeSeasonTrend) return seasonHighlightsWithIndex[0];
+
+    const activeIndex = seasonTrendRows.findIndex((row) => row.season === activeSeasonTrend.season);
+    const matchingHighlight = seasonHighlightsWithIndex.filter((highlight) => highlight.index <= activeIndex).at(-1);
+
+    return matchingHighlight ?? seasonHighlightsWithIndex[0];
+  })();
+  $: seasonStorySteps = seasonTrendRows.map((row, index) => {
+    const previous = seasonTrendRows[index - 1] ?? null;
+    const value = seasonDistanceValue(row);
+    const previousValue = previous ? seasonDistanceValue(previous) : null;
+    const delta = previousValue === null ? null : +(value - previousValue).toFixed(2);
+    const highlight = seasonHighlights.find((item) => item.season === row.season) ?? null;
+
+    return {
+      season: row.season,
+      value,
+      delta,
+      highlight,
+      attempts: row.attempts
+    };
+  });
   $: shotTypeFirstSeason = data.shotTypeTrend?.all[0] ?? null;
   $: shotTypeLastSeason = data.shotTypeTrend?.all[data.shotTypeTrend.all.length - 1] ?? null;
   $: twoPointFirstShare = shotTypeFirstSeason?.shotTypes.find((entry) => entry.shotType === '2PT Field Goal')?.share ?? 0;
@@ -205,6 +277,12 @@
     filter = nextFilter;
   }
 
+  function seasonDistanceValue(row: SeasonDistanceTrend) {
+    if (seasonDistanceOutcome === 'made') return row.avgMadeShotDistance;
+    if (seasonDistanceOutcome === 'missed') return row.avgMissedShotDistance;
+    return row.avgShotDistance;
+  }
+
   function seasonsForPlayer(playerName: string): string[] {
     const series = availablePlayers.find((player) => player.player === playerName);
     if (!series) return [];
@@ -304,6 +382,35 @@
 <div class="min-h-screen">
   <HeroHeader {activeSceneCopy} {headlineSeason} {shotOutcomeLabel} />
 
+  <section class="mx-auto mt-6 max-w-7xl px-6">
+    <div class="grid gap-5 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-stretch">
+      <article class="panel border border-indigo-300/25 bg-slate-900/85 p-5 sm:p-6">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">3D Intro</p>
+        <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">See every season in motion.</h2>
+        <p class="mt-3 text-sm leading-7 text-slate-300">
+          Over time, the way basketball is played has fundamentally shifted, with shot distance becoming one of the clearest indicators of that change. From midrange-heavy offenses to the modern emphasis on spacing and three-point shooting, the floor itself has been redefined across eras.
+        </p>
+        <p class="mt-3 text-sm leading-7 text-slate-300">
+          This project explores how shot selection has evolved, revealing how players, strategies, and league-wide trends have reshaped where shots are taken and how the game is played.
+        </p>
+      </article>
+
+      <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90 p-3 sm:p-4">
+        <ShotTimeline3D
+          heatmap={data.heatmap}
+          seasons={data.seasons}
+          selectedSeason="all"
+          shotOutcome="all"
+          profileMode="league"
+          playerTargetDistance={null}
+          speed={1}
+          playing={true}
+          showControls={false}
+        />
+      </article>
+    </div>
+  </section>
+
   <main class="mx-auto max-w-7xl px-6 pb-16">
     {#if !data.pipelineReady}
       <PipelineNotice />
@@ -323,54 +430,104 @@
       </section>
 
       <section class="order-1 mt-10">
-        <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90">
-          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] lg:px-8">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season Trend</p>
-              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Average shot distance over time.</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-300">
-                This view summarizes every season with one number: the average distance, in feet, of all recorded shots.
-                As teams leaned harder into spacing and 3-point volume, that average moved farther from the basket.
-              </p>
-              <div class="mt-5 inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                {#each [
-                  { value: 'all', label: 'All Shots' },
-                  { value: 'made', label: 'Made' },
-                  { value: 'missed', label: 'Missed' }
-                ] as option}
-                  <button
-                    type="button"
-                    class:selected={seasonDistanceOutcome === option.value}
-                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                    on:click={() => (seasonDistanceOutcome = option.value as ShotOutcome)}
-                  >
-                    {option.label}
-                  </button>
-                {/each}
-              </div>
+        <Scroll
+          bind:progress={seasonScrollProgress}
+          threshold={0.72}
+          margin={8}
+          storyWidth="minmax(0, 0.75fr)"
+          vizWidth="minmax(0, 1.55fr)"
+          gap="2rem"
+        >
+          {#snippet children()}
+            <div class="space-y-6">
+              {#each seasonStorySteps as step}
+                <article
+                  class={`panel min-h-[38vh] border bg-slate-900/85 p-5 sm:p-6 ${step.highlight ? 'border-amber-300/30' : 'border-white/10'}`}
+                >
+                  <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season {step.season}</p>
+                  <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">
+                    {step.value.toFixed(2)} ft average distance
+                  </h2>
+                  <p class="mt-3 text-sm leading-7 text-slate-300">
+                    {#if step.delta === null}
+                      Starting point for this timeline in the current {seasonDistanceLabel.toLowerCase()} lens.
+                    {:else if step.delta >= 0}
+                      Up {step.delta.toFixed(2)} ft from the previous season as teams continue stretching the floor.
+                    {:else}
+                      Down {Math.abs(step.delta).toFixed(2)} ft from the previous season, a temporary pause in the long-range trend.
+                    {/if}
+                  </p>
+                  <p class="mt-2 text-sm text-slate-400">Attempts: {step.attempts.toLocaleString()}</p>
+
+                  {#if step.highlight}
+                    <div class="mt-4 rounded-2xl border border-amber-300/25 bg-amber-400/10 px-4 py-3">
+                      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-200">League Highlight</p>
+                      <p class="mt-1 text-base font-semibold text-amber-100">{step.highlight.title}</p>
+                      <p class="mt-1 text-sm leading-6 text-amber-50/90">{step.highlight.detail}</p>
+                    </div>
+                  {/if}
+                </article>
+              {/each}
             </div>
+          {/snippet}
 
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lens</p>
-                <p class="mt-2 text-2xl font-bold text-white">{seasonDistanceLabel}</p>
-                <p class="mt-1 text-sm text-slate-400">Comparing the same seasons through a different shot outcome filter</p>
+          {#snippet viz()}
+            <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90 lg:max-h-[88vh] lg:overflow-auto">
+              <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] lg:px-8">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season Trend</p>
+                  <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Average shot distance over time.</h2>
+                  <p class="mt-4 text-sm leading-7 text-slate-300">
+                    Scroll to move season-by-season through the timeline. The line reveals as you scroll, and the highlight
+                    card follows key moments like LeBron&apos;s debut, Curry&apos;s arrival, and major rule emphasis changes.
+                  </p>
+                  <div class="mt-5 inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                    {#each [
+                      { value: 'all', label: 'All Shots' },
+                      { value: 'made', label: 'Made' },
+                      { value: 'missed', label: 'Missed' }
+                    ] as option}
+                      <button
+                        type="button"
+                        class:selected={seasonDistanceOutcome === option.value}
+                        class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                        on:click={() => (seasonDistanceOutcome = option.value as ShotOutcome)}
+                      >
+                        {option.label}
+                      </button>
+                    {/each}
+                  </div>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lens</p>
+                    <p class="mt-2 text-2xl font-bold text-white">{seasonDistanceLabel}</p>
+                    <p class="mt-1 text-sm text-slate-400">Current season: {activeSeason ?? 'N/A'}</p>
+                    <p class="mt-1 text-sm text-slate-400">
+                      {activeSeasonValue !== null ? `${activeSeasonValue.toFixed(2)} ft` : 'No season trend data available'}
+                    </p>
+                  </div>
+
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Highlight</p>
+                    <p class="mt-2 text-2xl font-bold text-white">{currentHighlight?.season ?? 'N/A'}</p>
+                    <p class="mt-1 text-sm font-semibold text-amber-200">{currentHighlight?.title ?? 'No highlight mapped yet'}</p>
+                    <p class="mt-1 text-sm text-slate-400">{currentHighlight?.detail ?? 'Add a highlight event for this era.'}</p>
+                  </div>
+                </div>
               </div>
 
-              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Peak Season</p>
-                <p class="mt-2 text-2xl font-bold text-white">{seasonDistancePeak?.season ?? 'N/A'}</p>
-                <p class="mt-1 text-sm text-slate-400">
-                  {seasonDistancePeak ? `${seasonDistanceStatLabel}: ${seasonDistancePeak.value.toFixed(2)} ft` : 'No season trend data available'}
-                </p>
+              <div class="px-6 py-6 lg:px-8">
+                <SeasonDistanceChart
+                  data={seasonTrendRows}
+                  shotOutcome={seasonDistanceOutcome}
+                  revealProgress={seasonScrollProgress}
+                />
               </div>
-            </div>
-          </div>
-
-          <div class="px-6 py-6 lg:px-8">
-            <SeasonDistanceChart data={data.seasonDistance?.all ?? []} shotOutcome={seasonDistanceOutcome} />
-          </div>
-        </article>
+            </article>
+          {/snippet}
+        </Scroll>
       </section>
 
       <section class="order-2 mt-10">
@@ -568,126 +725,6 @@
           </div>
         </div>
       </section>
-
-      <section class="order-6 mt-10">
-        <article class="panel overflow-hidden border border-indigo-300/20 bg-slate-900/90">
-          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] lg:px-8">
-            <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-300/80">3D Shot Timeline</p>
-              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Animate shot paths through the season.</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-300">
-                Watch shots arc toward the rim from a 3D half-court view. Select one season to focus, or leave it on all
-                seasons to auto-play through the timeline. Enable player profile mode to approximate that player&apos;s shot
-                distance tendencies using the available season-level distance data.
-              </p>
-            </div>
-
-            <div class="grid gap-4 sm:grid-cols-2">
-              <label class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4 text-sm text-slate-300">
-                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Season</span>
-                <select
-                  class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-indigo-400/60"
-                  value={shot3dSeason}
-                  on:change={handleShot3dSeasonChange}
-                >
-                  <option value="all">All seasons (timeline)</option>
-                  {#each shot3dPlayerSeasonOptions as season}
-                    <option value={season}>{season}</option>
-                  {/each}
-                </select>
-              </label>
-
-              <label class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4 text-sm text-slate-300">
-                <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Player profile</span>
-                <select
-                  class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-indigo-400/60"
-                  value={shot3dPlayer}
-                  on:change={handleShot3dPlayerChange}
-                >
-                  {#each shot3dPlayerCandidates as player}
-                    <option value={player.player}>{player.player}</option>
-                  {/each}
-                </select>
-              </label>
-            </div>
-          </div>
-
-          <div class="border-b border-white/10 px-6 py-4 lg:px-8">
-            <div class="flex flex-wrap items-center gap-3 text-sm">
-              <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                {#each [
-                  { value: 'all', label: 'All Shots' },
-                  { value: 'made', label: 'Made' },
-                  { value: 'missed', label: 'Missed' }
-                ] as option}
-                  <button
-                    type="button"
-                    class:selected={shot3dOutcome === option.value}
-                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                    on:click={() => (shot3dOutcome = option.value as ShotOutcome)}
-                  >
-                    {option.label}
-                  </button>
-                {/each}
-              </div>
-
-              <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                {#each [
-                  { value: 'league', label: 'League Mix' },
-                  { value: 'player', label: 'Player Weighted' }
-                ] as option}
-                  <button
-                    type="button"
-                    class:selected={shot3dProfileMode === option.value}
-                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                    on:click={() => (shot3dProfileMode = option.value as 'league' | 'player')}
-                    disabled={option.value === 'player' && !selectedPlayerDistanceTarget}
-                  >
-                    {option.label}
-                  </button>
-                {/each}
-              </div>
-
-              <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                <button
-                  type="button"
-                  class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                  on:click={() => (shot3dPlaying = !shot3dPlaying)}
-                >
-                  {shot3dPlaying ? 'Pause' : 'Play'}
-                </button>
-              </div>
-
-              <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                {#each [0.75, 1, 1.5] as playbackRate}
-                  <button
-                    type="button"
-                    class:selected={shot3dSpeed === playbackRate}
-                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                    on:click={() => (shot3dSpeed = playbackRate)}
-                  >
-                    {playbackRate}x
-                  </button>
-                {/each}
-              </div>
-            </div>
-          </div>
-
-          <div class="px-6 py-6 lg:px-8">
-            <ShotTimeline3D
-              heatmap={data.heatmap}
-              seasons={data.seasons}
-              selectedSeason={shot3dSeason}
-              shotOutcome={shot3dOutcome}
-              profileMode={shot3dProfileMode}
-              playerTargetDistance={selectedPlayerDistanceTarget}
-              speed={shot3dSpeed}
-              playing={shot3dPlaying}
-            />
-          </div>
-        </article>
-      </section>
-
       </div>
 
       <footer class="pb-4 text-sm text-slate-400">

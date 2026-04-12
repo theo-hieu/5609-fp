@@ -11,6 +11,9 @@
     debounce?: number | boolean;
     throttle?: number | boolean;
     layout?: 'story-first' | 'viz-first' | 'overlap';
+    storyWidth?: string;
+    vizWidth?: string;
+    gap?: string;
     children?: Snippet;
     viz?: Snippet;
   };
@@ -23,6 +26,9 @@
     debounce = false,
     throttle = false,
     layout = 'story-first',
+    storyWidth = '1fr',
+    vizWidth = '1fr',
+    gap = '4rem',
     children,
     viz
   }: Props = $props();
@@ -134,7 +140,11 @@
   });
 </script>
 
-<section class="scrolly" bind:this={container} style="--scrolly-margin: {margin}; --scrolly-layout: {layout}">
+<section
+  class="scrolly"
+  bind:this={container}
+  style="--scrolly-margin: {margin}; --scrolly-layout: {layout}; --scrolly-story-width: {storyWidth}; --scrolly-viz-width: {vizWidth}; --scrolly-gap: {gap}"
+>
   <section class="story">
     {@render children?.()}
   </section>

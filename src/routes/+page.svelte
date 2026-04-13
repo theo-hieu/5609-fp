@@ -1,8 +1,6 @@
 <script lang="ts">
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
   import PipelineNotice from '$lib/components/home/PipelineNotice.svelte';
-  import StoryGuide from '$lib/components/home/StoryGuide.svelte';
-  import StorySidebar from '$lib/components/home/StorySidebar.svelte';
   import CourtHeatmap from '$lib/components/CourtHeatmap.svelte';
   import DistanceChart from '$lib/components/DistanceChart.svelte';
   import FilterBar from '$lib/components/FilterBar.svelte';
@@ -106,9 +104,12 @@
   let activeScene: SceneId = 1;
   let seasonDistanceOutcome: ShotOutcome = 'all';
   let seasonScrollProgress = 0;
+  let heatmapTransitionScrollProgress = 0;
   let shotTypeScrollProgress = 0;
   let zoneScrollProgress = 0;
   let playerScrollProgress = 0;
+  let distanceHighlightActive = false;
+  let heatmapSeason = 'all';
   let playerDistanceOutcome: ShotOutcome = 'all';
   let selectedPlayer = 'LeBron James';
   let shot3dSeason = 'all';
@@ -122,8 +123,9 @@
     activeScene === 3 ? 'made' : activeScene === 2 ? 'all' : filter.shotOutcome;
   $: displayedFilter = { ...filter, shotOutcome: effectiveShotOutcome };
   $: activeSceneCopy = scenes.find((scene) => scene.id === activeScene) ?? scenes[0];
-  $: selectedHeatmap = selectCollection<HeatmapCell>(data.heatmap, filter.season);
+  $: selectedHeatmap = selectCollection<HeatmapCell>(data.heatmap, heatmapSeason);
   $: selectedDistance = selectCollection<DistanceBucket>(data.distance, filter.season);
+  $: heatmapSeasonLabel = heatmapSeason === 'all' ? 'All Seasons' : heatmapSeason;
   $: seasonDistanceLabel =
     seasonDistanceOutcome === 'made'
       ? 'Made shots'
@@ -155,6 +157,7 @@
 
     return matchingHighlight ?? seasonHighlightsWithIndex[0];
   })();
+  $: heatmapFadeProgress = Math.max(0, Math.min((heatmapTransitionScrollProgress - 50) / 24, 1));
   $: seasonStorySteps = seasonTrendRows.map((row, index) => {
     const previous = seasonTrendRows[index - 1] ?? null;
     const value = seasonDistanceValue(row);
@@ -248,25 +251,6 @@
       : effectiveShotOutcome === 'made'
         ? 'Made shots'
         : 'Missed shots';
-  $: featuredCardClass = [
-    'panel flex flex-col overflow-hidden border transition-all duration-500',
-    activeScene === 1
-      ? 'border-amber-300/40 bg-slate-900/95 shadow-2xl shadow-amber-950/20'
-      : 'border-teal-300/30 bg-slate-900/95 shadow-2xl shadow-teal-950/20'
-  ].join(' ');
-  $: featuredPanelTitle = activeScene === 1 ? 'Distance Profile' : 'Court Heatmap';
-  $: featuredPanelHeading =
-    activeScene === 1
-      ? 'Volume and efficiency by distance'
-      : 'Where shot volume and efficiency live on the floor';
-  $: featuredPanelDescription =
-    activeScene === 1
-      ? 'Scene 1 gives this chart the spotlight so the tradeoff between accuracy and shot value is easier to see.'
-      : 'Scenes 2 and 3 shift attention here to compare raw attempt density against made-shot hotspots.';
-  $: visibleVisualizationClass = 'col-start-1 row-start-1 h-full min-h-0 opacity-100 transition-opacity duration-300';
-  $: hiddenVisualizationClass =
-    'col-start-1 row-start-1 h-full min-h-0 opacity-0 pointer-events-none transition-opacity duration-300';
-
   function selectCollection<T>(collection: { all: T[]; bySeason: Record<string, T[]> } | null, season: string): T[] {
     if (!collection) return [];
     if (season === 'all') return collection.all;
@@ -369,6 +353,7 @@
       }
     };
   }
+
 </script>
 
 <svelte:head>
@@ -387,17 +372,174 @@
       <PipelineNotice />
     {:else}
       <div class="flex flex-col">
-      <section class="order-4 grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start">
-        <StoryGuide {scenes} {activeScene} {observeScene} />
-        <StorySidebar
-          seasons={data.seasons}
-          {filter}
-          {activeScene}
-          {activeSceneCopy}
-          heatmap={data.heatmap}
-          distance={data.distance}
-          onFilterChange={handleFilterChange}
-        />
+      <section class="order-4 mt-10" use:observeScene={1}>
+        <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90">
+          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.35fr)] lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Scene 1</p>
+              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Volume and efficiency by distance.</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                This chart makes the original tradeoff visible. Shots near the rim are converted at the highest rates,
+                but volume does not stay there. As distance increases, accuracy drops, yet teams still keep a large diet
+                of longer attempts because the value structure of the court changes at the three-point line.
+              </p>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Lens</p>
+                <p class="mt-2 text-2xl font-bold text-white">{shotOutcomeLabel}</p>
+                <p class="mt-1 text-sm text-slate-400">{headlineSeason}</p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">How To Read It</p>
+                <p class="mt-2 text-sm leading-6 text-slate-300">
+                  The x-axis shows shot distance. The left y-axis and bars show field goal percentage at each distance,
+                  while the right y-axis and line show how many shot attempts were taken from those distances. Together,
+                  the chart lets you compare shot volume and shooting efficiency across the floor.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b border-white/10 px-6 py-5 lg:px-8">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div class="min-w-0 flex-1">
+                <FilterBar seasons={data.seasons} filter={displayedFilter} on:change={(event) => handleFilterChange(event.detail)} />
+              </div>
+
+              <button
+                type="button"
+                class:active-highlight={distanceHighlightActive}
+                class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-amber-300/40 hover:text-white"
+                on:click={() => (distanceHighlightActive = !distanceHighlightActive)}
+              >
+                {distanceHighlightActive ? 'Hide 3PT Highlight' : 'Highlight 3PT Range'}
+              </button>
+            </div>
+            <p class="mt-4 text-xs leading-6 text-slate-400">
+              This shared filter drives the distance profile and the later court views. The distance chart honors the selected
+              shot lens, while the heatmap transition keeps its own fixed all-shot and made-shot views.
+            </p>
+          </div>
+
+          <div class="min-h-[26rem] px-6 py-6 lg:min-h-[34rem] lg:px-8">
+            <DistanceChart
+              data={selectedDistance}
+              shotOutcome={filter.shotOutcome}
+              longDistanceBucket={data.distance?.metadata.longDistanceBucket ?? 40}
+              highlightThreePointRange={distanceHighlightActive}
+            />
+          </div>
+        </article>
+      </section>
+
+      <section class="order-6 mt-10" use:observeScene={2}>
+        <Scroll bind:progress={heatmapTransitionScrollProgress} threshold={0.48} margin={8}>
+          {#snippet children()}
+            <div>
+              <article class="panel min-h-[140vh] border border-teal-300/20 bg-slate-900/90 p-6 sm:p-8">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">Scene 2</p>
+                <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">From shot volume to made-shot hotspots.</h2>
+                <p class="mt-4 text-sm leading-7 text-slate-300">
+                  This court view works best as a transition instead of two separate graphs. It starts with raw shot volume,
+                  showing where teams choose to shoot most often, then fades into made-shot density so you can compare
+                  where attempts cluster against where successful shots accumulate.
+                </p>
+
+                <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Transition Start</p>
+                    <p class="mt-2 text-2xl font-bold text-white">All shots</p>
+                    <p class="mt-1 text-sm text-slate-400">{heatmapSeasonLabel}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-300">
+                      First read the total shot map: the rim and the three-point arc dominate overall volume.
+                    </p>
+                  </div>
+
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Transition End</p>
+                    <p class="mt-2 text-2xl font-bold text-white">Made shots</p>
+                    <p class="mt-1 text-sm text-slate-400">{heatmapSeasonLabel}</p>
+                    <p class="mt-2 text-sm leading-6 text-slate-300">
+                      Then watch the court shift toward made-shot hotspots, where the paint still dominates but efficient perimeter zones become clearer.
+                    </p>
+                  </div>
+                </div>
+
+                <p class="mt-8 text-sm leading-7 text-slate-300">
+                  The fade helps compare two different questions on the same floor: where offenses hunt attempts, and
+                  where those attempts most often turn into makes. From both heatmaps you can see that majority of shots are 
+                  coming from the 3 point line or at the rim, with most attempts and makes right at the rim. We can see that the above the break three
+                  is shot more than corner threes. It also shows that the in-between midrange area is not favored by offenses.
+                </p>
+              </article>
+            </div>
+          {/snippet}
+
+          {#snippet viz()}
+            <article class="panel overflow-hidden border border-emerald-300/20 bg-slate-900/90">
+              <div class="border-b border-white/10 px-6 py-5 lg:px-8">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/80">Scenes 2-3</p>
+                    <h3 class="mt-2 text-2xl font-bold text-white">Court heatmap transition</h3>
+                    <p class="mt-2 text-sm leading-6 text-slate-400">
+                      {#if heatmapFadeProgress < 0.5}
+                        Volume heatmap
+                      {:else}
+                        Made-shot density heatmap
+                      {/if}
+                    </p>
+                  </div>
+
+                  <label class="flex items-center gap-3 text-sm text-slate-300">
+                    <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Season</span>
+                    <select
+                      class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-emerald-400/60"
+                      bind:value={heatmapSeason}
+                    >
+                      <option value="all">All seasons</option>
+                      {#each data.seasons as season}
+                        <option value={season}>{season}</option>
+                      {/each}
+                    </select>
+                  </label>
+                </div>
+              </div>
+              <div class="min-h-[26rem] px-6 py-6 lg:min-h-[34rem] lg:px-8">
+                <div class="grid h-full min-h-[22rem] w-full">
+                  <div
+                    class="col-start-1 row-start-1 h-full transition-opacity duration-500"
+                    style={`opacity: ${1 - heatmapFadeProgress}; pointer-events: ${heatmapFadeProgress < 0.98 ? 'auto' : 'none'}; z-index: ${heatmapFadeProgress < 0.98 ? 20 : 10};`}
+                  >
+                    <CourtHeatmap
+                      cells={selectedHeatmap}
+                      shotOutcome="all"
+                      cellSize={data.heatmap?.metadata.cellSize ?? 2}
+                      halfCourtLength={data.heatmap?.metadata.halfCourtLength ?? 47}
+                      halfCourtWidth={data.heatmap?.metadata.halfCourtWidth ?? 25}
+                    />
+                  </div>
+
+                  <div
+                    class="col-start-1 row-start-1 h-full transition-opacity duration-500"
+                    style={`opacity: ${heatmapFadeProgress}; pointer-events: ${heatmapFadeProgress >= 0.98 ? 'auto' : 'none'}; z-index: ${heatmapFadeProgress >= 0.98 ? 20 : 10};`}
+                  >
+                    <CourtHeatmap
+                      cells={selectedHeatmap}
+                      shotOutcome="made"
+                      cellSize={data.heatmap?.metadata.cellSize ?? 2}
+                      halfCourtLength={data.heatmap?.metadata.halfCourtLength ?? 47}
+                      halfCourtWidth={data.heatmap?.metadata.halfCourtWidth ?? 25}
+                    />
+                  </div>
+                </div>
+              </div>
+            </article>
+          {/snippet}
+        </Scroll>
       </section>
 
       <section class="order-1 mt-10">
@@ -536,6 +678,7 @@
                   Together these two lines show that the increase in average distance is not just longer two-pointers.
                   The shot mix itself changes, with threes increasing their share of attempts as the years go on. 
                   This confirms that the distance trend is really about offenses hunting the extra point value that comes with three-pointers, not just taking more long shots in general.
+                </p>
               </article>
             </div>
           {/snippet}
@@ -614,7 +757,7 @@
         </Scroll>
       </section>
 
-      <section class="order-5 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-6 sm:px-8 lg:px-10 xl:px-12">
+      <section class="order-7 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-6 sm:px-8 lg:px-10 xl:px-12">
         <div use:trackPlayerScroll class="mx-auto w-full max-w-[110rem]">
           <div class="lg:sticky lg:top-6">
             <article class="panel w-full overflow-hidden border border-teal-300/20 bg-slate-900/90">
@@ -625,6 +768,7 @@
                   <p class="mt-3 text-sm leading-6 text-slate-400">
                      Select one of the featured players and scroll to see how their average shot distance changes throughout their career. You can select Lebron for his longevity,
                      Curry and Harden for their 3pt shooting evolution, and Durant for his elite 3 level scoring ability.
+                  </p>
                 </div>
 
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
@@ -706,16 +850,14 @@
         </div>
       </section>
 
-      <section class="order-6 mt-10">
+      <section class="order-8 mt-10">
         <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90">
           <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">3D Shot Timeline</p>
               <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">See the evolution play out across the floor.</h2>
               <p class="mt-4 text-sm leading-7 text-slate-300">
-                This final view is less about proving the claim and more about letting the user feel it spatially. The
-                animation pulls all of the earlier trends back onto the court, so you can watch how shot selection shifts
-                over time from a full-floor perspective.
+                Watch the spatial shift unfold in this animated 3D shot map. Each shot animates in its original court location, so you can see how the distribution of attempts and makes changes over time in different zones of the floor.
               </p>
             </div>
 
@@ -729,10 +871,10 @@
               </div>
 
               <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Mode</p>
-                <p class="mt-3 text-2xl font-bold text-white">League Mix</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">How to read</p>
                 <p class="mt-2 text-sm leading-6 text-slate-400">
-                  Player and season filters can come back later. For now this view stays focused on the overall shot map.
+                  Shots are shown as circles at their original court location, with made shots being represented by blue cirlces
+                  and missed shots being represented by orange circles.
                 </p>
               </div>
             </div>
@@ -765,7 +907,6 @@
         >
           mexwell/nba-shots
         </a>
-        into lightweight JSON files stored at <code>src/lib/data</code>.
       </footer>
     {/if}
   </main>

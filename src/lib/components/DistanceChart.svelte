@@ -21,6 +21,7 @@
   export let data: DistanceBucket[] = [];
   export let shotOutcome: ShotOutcome = 'all';
   export let longDistanceBucket = 40;
+  export let highlightThreePointRange = false;
 
   ChartJS.register(
     CategoryScale,
@@ -51,12 +52,29 @@
     return `${bucket}-${bucket + 1} ft`;
   }
 
+  function baseRateColor(value: number) {
+    if (shotOutcome === 'missed') {
+      if (value >= 60) return '249, 115, 22';
+      if (value >= 45) return '251, 191, 36';
+      return '34, 197, 94';
+    }
+
+    if (value >= 55) return '20, 184, 166';
+    if (value >= 40) return '251, 191, 36';
+    return '249, 115, 22';
+  }
+
+  function inThreePointRange(bucket: number) {
+    return bucket >= 22;
+  }
+
   $: labels = data.map((row) => labelBucket(row.distanceBucket));
   $: ratePoints = data.map((row) => +(makeRate(row) * 100).toFixed(1));
   $: volumePoints = data.map((row) => makeVolume(row));
   $: rateLabel = shotOutcome === 'missed' ? 'Miss Rate' : 'Field Goal Rate';
   $: volumeLabel =
     shotOutcome === 'all' ? 'Shot Attempts' : shotOutcome === 'made' ? 'Made Shots' : 'Missed Shots';
+  $: highlightedBuckets = data.map((row) => inThreePointRange(row.distanceBucket));
   $: chartData = {
     labels,
     datasets: [
@@ -64,19 +82,15 @@
         type: 'bar',
         label: rateLabel,
         data: ratePoints,
-        backgroundColor: ratePoints.map((value) =>
-          shotOutcome === 'missed'
-            ? value >= 60
-              ? 'rgba(249, 115, 22, 0.82)'
-              : value >= 45
-                ? 'rgba(251, 191, 36, 0.78)'
-                : 'rgba(34, 197, 94, 0.72)'
-            : value >= 55
-              ? 'rgba(20, 184, 166, 0.82)'
-              : value >= 40
-                ? 'rgba(251, 191, 36, 0.78)'
-                : 'rgba(249, 115, 22, 0.78)'
-        ),
+        backgroundColor: ratePoints.map((value, index) => {
+          const alpha = highlightThreePointRange ? (highlightedBuckets[index] ? 0.92 : 0.22) : 0.82;
+          return `rgba(${baseRateColor(value)}, ${alpha})`;
+        }),
+        borderColor: ratePoints.map((value, index) => {
+          const alpha = highlightThreePointRange ? (highlightedBuckets[index] ? 0.95 : 0.12) : 0;
+          return `rgba(${baseRateColor(value)}, ${alpha})`;
+        }),
+        borderWidth: highlightThreePointRange ? 1.2 : 0,
         borderRadius: 8,
         yAxisID: 'rate'
       },
@@ -84,12 +98,31 @@
         type: 'line',
         label: volumeLabel,
         data: volumePoints,
-        borderColor: '#f8fafc',
-        backgroundColor: 'rgba(248, 250, 252, 0.14)',
+        borderColor: highlightThreePointRange ? 'rgba(248, 250, 252, 0.28)' : '#f8fafc',
+        backgroundColor: highlightThreePointRange ? 'rgba(248, 250, 252, 0.08)' : 'rgba(248, 250, 252, 0.14)',
         tension: 0.28,
-        pointRadius: 3,
+        pointRadius: volumePoints.map((_, index) => (highlightThreePointRange && highlightedBuckets[index] ? 4 : 3)),
+        pointBackgroundColor: volumePoints.map((_, index) =>
+          highlightThreePointRange && !highlightedBuckets[index] ? 'rgba(248, 250, 252, 0.22)' : '#f8fafc'
+        ),
+        pointBorderColor: volumePoints.map((_, index) =>
+          highlightThreePointRange && highlightedBuckets[index] ? '#fbbf24' : '#f8fafc'
+        ),
         pointHoverRadius: 4,
+        pointHitRadius: 6,
         borderWidth: 2.1,
+        segment: {
+          borderColor: (ctx) => {
+            if (!highlightThreePointRange) return '#f8fafc';
+            const nextBucket = data[ctx.p1DataIndex]?.distanceBucket ?? data[ctx.p0DataIndex]?.distanceBucket ?? 0;
+            return inThreePointRange(nextBucket) ? '#f8fafc' : 'rgba(248, 250, 252, 0.22)';
+          },
+          borderWidth: (ctx) => {
+            if (!highlightThreePointRange) return 2.1;
+            const nextBucket = data[ctx.p1DataIndex]?.distanceBucket ?? data[ctx.p0DataIndex]?.distanceBucket ?? 0;
+            return inThreePointRange(nextBucket) ? 3 : 1.5;
+          }
+        },
         yAxisID: 'volume'
       }
     ]
@@ -98,7 +131,7 @@
   $: options = {
     responsive: true,
     maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
+    interaction: { mode: 'nearest', intersect: true },
     plugins: {
       legend: {
         labels: {

@@ -31,7 +31,7 @@
         ? row.avgMissedShotDistance
         : row.avgShotDistance
   );
-  $: revealStartOffset = 17;
+  $: revealStartOffset = 16;
   $: adjustedRevealProgress = Math.max(0, revealProgress - revealStartOffset);
   $: revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
   $: revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;

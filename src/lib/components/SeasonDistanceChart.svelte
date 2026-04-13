@@ -19,6 +19,7 @@
   export let data: SeasonDistanceTrend[] = [];
   export let shotOutcome: ShotOutcome = 'all';
   export let revealProgress = 100;
+  export let highlightedSeason: string | null = null;
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -30,12 +31,13 @@
         ? row.avgMissedShotDistance
         : row.avgShotDistance
   );
-  $: revealStartOffset = 25;
+  $: revealStartOffset = 17;
   $: adjustedRevealProgress = Math.max(0, revealProgress - revealStartOffset);
   $: revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
   $: revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;
   $: revealIndex = Math.floor(revealIndexFloat);
   $: revealRemainder = revealIndexFloat - revealIndex;
+  $: highlightedSeasonIndex = highlightedSeason ? labels.findIndex((season) => season === highlightedSeason) : -1;
   $: fullSeriesMin = points.length ? Math.min(...points) : 0;
   $: fullSeriesMax = points.length ? Math.max(...points) : 0;
   $: yPadding = Math.max(0.35, (fullSeriesMax - fullSeriesMin) * 0.18);
@@ -64,6 +66,8 @@
         : 'rgba(251, 191, 36, 0.16)';
   $: pointBackgroundColor = shotOutcome === 'made' ? '#99f6e4' : shotOutcome === 'missed' ? '#fdba74' : '#fde68a';
   $: pointBorderColor = shotOutcome === 'made' ? '#0f766e' : shotOutcome === 'missed' ? '#c2410c' : '#f59e0b';
+  $: highlightedPointBackgroundColor = '#ffffff';
+  $: highlightedPointBorderColor = '#fbbf24';
   $: chartData = {
     labels,
     datasets: [
@@ -74,11 +78,24 @@
         backgroundColor: fillColor,
         fill: true,
         tension: 0.28,
-        pointRadius: revealedPoints.map((value, index) => (value === null || index > revealIndex + 1 ? 0 : 3)),
+        pointRadius: revealedPoints.map((value, index) => {
+          if (value === null || index > revealIndex + 1) return 0;
+          if (index === highlightedSeasonIndex) return 5;
+          return 3;
+        }),
         pointHoverRadius: 5,
-        pointBackgroundColor,
-        pointBorderColor,
-        pointBorderWidth: 1.5,
+        pointBackgroundColor: revealedPoints.map((value, index) => {
+          if (value === null || index > revealIndex + 1) return 'transparent';
+          return index === highlightedSeasonIndex ? highlightedPointBackgroundColor : pointBackgroundColor;
+        }),
+        pointBorderColor: revealedPoints.map((value, index) => {
+          if (value === null || index > revealIndex + 1) return 'transparent';
+          return index === highlightedSeasonIndex ? highlightedPointBorderColor : pointBorderColor;
+        }),
+        pointBorderWidth: revealedPoints.map((value, index) => {
+          if (value === null || index > revealIndex + 1) return 0;
+          return index === highlightedSeasonIndex ? 2.4 : 1.5;
+        }),
         borderWidth: 2.4
       }
     ]
@@ -142,7 +159,7 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[22rem]">
+<div class="h-[30rem] lg:h-[34rem]">
   {#if data.length}
     <Line data={chartData} {options} />
   {:else}

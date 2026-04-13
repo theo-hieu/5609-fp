@@ -15,6 +15,7 @@
   export let playerTargetDistance: number | null = null;
   export let speed = 1;
   export let playing = true;
+  export let showControls = true;
 
   const hoopDataY = 4;
   const hoopWorldY = 10;
@@ -839,15 +840,17 @@
     </div>
   </div>
 
-  <div class="absolute right-3 top-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">
-    <button
-      type="button"
-      class="rounded-md border border-white/10 px-2 py-1 font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
-      on:click={resetView}
-    >
-      Reset View
-    </button>
-  </div>
+  {#if showControls}
+    <div class="absolute right-3 top-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">
+      <button
+        type="button"
+        class="rounded-md border border-white/10 px-2 py-1 font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+        on:click={resetView}
+      >
+        Reset View
+      </button>
+    </div>
+  {/if}
 
   <div class="pointer-events-none absolute bottom-3 left-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">
     Drag to rotate · Scroll to zoom

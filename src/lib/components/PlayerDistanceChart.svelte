@@ -51,7 +51,7 @@
   }
 
   function revealSeries(points: number[], progress: number) {
-    const revealStartOffset = 10;
+    const revealStartOffset = 25;
     const adjustedRevealProgress = Math.max(0, progress - revealStartOffset);
     const revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
     const revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;

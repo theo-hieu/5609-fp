@@ -17,6 +17,9 @@
         combining interactive visuals with scrollytelling to explain the shift from mid-range volume to rim pressure and
         three-point spacing.
       </p>
+      <p class="mt-2 max-w-4xl text-xs italic leading-5 text-slate-400">
+        Note: Data from the 2020-21 season may show irregular patterns due to the COVID-19 pandemic and schedule disruption.
+      </p>
     </div>
   </div>
 </header>

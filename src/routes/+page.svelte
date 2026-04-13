@@ -2,6 +2,7 @@
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
   import PipelineNotice from '$lib/components/home/PipelineNotice.svelte';
   import CourtHeatmap from '$lib/components/CourtHeatmap.svelte';
+  import CourtHeatmap3D from '$lib/components/CourtHeatmap3D.svelte';
   import DistanceChart from '$lib/components/DistanceChart.svelte';
   import FilterBar from '$lib/components/FilterBar.svelte';
   import PlayerDistanceChart from '$lib/components/PlayerDistanceChart.svelte';
@@ -105,6 +106,7 @@
   let seasonDistanceOutcome: ShotOutcome = 'all';
   let seasonScrollProgress = 0;
   let heatmapTransitionScrollProgress = 0;
+  let heatmap3dOutcome: ShotOutcome = 'all';
   let shotTypeScrollProgress = 0;
   let zoneScrollProgress = 0;
   let playerScrollProgress = 0;
@@ -120,12 +122,23 @@
   let shot3dSpeed = 1;
 
   $: effectiveShotOutcome =
-    activeScene === 3 ? 'made' : activeScene === 2 ? 'all' : filter.shotOutcome;
+    activeScene === 3 ? heatmap3dOutcome : activeScene === 2 ? 'all' : filter.shotOutcome;
   $: displayedFilter = { ...filter, shotOutcome: effectiveShotOutcome };
   $: activeSceneCopy = scenes.find((scene) => scene.id === activeScene) ?? scenes[0];
   $: selectedHeatmap = selectCollection<HeatmapCell>(data.heatmap, heatmapSeason);
   $: selectedDistance = selectCollection<DistanceBucket>(data.distance, filter.season);
   $: heatmapSeasonLabel = heatmapSeason === 'all' ? 'All Seasons' : heatmapSeason;
+  $: heatmap3dLabel =
+    heatmap3dOutcome === 'made'
+      ? 'Made shots'
+      : heatmap3dOutcome === 'missed'
+        ? 'Missed shots'
+        : 'All shots';
+  $: heatmap3dPeakValue = selectedHeatmap.reduce(
+    (best, cell) => Math.max(best, heatmapMetricValue(cell, heatmap3dOutcome)),
+    0
+  );
+  $: heatmap3dActiveBins = selectedHeatmap.filter((cell) => heatmapMetricValue(cell, heatmap3dOutcome) > 0).length;
   $: seasonDistanceLabel =
     seasonDistanceOutcome === 'made'
       ? 'Made shots'
@@ -265,6 +278,12 @@
     if (seasonDistanceOutcome === 'made') return row.avgMadeShotDistance;
     if (seasonDistanceOutcome === 'missed') return row.avgMissedShotDistance;
     return row.avgShotDistance;
+  }
+
+  function heatmapMetricValue(cell: HeatmapCell, outcome: ShotOutcome) {
+    if (outcome === 'made') return cell.made;
+    if (outcome === 'missed') return cell.missed;
+    return cell.attempts;
   }
 
   function seasonsForPlayer(playerName: string): string[] {
@@ -441,11 +460,10 @@
             <div>
               <article class="panel min-h-[140vh] border border-teal-300/20 bg-slate-900/90 p-6 sm:p-8">
                 <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">Scene 2</p>
-                <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">From shot volume to made-shot hotspots.</h2>
+                <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Shot volume and made-shot hotspots</h2>
                 <p class="mt-4 text-sm leading-7 text-slate-300">
-                  This court view works best as a transition instead of two separate graphs. It starts with raw shot volume,
-                  showing where teams choose to shoot most often, then fades into made-shot density so you can compare
-                  where attempts cluster against where successful shots accumulate.
+                  As you scroll, the court should first look crowded at the rim and around the three-point line. Then, as
+                  the view shifts to made shots, those same areas stay bright while the midrange remains relatively quiet.
                 </p>
 
                 <div class="mt-8 grid gap-4 sm:grid-cols-2">
@@ -454,7 +472,8 @@
                     <p class="mt-2 text-2xl font-bold text-white">All shots</p>
                     <p class="mt-1 text-sm text-slate-400">{heatmapSeasonLabel}</p>
                     <p class="mt-2 text-sm leading-6 text-slate-300">
-                      First read the total shot map: the rim and the three-point arc dominate overall volume.
+                      At the start, notice where attempts pile up. The rim is the strongest hotspot, and the three-point
+                      arc forms a clear band of volume around it.
                     </p>
                   </div>
 
@@ -463,16 +482,17 @@
                     <p class="mt-2 text-2xl font-bold text-white">Made shots</p>
                     <p class="mt-1 text-sm text-slate-400">{heatmapSeasonLabel}</p>
                     <p class="mt-2 text-sm leading-6 text-slate-300">
-                      Then watch the court shift toward made-shot hotspots, where the paint still dominates but efficient perimeter zones become clearer.
+                      By the end, look for the areas that stay bright when the map switches to makes. The paint still
+                      stands out most, and the best perimeter zones become easier to pick out.
                     </p>
                   </div>
                 </div>
 
                 <p class="mt-8 text-sm leading-7 text-slate-300">
-                  The fade helps compare two different questions on the same floor: where offenses hunt attempts, and
-                  where those attempts most often turn into makes. From both heatmaps you can see that majority of shots are 
-                  coming from the 3 point line or at the rim, with most attempts and makes right at the rim. We can see that the above the break three
-                  is shot more than corner threes. It also shows that the in-between midrange area is not favored by offenses.
+                  Teams take most of
+                  their shots either at the rim or from three, and the rim remains the clearest center of both volume and
+                  makes. You should also notice that above-the-break threes appear more often than corner threes, while
+                  the midrange stays comparatively sparse, showing how little modern offenses want to live in that space.
                 </p>
               </article>
             </div>
@@ -483,7 +503,7 @@
               <div class="border-b border-white/10 px-6 py-5 lg:px-8">
                 <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/80">Scenes 2-3</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300/80">Scene 2</p>
                     <h3 class="mt-2 text-2xl font-bold text-white">Court heatmap transition</h3>
                     <p class="mt-2 text-sm leading-6 text-slate-400">
                       {#if heatmapFadeProgress < 0.5}
@@ -508,8 +528,8 @@
                   </label>
                 </div>
               </div>
-              <div class="min-h-[26rem] px-6 py-6 lg:min-h-[34rem] lg:px-8">
-                <div class="grid h-full min-h-[22rem] w-full">
+              <div class="min-h-[30rem] px-6 py-6 lg:min-h-[40rem] lg:px-8">
+                <div class="grid h-full min-h-[26rem] w-full">
                   <div
                     class="col-start-1 row-start-1 h-full transition-opacity duration-500"
                     style={`opacity: ${1 - heatmapFadeProgress}; pointer-events: ${heatmapFadeProgress < 0.98 ? 'auto' : 'none'}; z-index: ${heatmapFadeProgress < 0.98 ? 20 : 10};`}
@@ -540,6 +560,84 @@
             </article>
           {/snippet}
         </Scroll>
+      </section>
+
+      <section class="order-7 mt-10" use:observeScene={3}>
+        <article class="panel overflow-hidden border border-sky-300/20 bg-slate-900/90">
+          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.35fr)] lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-sky-300/80">Scene 3</p>
+              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Shots in 3D</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                Switch between all, made, and missed shots to compare how the same court geometry produces different
+                landscapes. The rim stays dominant, but the corners and above-the-break arc change shape depending on
+                whether you are looking at raw volume or only successful attempts.
+              </p>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Lens</p>
+                <p class="mt-2 text-2xl font-bold text-white">{heatmap3dLabel}</p>
+                <p class="mt-1 text-sm text-slate-400">{heatmapSeasonLabel}</p>
+                <p class="mt-2 text-sm leading-6 text-slate-300">Bar height and color both use log scaling so dense hotspots do not overpower the rest of the floor.</p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Active Grid</p>
+                <p class="mt-2 text-2xl font-bold text-white">{heatmap3dActiveBins.toLocaleString()} bins</p>
+                <p class="mt-1 text-sm text-slate-400">
+                  Peak cell: {heatmap3dPeakValue ? heatmap3dPeakValue.toLocaleString() : '0'}
+                </p>
+                <p class="mt-2 text-sm leading-6 text-slate-300">Hover any bar to inspect the exact attempts, makes, misses, and field goal percentage in that location.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b border-white/10 px-6 py-5 lg:px-8">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div class="inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                {#each [
+                  { value: 'all', label: 'All Shots' },
+                  { value: 'made', label: 'Made' },
+                  { value: 'missed', label: 'Missed' }
+                ] as option}
+                  <button
+                    type="button"
+                    class:selected={heatmap3dOutcome === option.value}
+                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                    on:click={() => (heatmap3dOutcome = option.value as ShotOutcome)}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+
+              <label class="flex items-center gap-3 text-sm text-slate-300">
+                <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Season</span>
+                <select
+                  class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-sky-400/60"
+                  bind:value={heatmapSeason}
+                >
+                  <option value="all">All seasons</option>
+                  {#each data.seasons as season}
+                    <option value={season}>{season}</option>
+                  {/each}
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="min-h-[30rem] px-3 py-3 sm:px-4 sm:py-4 lg:min-h-[40rem] lg:px-5 lg:py-5">
+            <CourtHeatmap3D
+              cells={selectedHeatmap}
+              shotOutcome={heatmap3dOutcome}
+              cellSize={data.heatmap?.metadata.cellSize ?? 2}
+              halfCourtLength={data.heatmap?.metadata.halfCourtLength ?? 47}
+              halfCourtWidth={data.heatmap?.metadata.halfCourtWidth ?? 25}
+            />
+          </div>
+        </article>
       </section>
 
       <section class="order-1 mt-10">
@@ -757,7 +855,7 @@
         </Scroll>
       </section>
 
-      <section class="order-7 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-6 sm:px-8 lg:px-10 xl:px-12">
+      <section class="order-8 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-6 sm:px-8 lg:px-10 xl:px-12">
         <div use:trackPlayerScroll class="mx-auto w-full max-w-[110rem]">
           <div class="lg:sticky lg:top-6">
             <article class="panel w-full overflow-hidden border border-teal-300/20 bg-slate-900/90">
@@ -850,7 +948,7 @@
         </div>
       </section>
 
-      <section class="order-8 mt-10">
+      <section class="order-9 mt-10">
         <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90">
           <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
             <div>

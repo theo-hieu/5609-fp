@@ -31,7 +31,7 @@
         ? row.avgMissedShotDistance
         : row.avgShotDistance
   );
-  $: revealStartOffset = 25;
+  $: revealStartOffset = 17;
   $: adjustedRevealProgress = Math.max(0, revealProgress - revealStartOffset);
   $: revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
   $: revealIndexFloat = points.length > 1 ? revealRatio * (points.length - 1) : 0;
@@ -159,7 +159,7 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[22rem]">
+<div class="h-[30rem] lg:h-[34rem]">
   {#if data.length}
     <Line data={chartData} {options} />
   {:else}

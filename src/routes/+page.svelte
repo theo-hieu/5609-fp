@@ -382,35 +382,6 @@
 <div class="min-h-screen">
   <HeroHeader {activeSceneCopy} {headlineSeason} {shotOutcomeLabel} />
 
-  <section class="mx-auto mt-6 max-w-7xl px-6">
-    <div class="grid gap-5 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-stretch">
-      <article class="panel border border-indigo-300/25 bg-slate-900/85 p-5 sm:p-6">
-        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">3D Intro</p>
-        <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">See every season in motion.</h2>
-        <p class="mt-3 text-sm leading-7 text-slate-300">
-          Over time, the way basketball is played has fundamentally shifted, with shot distance becoming one of the clearest indicators of that change. From midrange-heavy offenses to the modern emphasis on spacing and three-point shooting, the floor itself has been redefined across eras.
-        </p>
-        <p class="mt-3 text-sm leading-7 text-slate-300">
-          This project explores how shot selection has evolved, revealing how players, strategies, and league-wide trends have reshaped where shots are taken and how the game is played.
-        </p>
-      </article>
-
-      <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90 p-3 sm:p-4">
-        <ShotTimeline3D
-          heatmap={data.heatmap}
-          seasons={data.seasons}
-          selectedSeason="all"
-          shotOutcome="all"
-          profileMode="league"
-          playerTargetDistance={null}
-          speed={1}
-          playing={true}
-          showControls={false}
-        />
-      </article>
-    </div>
-  </section>
-
   <main class="mx-auto max-w-7xl px-6 pb-16">
     {#if !data.pipelineReady}
       <PipelineNotice />
@@ -432,7 +403,7 @@
       <section class="order-1 mt-10">
         <Scroll
           bind:progress={seasonScrollProgress}
-          threshold={0.72}
+          threshold={0.64}
           margin={8}
           storyWidth="minmax(0, 0.75fr)"
           vizWidth="minmax(0, 1.55fr)"
@@ -440,6 +411,50 @@
         >
           {#snippet children()}
             <div class="space-y-6">
+              <article class="panel border border-amber-300/20 bg-slate-900/90 p-5 sm:p-6">
+                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season Trend</p>
+                <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Average shot distance over time.</h2>
+                <p class="mt-4 text-sm leading-7 text-slate-300">
+                  Scroll to move season-by-season through the timeline. The line reveals as you scroll, and the highlight
+                  cards follow key moments like LeBron&apos;s debut, Curry&apos;s arrival, and major rule emphasis changes.
+                </p>
+
+                <div class="mt-5 inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                  {#each [
+                    { value: 'all', label: 'All Shots' },
+                    { value: 'made', label: 'Made' },
+                    { value: 'missed', label: 'Missed' }
+                  ] as option}
+                    <button
+                      type="button"
+                      class:selected={seasonDistanceOutcome === option.value}
+                      class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                      on:click={() => (seasonDistanceOutcome = option.value as ShotOutcome)}
+                    >
+                      {option.label}
+                    </button>
+                  {/each}
+                </div>
+
+                <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lens</p>
+                    <p class="mt-2 text-2xl font-bold text-white">{seasonDistanceLabel}</p>
+                    <p class="mt-1 text-sm text-slate-400">Current season: {activeSeason ?? 'N/A'}</p>
+                    <p class="mt-1 text-sm text-slate-400">
+                      {activeSeasonValue !== null ? `${activeSeasonValue.toFixed(2)} ft` : 'No season trend data available'}
+                    </p>
+                  </div>
+
+                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Highlight</p>
+                    <p class="mt-2 text-2xl font-bold text-white">{currentHighlight?.season ?? 'N/A'}</p>
+                    <p class="mt-1 text-sm font-semibold text-amber-200">{currentHighlight?.title ?? 'No highlight mapped yet'}</p>
+                    <p class="mt-1 text-sm text-slate-400">{currentHighlight?.detail ?? 'Add a highlight event for this era.'}</p>
+                  </div>
+                </div>
+              </article>
+
               {#each seasonStorySteps as step}
                 <article
                   class={`panel min-h-[38vh] border bg-slate-900/85 p-5 sm:p-6 ${step.highlight ? 'border-amber-300/30' : 'border-white/10'}`}
@@ -472,52 +487,7 @@
           {/snippet}
 
           {#snippet viz()}
-            <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90 lg:max-h-[88vh] lg:overflow-auto">
-              <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.9fr)] lg:px-8">
-                <div>
-                  <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Season Trend</p>
-                  <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Average shot distance over time.</h2>
-                  <p class="mt-4 text-sm leading-7 text-slate-300">
-                    Scroll to move season-by-season through the timeline. The line reveals as you scroll, and the highlight
-                    card follows key moments like LeBron&apos;s debut, Curry&apos;s arrival, and major rule emphasis changes.
-                  </p>
-                  <div class="mt-5 inline-flex rounded-2xl border border-white/10 bg-slate-950/90 p-1">
-                    {#each [
-                      { value: 'all', label: 'All Shots' },
-                      { value: 'made', label: 'Made' },
-                      { value: 'missed', label: 'Missed' }
-                    ] as option}
-                      <button
-                        type="button"
-                        class:selected={seasonDistanceOutcome === option.value}
-                        class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
-                        on:click={() => (seasonDistanceOutcome = option.value as ShotOutcome)}
-                      >
-                        {option.label}
-                      </button>
-                    {/each}
-                  </div>
-                </div>
-
-                <div class="grid gap-4 sm:grid-cols-2">
-                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
-                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lens</p>
-                    <p class="mt-2 text-2xl font-bold text-white">{seasonDistanceLabel}</p>
-                    <p class="mt-1 text-sm text-slate-400">Current season: {activeSeason ?? 'N/A'}</p>
-                    <p class="mt-1 text-sm text-slate-400">
-                      {activeSeasonValue !== null ? `${activeSeasonValue.toFixed(2)} ft` : 'No season trend data available'}
-                    </p>
-                  </div>
-
-                  <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
-                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Highlight</p>
-                    <p class="mt-2 text-2xl font-bold text-white">{currentHighlight?.season ?? 'N/A'}</p>
-                    <p class="mt-1 text-sm font-semibold text-amber-200">{currentHighlight?.title ?? 'No highlight mapped yet'}</p>
-                    <p class="mt-1 text-sm text-slate-400">{currentHighlight?.detail ?? 'Add a highlight event for this era.'}</p>
-                  </div>
-                </div>
-              </div>
-
+            <article class="panel overflow-hidden border border-amber-300/20 bg-slate-900/90">
               <div class="px-6 py-6 lg:px-8">
                 <SeasonDistanceChart
                   data={seasonTrendRows}
@@ -533,18 +503,16 @@
       <section class="order-2 mt-10">
         <Scroll bind:progress={shotTypeScrollProgress} threshold={0.72} margin={8}>
           {#snippet children()}
-            <div class="space-y-6">
-              <article class="panel min-h-[72vh] border border-cyan-300/20 bg-slate-900/90 p-6 sm:p-8">
+            <div>
+              <article class="panel min-h-[120vh] border border-cyan-300/20 bg-slate-900/90 p-6 sm:p-8">
                 <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">Evidence 1</p>
                 <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The rise in distance is really a rise in 3-point share.</h2>
                 <p class="mt-4 text-sm leading-7 text-slate-300">
-                  Average distance alone is only a clue. This split makes the mechanism explicit by tracking how much of
-                  each season&apos;s shot diet came from two-pointers versus three-pointers.
+                  Average distance alone is only a clue, not proof. Maybe the league is just taking more long twos instead of threes. 
+                  To confirm the story, we need to see the shot type mix shift in favor of threes over time. Scroll to see how 2pt and 3pt share evolve over time.
                 </p>
-              </article>
 
-              <article class="panel min-h-[72vh] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
-                <div class="grid gap-4 sm:grid-cols-2">
+                <div class="mt-8 grid gap-4 sm:grid-cols-2">
                   <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">3PT Share Change</p>
                     <p class="mt-2 text-2xl font-bold text-white">
@@ -563,6 +531,11 @@
                     <p class="mt-1 text-sm text-slate-400">The two-point share falls as the three-point line absorbs more attempts</p>
                   </div>
                 </div>
+
+                <p class="mt-8 text-sm leading-7 text-slate-300">
+                  Together these two lines show that the increase in average distance is not just longer two-pointers.
+                  The shot mix itself changes, with threes increasing their share of attempts as the years go on. 
+                  This confirms that the distance trend is really about offenses hunting the extra point value that comes with three-pointers, not just taking more long shots in general.
               </article>
             </div>
           {/snippet}
@@ -584,18 +557,18 @@
       <section class="order-3 mt-10">
         <Scroll bind:progress={zoneScrollProgress} threshold={0.72} margin={8}>
           {#snippet children()}
-            <div class="space-y-6">
-              <article class="panel min-h-[72vh] border border-rose-300/20 bg-slate-900/90 p-6 sm:p-8">
+            <div>
+              <article class="panel min-h-[120vh] border border-rose-300/20 bg-slate-900/90 p-6 sm:p-8">
                 <p class="text-xs font-semibold uppercase tracking-[0.24em] text-rose-300/80">Evidence 2</p>
                 <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The spatial shift is concentrated in specific zones.</h2>
                 <p class="mt-4 text-sm leading-7 text-slate-300">
-                  This seven-zone breakdown shows that the league did not simply drift toward longer twos. The biggest
-                  growth comes from above-the-break threes, while classic mid-range usage fades.
-                </p>
-              </article>
+                  Teams aren't taking more shots per game, so where are the new threes coming from? 
+                  Here is a 7 zone breakdown of shot distribution change over time, showing that the above-the-break 
+                  three-point zone increases significantly while the mid-range zone declines sharply. 
 
-              <article class="panel min-h-[72vh] border border-white/10 bg-slate-900/80 p-6 sm:p-8">
-                <div class="grid gap-4 sm:grid-cols-2">
+                </p>
+
+                <div class="mt-8 grid gap-4 sm:grid-cols-2">
                   <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
                     <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Above-the-Break 3</p>
                     <p class="mt-2 text-2xl font-bold text-white">
@@ -612,6 +585,13 @@
                     <p class="mt-1 text-sm text-slate-400">Mid-range volume loses share as offenses reallocate attempts</p>
                   </div>
                 </div>
+
+                <p class="mt-8 text-sm leading-7 text-slate-300">
+                  This is the mechanism behind the broader shot-distance story: mid-range shots are dying as the above-the-break three grows. 
+                  Teams are prioritizing long threes over long twos because of the extra point of value, leading to more and more 3 point attempts.
+                  They share for restricted area shots(layups and dunks) nearly equal share as above the break three pointers, meaning teams aim for threes
+                  or attack the rim, prefering nothing in between.
+                </p>
               </article>
             </div>
           {/snippet}
@@ -643,8 +623,8 @@
                   <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">Player Focus</p>
                   <h3 class="mt-3 text-2xl font-bold text-white">Player distance trend over time</h3>
                   <p class="mt-3 text-sm leading-6 text-slate-400">
-                    Scroll reveals the selected player&apos;s career arc. Changing the player fades out the current line and redraws the new one at the same reveal point.
-                  </p>
+                     Select one of the featured players and scroll to see how their average shot distance changes throughout their career. You can select Lebron for his longevity,
+                     Curry and Harden for their 3pt shooting evolution, and Durant for his elite 3 level scoring ability.
                 </div>
 
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
@@ -724,6 +704,54 @@
             </article>
           </div>
         </div>
+      </section>
+
+      <section class="order-6 mt-10">
+        <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90">
+          <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">3D Shot Timeline</p>
+              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">See the evolution play out across the floor.</h2>
+              <p class="mt-4 text-sm leading-7 text-slate-300">
+                This final view is less about proving the claim and more about letting the user feel it spatially. The
+                animation pulls all of the earlier trends back onto the court, so you can watch how shot selection shifts
+                over time from a full-floor perspective.
+              </p>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Timeline Scope</p>
+                <p class="mt-3 text-2xl font-bold text-white">All Seasons</p>
+                <p class="mt-2 text-sm leading-6 text-slate-400">
+                  The animation plays as one continuous league-wide timeline so the spatial shift is easier to read.
+                </p>
+              </div>
+
+              <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Current Mode</p>
+                <p class="mt-3 text-2xl font-bold text-white">League Mix</p>
+                <p class="mt-2 text-sm leading-6 text-slate-400">
+                  Player and season filters can come back later. For now this view stays focused on the overall shot map.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 sm:p-4 lg:p-5">
+            <ShotTimeline3D
+              heatmap={data.heatmap}
+              seasons={data.seasons}
+              selectedSeason="all"
+              shotOutcome="all"
+              profileMode="league"
+              playerTargetDistance={null}
+              speed={1}
+              playing={true}
+              showControls={false}
+            />
+          </div>
+        </article>
       </section>
       </div>
 

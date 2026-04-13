@@ -45,7 +45,7 @@
   }
 
   $: labels = data.map((row) => row.season);
-  $: revealStartOffset = 45;
+  $: revealStartOffset = 55;
   $: adjustedRevealProgress = Math.max(0, revealProgress - revealStartOffset);
   $: revealRatio = Math.max(0, Math.min(adjustedRevealProgress / (100 - revealStartOffset), 1));
   $: revealIndexFloat = labels.length > 1 ? revealRatio * (labels.length - 1) : 0;

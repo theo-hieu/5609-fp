@@ -116,10 +116,11 @@
   let selectedPlayer = 'LeBron James';
   let shot3dSeason = 'all';
   let shot3dPlayer = 'LeBron James';
-  let shot3dOutcome: ShotOutcome = 'made';
+  let shot3dOutcome: ShotOutcome = 'all';
   let shot3dProfileMode: 'league' | 'player' = 'league';
   let shot3dPlaying = true;
   let shot3dSpeed = 1;
+  let shot3dLoop = true;
 
   $: effectiveShotOutcome =
     activeScene === 3 ? heatmap3dOutcome : activeScene === 2 ? 'all' : filter.shotOutcome;
@@ -414,9 +415,9 @@
               <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
                 <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">How To Read It</p>
                 <p class="mt-2 text-sm leading-6 text-slate-300">
-                  The x-axis shows shot distance. The left y-axis and bars show field goal percentage at each distance,
-                  while the right y-axis and line show how many shot attempts were taken from those distances. Together,
-                  the chart lets you compare shot volume and shooting efficiency across the floor.
+                  The x-axis shows shot distance and each stacked bar splits attempts into made and missed shots.
+                  Use the chart toggle to animate between raw attempts and percentage share, so you can compare
+                  both volume and efficiency patterns without switching to a second axis.
                 </p>
               </div>
             </div>
@@ -962,18 +963,116 @@
             <div class="grid gap-4 sm:grid-cols-2">
               <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
                 <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Timeline Scope</p>
-                <p class="mt-3 text-2xl font-bold text-white">All Seasons</p>
+                <p class="mt-3 text-2xl font-bold text-white">{shot3dSeason === 'all' ? 'All Seasons' : shot3dSeason}</p>
                 <p class="mt-2 text-sm leading-6 text-slate-400">
-                  The animation plays as one continuous league-wide timeline so the spatial shift is easier to read.
+                  {shot3dProfileMode === 'player'
+                    ? 'Player mode weights shot distribution by the selected player profile for easier season-to-season comparison.'
+                    : 'League mode shows the full league distribution for the selected season scope.'}
                 </p>
               </div>
 
               <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
                 <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">How to read</p>
                 <p class="mt-2 text-sm leading-6 text-slate-400">
-                  Shots are shown as circles at their original court location, with made shots being represented by blue cirlces
-                  and missed shots being represented by orange circles.
+                  Teal arcs are made shots and orange arcs are misses. Use the season selector to jump directly, then use
+                  play and repeat to compare eras.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-b border-white/10 px-6 py-5 lg:px-8">
+            <div class="flex flex-wrap items-end gap-4">
+              <div class="inline-flex shrink-0 rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                {#each [
+                  { value: 'all', label: 'All Shots' },
+                  { value: 'made', label: 'Made' },
+                  { value: 'missed', label: 'Missed' }
+                ] as option}
+                  <button
+                    type="button"
+                    class:selected={shot3dOutcome === option.value}
+                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                    on:click={() => (shot3dOutcome = option.value as ShotOutcome)}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+
+              <div class="inline-flex shrink-0 rounded-2xl border border-white/10 bg-slate-950/90 p-1">
+                {#each [
+                  { value: 'league', label: 'League' },
+                  { value: 'player', label: 'Player weighted' }
+                ] as option}
+                  <button
+                    type="button"
+                    class:selected={shot3dProfileMode === option.value}
+                    class="rounded-xl px-4 py-2 text-sm font-semibold text-slate-300 transition hover:text-white"
+                    on:click={() => (shot3dProfileMode = option.value as 'league' | 'player')}
+                  >
+                    {option.label}
+                  </button>
+                {/each}
+              </div>
+
+              <label class="flex min-w-0 items-center gap-3 text-sm text-slate-300">
+                <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Season</span>
+                <select
+                  class="w-44 max-w-[65vw] rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-indigo-400/60"
+                  bind:value={shot3dSeason}
+                  on:change={handleShot3dSeasonChange}
+                >
+                  <option value="all">All seasons</option>
+                  {#each shot3dProfileMode === 'player' ? shot3dPlayerSeasonOptions : data.seasons as season}
+                    <option value={season}>{season}</option>
+                  {/each}
+                </select>
+              </label>
+
+              {#if shot3dProfileMode === 'player'}
+                <label class="flex min-w-0 items-center gap-3 text-sm text-slate-300">
+                  <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Player</span>
+                  <select
+                    class="w-52 max-w-[68vw] rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm text-white outline-none transition focus:border-indigo-400/60"
+                    bind:value={shot3dPlayer}
+                    on:change={handleShot3dPlayerChange}
+                  >
+                    {#each shot3dPlayerCandidates as player}
+                      <option value={player.player}>{player.player}</option>
+                    {/each}
+                  </select>
+                </label>
+              {/if}
+
+              <label class="flex shrink-0 items-center gap-3 text-sm text-slate-300">
+                <span class="font-semibold uppercase tracking-[0.18em] text-slate-400">Speed</span>
+                <input
+                  type="range"
+                  min="0.5"
+                  max="2.5"
+                  step="0.1"
+                  bind:value={shot3dSpeed}
+                  class="h-2 w-32 accent-indigo-300"
+                />
+                <span class="w-10 text-right text-slate-300">{shot3dSpeed.toFixed(1)}x</span>
+              </label>
+
+              <div class="flex shrink-0 items-center gap-2 lg:ml-auto">
+                <button
+                  type="button"
+                  class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+                  on:click={() => (shot3dPlaying = !shot3dPlaying)}
+                >
+                  {shot3dPlaying ? 'Pause' : 'Play'}
+                </button>
+                <button
+                  type="button"
+                  class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-white/20 hover:text-white"
+                  on:click={() => (shot3dLoop = !shot3dLoop)}
+                >
+                  {shot3dLoop ? 'Repeat on' : 'Repeat off'}
+                </button>
               </div>
             </div>
           </div>
@@ -982,13 +1081,14 @@
             <ShotTimeline3D
               heatmap={data.heatmap}
               seasons={data.seasons}
-              selectedSeason="all"
-              shotOutcome="all"
-              profileMode="league"
-              playerTargetDistance={null}
-              speed={1}
-              playing={true}
-              showControls={false}
+              selectedSeason={shot3dSeason}
+              shotOutcome={shot3dOutcome}
+              profileMode={shot3dProfileMode}
+              playerTargetDistance={shot3dProfileMode === 'player' ? selectedPlayerDistanceTarget : null}
+              speed={shot3dSpeed}
+              playing={shot3dPlaying}
+              loopSeasons={shot3dLoop}
+              showControls={true}
             />
           </div>
         </article>

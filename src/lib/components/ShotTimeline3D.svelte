@@ -15,6 +15,7 @@
   export let playerTargetDistance: number | null = null;
   export let speed = 1;
   export let playing = true;
+  export let loopSeasons = true;
   export let showControls = true;
 
   const hoopDataY = 4;
@@ -35,6 +36,7 @@
 
   let activeSeasonIndex = 0;
   let activeSeason = '';
+  let previousActiveSeason = '';
   let currentBins: WeightedBin[] = [];
 
   let courtRoot: THREE.Object3D | null = null;
@@ -117,6 +119,7 @@
   let shots: AnimatedShot[] = [];
   let shotPool: ShotPoolBin[] = [];
   let shotPoolRemaining = 0;
+  let pausedAtMs: number | null = null;
   const shotVerticalNudge = -0.75;
   const baseBurstSize = 5;
 
@@ -152,8 +155,56 @@
     refillShotPool();
   }
 
-  $: restartSeasonTimer();
-  $: restartSpawnTimer();
+  $: if (activeSeason !== previousActiveSeason) {
+    previousActiveSeason = activeSeason;
+    clearShots();
+    refillShotPool();
+  }
+
+  $: {
+    playing;
+    loopSeasons;
+    selectedSeason;
+    timelineSeasons;
+    currentBins;
+    assetsReady;
+    speed;
+
+    if (!playing) {
+      stopTimers();
+    } else {
+      restartSeasonTimer();
+      restartSpawnTimer();
+    }
+  }
+
+  $: if (!playing && pausedAtMs === null) {
+    pausedAtMs = nowMs();
+  }
+
+  $: if (playing && pausedAtMs !== null) {
+    const elapsedWhilePaused = nowMs() - pausedAtMs;
+    for (const shot of shots) {
+      shot.startedAt += elapsedWhilePaused;
+    }
+    pausedAtMs = null;
+  }
+
+  function nowMs() {
+    return typeof performance !== 'undefined' ? performance.now() : Date.now();
+  }
+
+  function stopTimers() {
+    if (seasonTimer) {
+      clearInterval(seasonTimer);
+      seasonTimer = null;
+    }
+
+    if (spawnTimer) {
+      clearInterval(spawnTimer);
+      spawnTimer = null;
+    }
+  }
 
   function dataToWorld(x: number, y: number): Vec3 {
     const clampedXFeet = clamp(x, -25, 25);
@@ -196,22 +247,38 @@
     };
   }
 
+  function focusCourtPoint() {
+    if (hoopAnchor && oppositeHoopAnchor) {
+      return {
+        x: hoopAnchor.x * 0.78 + oppositeHoopAnchor.x * 0.22,
+        z: hoopAnchor.z * 0.78 + oppositeHoopAnchor.z * 0.22
+      };
+    }
+
+    const center = centerCourtPoint();
+    return {
+      x: center.x,
+      z: center.z - 10
+    };
+  }
+
   function configureCenterCourtCamera(resetPosition = false) {
     if (!camera || !controls) return;
 
-    const center = centerCourtPoint();
+    const focus = focusCourtPoint();
     const boundsSize = stadiumBounds?.getSize(new THREE.Vector3());
-    const cameraHeight = courtFloorY + 16;
-    const sidelineOffset = boundsSize ? Math.min(18, Math.max(8, boundsSize.x * 0.18)) : 12;
+    const cameraHeight = courtFloorY + 14;
+    const sidelineOffset = boundsSize ? Math.min(15, Math.max(7, boundsSize.x * 0.16)) : 10;
+    const baselineOffset = boundsSize ? Math.min(22, Math.max(10, boundsSize.z * 0.14)) : 14;
 
-    controls.target.set(center.x, courtFloorY + 8, center.z);
+    controls.target.set(focus.x, courtFloorY + 7, focus.z);
     controls.enablePan = true;
     controls.minDistance = 6;
     controls.maxDistance = boundsSize ? Math.max(24, Math.min(boundsSize.x, boundsSize.z) * 0.45) : 90;
-    controls.maxPolarAngle = THREE.MathUtils.degToRad(88);
+    controls.maxPolarAngle = THREE.MathUtils.degToRad(86);
 
     if (resetPosition) {
-      camera.position.set(center.x + sidelineOffset, cameraHeight, center.z + 2);
+      camera.position.set(focus.x + sidelineOffset, cameraHeight, focus.z + baselineOffset);
     }
 
     controls.update();
@@ -634,12 +701,13 @@
       seasonTimer = null;
     }
 
-    if (!playing || selectedSeason !== 'all' || timelineSeasons.length <= 1) {
+    if (!playing || !loopSeasons || selectedSeason !== 'all' || timelineSeasons.length <= 1) {
       return;
     }
 
     const seasonDuration = Math.max(1300, Math.round(3600 / Math.max(speed, 0.35)));
     seasonTimer = setInterval(() => {
+      if (!playing || !loopSeasons || selectedSeason !== 'all') return;
       activeSeasonIndex = (activeSeasonIndex + 1) % timelineSeasons.length;
       activeSeason = timelineSeasons[activeSeasonIndex] ?? '';
       clearShots();
@@ -659,6 +727,7 @@
 
     const spawnDelay = Math.max(20, Math.round(46 / Math.max(speed, 0.35)));
     spawnTimer = setInterval(() => {
+      if (!playing) return;
       const dynamicBurst = Math.max(
         4,
         Math.min(13, Math.round(baseBurstSize * Math.max(speed, 0.35) + currentBins.length / 320))
@@ -785,7 +854,9 @@
   function animate(now: number) {
     if (!renderer || !scene || !camera) return;
 
-    updateShots(now);
+    if (playing) {
+      updateShots(now);
+    }
     controls?.update();
     clampCameraInsideStadium();
     renderer.render(scene, camera);

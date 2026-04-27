@@ -5,6 +5,7 @@
   import Heatmap3DSection from '$lib/components/home/Heatmap3DSection.svelte';
   import HeatmapComparisonSection from '$lib/components/home/HeatmapComparisonSection.svelte';
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
+  import PlayerChartCandidatesSection from '$lib/components/home/PlayerChartCandidatesSection.svelte';
   import PipelineNotice from '$lib/components/home/PipelineNotice.svelte';
   import PlayerFocusStickySection from '$lib/components/home/PlayerFocusStickySection.svelte';
   import ShotTimelineShowcaseSection from '$lib/components/home/ShotTimelineShowcaseSection.svelte';
@@ -63,6 +64,7 @@
           heatmap={data.heatmap}
           players={data.playerDistance?.players ?? []}
         />
+        <PlayerChartCandidatesSection players={data.playerDistance?.players ?? []} />
       </div>
 
       <footer class="pb-4 text-sm text-slate-400">

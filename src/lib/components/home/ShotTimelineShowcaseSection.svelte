@@ -80,21 +80,21 @@
   <article class="panel overflow-hidden border border-indigo-300/25 bg-slate-900/90">
     <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">3D Shot Timeline</p>
-        <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">See the evolution play out across the floor.</h2>
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">Recap in motion</p>
+        <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Watch the court transform after the evidence lands.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            Watch the spatial shift unfold in this animated 3D shot map. Each shot animates in its original court location,
-            so you can see how the distribution of attempts and makes changes over time in different zones of the floor.
+            The story ends by putting the pieces back on the floor. Each shot launches from a sampled court location,
+            letting the rim, corners, above-the-break arc, and quieter middle appear as one moving system.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
-            Shots launching near the sideline corners are corner threes. Shots launching from the wings and top of the
-            arc are above-the-break threes, the area where modern volume grows most.
+            Leave the timeline in league mode for the guided recap, then use the controls below to pause, replay, or
+            compare specific seasons before moving into the free exploration panel.
           </p>
       </div>
 
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Timeline Scope</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Recap Scope</p>
           <p class="mt-3 text-2xl font-bold text-white">{shot3dSeason === 'all' ? 'All Seasons' : shot3dSeason}</p>
           <p class="mt-2 text-sm leading-6 text-slate-400">
             {shot3dProfileMode === 'player'
@@ -104,10 +104,10 @@
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">How to read</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">What to watch</p>
           <p class="mt-2 text-sm leading-6 text-slate-400">
-            Teal arcs are made shots and orange arcs are misses. Use the season selector to jump directly, then use
-            play and repeat to compare eras.
+            Teal arcs are makes and orange arcs are misses. The recap should feel like the same thesis in motion:
+            fewer in-between launches, more activity bending the defense toward the arc.
           </p>
         </div>
       </div>

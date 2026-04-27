@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { StoryMetric } from '$lib/content/shotEvolutionStory';
+
   type ShotDot = {
     x: number;
     y: number;
@@ -38,6 +40,8 @@
     { x: 39, y: 34, size: 3, tone: 'arc', delay: 4.5 },
     { x: 61, y: 34, size: 3, tone: 'arc', delay: 4.9 }
   ];
+
+  export let metrics: StoryMetric[] = [];
 </script>
 
 <header class="shot-hero relative isolate min-h-screen overflow-hidden">
@@ -77,16 +81,27 @@
         NBA Shot Evolution
       </p>
       <h1 class="mt-5 max-w-5xl text-4xl font-black leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
-        How the League Rewired Shot Selection
+        The NBA Didn&apos;t Just Move Back. It Gave Up the Middle.
       </h1>
       <p class="mt-6 max-w-3xl text-base leading-8 text-slate-200 sm:text-lg">
-        This project explores how shot behavior changed from 2003-04 through 2023-24 using millions of tracked attempts,
-        combining interactive visuals with scrollytelling to explain the shift from mid-range volume to rim pressure and
-        three-point spacing.
+        From 2003-04 through 2023-24, millions of attempts show a league rewiring its geometry: fewer possessions ending
+        in the in-between space, more pressure at the rim, and a much larger share of shots launched above the arc.
       </p>
       <p class="mt-4 max-w-3xl text-xs italic leading-5 text-slate-400 sm:text-sm">
         Note: Data from the 2020-21 season may show irregular patterns due to the COVID-19 pandemic and schedule disruption.
       </p>
+
+      {#if metrics.length}
+        <div class="mt-9 grid max-w-6xl gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {#each metrics as metric}
+            <div class={`metric-card ${metric.tone}`}>
+              <p class="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-slate-400">{metric.label}</p>
+              <p class="mt-2 text-xl font-black text-white sm:text-2xl">{metric.value}</p>
+              <p class="mt-2 text-xs leading-5 text-slate-300">{metric.detail}</p>
+            </div>
+          {/each}
+        </div>
+      {/if}
     </div>
 
     <div class="absolute bottom-8 left-5 right-5 z-10 mx-auto flex max-w-[118rem] items-center justify-between gap-6 px-0 text-xs font-semibold uppercase tracking-[0.22em] text-slate-300 sm:left-8 sm:right-8 lg:left-12 lg:right-12">
@@ -294,6 +309,31 @@
     align-items: center;
     gap: 0.75rem;
     color: rgba(226, 232, 240, 0.86);
+  }
+
+  .metric-card {
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 1.25rem;
+    background: rgba(2, 6, 23, 0.68);
+    padding: 1rem;
+    box-shadow: 0 1rem 2.5rem rgba(2, 6, 23, 0.28);
+    backdrop-filter: blur(14px);
+  }
+
+  .metric-card.amber {
+    border-color: rgba(251, 191, 36, 0.28);
+  }
+
+  .metric-card.teal {
+    border-color: rgba(45, 212, 191, 0.28);
+  }
+
+  .metric-card.orange {
+    border-color: rgba(251, 146, 60, 0.28);
+  }
+
+  .metric-card.sky {
+    border-color: rgba(56, 189, 248, 0.28);
   }
 
   .scroll-cue::after {

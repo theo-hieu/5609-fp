@@ -92,6 +92,13 @@
     return `${first.toFixed(1)}% to ${last.toFixed(1)}%`;
   }
 
+  function shareChangeArrow(series: Series | null) {
+    if (!series || !series.values.length) return 'N/A';
+    const first = series.values[0] ?? 0;
+    const last = series.values[series.values.length - 1] ?? 0;
+    return `${first.toFixed(1)}% -> ${last.toFixed(1)}%`;
+  }
+
   function makeTicks(min: number, max: number, count = 3) {
     if (count <= 1) return [min];
     const range = Math.max(max - min, 0.0001);
@@ -325,8 +332,15 @@
   $: firstSeason = visibleSeasons[0] ?? 'first season';
   $: lastSeason = visibleSeasons[visibleSeasons.length - 1] ?? 'latest season';
   $: distanceChange = distanceValues.length
-    ? `${distanceValues[0].toFixed(2)} ft to ${distanceValues[distanceValues.length - 1].toFixed(2)} ft`
+    ? `${distanceValues[0].toFixed(2)} ft -> ${distanceValues[distanceValues.length - 1].toFixed(2)} ft`
     : 'N/A';
+  $: threePointChange = shareChangeArrow(threePointSeries);
+  $: midRangeChange = shareChangeArrow(midRangeSeries);
+  $: aboveBreakChange = shareChangeArrow(aboveBreakSeries);
+  $: distanceLastPoint = distanceSeries.points[distanceSeries.points.length - 1];
+  $: threePointLastPoint = threePointSeries.points[threePointSeries.points.length - 1];
+  $: midRangeLastPoint = midRangeSeries ? midRangeSeries.points[midRangeSeries.points.length - 1] : null;
+  $: aboveBreakLastPoint = aboveBreakSeries ? aboveBreakSeries.points[aboveBreakSeries.points.length - 1] : null;
 </script>
 
 <section class="relative left-1/2 order-1 mt-10 w-screen -translate-x-1/2 px-4 sm:px-6 lg:px-8">
@@ -342,17 +356,15 @@
     {#snippet children()}
       <div class="space-y-6">
         <article class:active={stage === 1} class="story-card panel border border-amber-300/20 bg-slate-900/90 p-5 sm:p-6">
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Mechanism 1</p>
-          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The league drifts farther from the rim.</h2>
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">The court stretches</p>
+          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The first clue is distance.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            Start with the headline: average shot distance rises from {firstSeason} to {lastSeason}. The animation
-            reveals this as a timeline, but the point is not just that the line goes up; it sets up a question about
-            what moved underneath it.
+            Average shot distance rises from {firstSeason} to {lastSeason}. That is the headline, but not the story.
+            The important question is what disappeared to make room for those farther attempts.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
-            Think of shot distance as the league&apos;s center of gravity: when more attempts move behind the 3-point
-            line, the average shot gets farther away even if every individual player does not suddenly become a deep
-            shooter.
+            Think of shot distance as the league&apos;s center of gravity. When that center moves, the rest of the court
+            has to explain why.
           </p>
           <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Distance Change</p>
@@ -362,12 +374,11 @@
         </article>
 
         <article class:active={stage === 2} class="story-card panel min-h-[72vh] border border-cyan-300/20 bg-slate-900/90 p-5 sm:p-6">
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">Mechanism 2</p>
-          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The extra distance comes from shot mix.</h2>
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">Threes absorb the attempts</p>
+          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The arc becomes a bigger share of the offense.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            The middle layer answers the first question: three-point share climbs while two-point share falls. That
-            makes the average-distance increase less mysterious. The league is reallocating attempts across the arc,
-            not merely stretching long twos a little farther out.
+            The middle layer answers the first question: three-point share climbs while two-point share falls. The
+            league is not merely taking longer twos; it is reallocating possessions across the scoring boundary.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
             Shot share means the percentage of all attempts that belong to a category. A rising 3PT share means more
@@ -386,12 +397,12 @@
         </article>
 
         <article class:active={stage === 3} class="story-card panel min-h-[78vh] border border-rose-300/20 bg-slate-900/90 p-5 sm:p-6">
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-rose-300/80">Mechanism 3</p>
-          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Above-the-break threes carry the spatial shift.</h2>
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-rose-300/80">The middle disappears</p>
+          <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The modern map is rim pressure plus above-the-break threes.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            The bottom layer breaks the arc apart. Corner threes matter, but they stay comparatively stable. The big
-            movement is above the break, paired with the collapse of mid-range share. This is the modern shot profile:
-            rim pressure, spacing, and fewer in-between attempts.
+            The bottom layer breaks the arc apart. Corners grow, but the biggest movement is above the break, paired
+            with the collapse of mid-range share. This is the modern shot profile: rim pressure, spacing, and fewer
+            in-between attempts.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
             Above the break is the curved part of the 3-point line near the top and wings. Corner threes come from the
@@ -429,7 +440,7 @@
             <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-300">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Stage</p>
               <p class="mt-1 font-bold text-white">
-                {stage === 1 ? 'Distance rises' : stage === 2 ? '3PT share absorbs attempts' : 'Above-break threes explain where'}
+                {stage === 1 ? 'The court stretches' : stage === 2 ? 'Threes absorb the attempts' : 'The middle disappears'}
               </p>
               {#if isRangeFiltered}
                 <div class="mt-3 flex items-center justify-between gap-3 border-t border-white/10 pt-3">
@@ -599,13 +610,41 @@
 
                 <g opacity={stage >= 2 ? 1 : 0} pointer-events="none">
                   <rect x={left + plotWidth * 0.42} y={panels[1].y - 30} width="270" height="22" rx="11" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(20, 184, 166, 0.24)" />
-                  <text x={left + plotWidth * 0.435} y={panels[1].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">3PT share rises as average distance rises</text>
+                  <text x={left + plotWidth * 0.435} y={panels[1].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">3PT share: {threePointChange}</text>
                 </g>
 
                 <g opacity={stage >= 3 ? 1 : 0} pointer-events="none">
-                  <rect x={left + plotWidth * 0.38} y={panels[2].y - 30} width="292" height="22" rx="11" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(20, 184, 166, 0.24)" />
-                  <text x={left + plotWidth * 0.395} y={panels[2].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">Above-the-break growth separates from corners</text>
+                  <rect x={left + plotWidth * 0.32} y={panels[2].y - 30} width="392" height="22" rx="11" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(20, 184, 166, 0.24)" />
+                  <text x={left + plotWidth * 0.335} y={panels[2].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">Mid-range: {midRangeChange} | Above break: {aboveBreakChange}</text>
                 </g>
+
+                {#if distanceLastPoint}
+                  <g opacity={distanceReveal > 0.86 ? 1 : 0} pointer-events="none">
+                    <line x1={distanceLastPoint.x - 90} x2={distanceLastPoint.x - 8} y1={distanceLastPoint.y - 28} y2={distanceLastPoint.y - 4} stroke="rgba(251, 191, 36, 0.62)" stroke-width="1.4" />
+                    <rect x={distanceLastPoint.x - 210} y={distanceLastPoint.y - 48} width="196" height="26" rx="13" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(251, 191, 36, 0.32)" />
+                    <text x={distanceLastPoint.x - 196} y={distanceLastPoint.y - 31} fill="#fde68a" font-size="11" font-weight="800">Avg distance: {distanceChange}</text>
+                  </g>
+                {/if}
+
+                {#if threePointLastPoint}
+                  <g opacity={mixReveal > 0.86 ? 1 : 0} pointer-events="none">
+                    <line x1={threePointLastPoint.x - 82} x2={threePointLastPoint.x - 8} y1={threePointLastPoint.y - 24} y2={threePointLastPoint.y - 4} stroke="rgba(45, 212, 191, 0.62)" stroke-width="1.4" />
+                    <rect x={threePointLastPoint.x - 188} y={threePointLastPoint.y - 44} width="174" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(45, 212, 191, 0.3)" />
+                    <text x={threePointLastPoint.x - 175} y={threePointLastPoint.y - 27} fill="#99f6e4" font-size="11" font-weight="800">3PT share: {threePointChange}</text>
+                  </g>
+                {/if}
+
+                {#if midRangeLastPoint && aboveBreakLastPoint}
+                  <g opacity={zoneReveal > 0.86 ? 1 : 0} pointer-events="none">
+                    <line x1={midRangeLastPoint.x - 86} x2={midRangeLastPoint.x - 8} y1={midRangeLastPoint.y + 24} y2={midRangeLastPoint.y + 4} stroke="rgba(251, 146, 60, 0.62)" stroke-width="1.4" />
+                    <rect x={midRangeLastPoint.x - 198} y={midRangeLastPoint.y + 18} width="184" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(251, 146, 60, 0.3)" />
+                    <text x={midRangeLastPoint.x - 185} y={midRangeLastPoint.y + 35} fill="#fed7aa" font-size="11" font-weight="800">Mid-range: {midRangeChange}</text>
+
+                    <line x1={aboveBreakLastPoint.x - 94} x2={aboveBreakLastPoint.x - 8} y1={aboveBreakLastPoint.y - 24} y2={aboveBreakLastPoint.y - 4} stroke="rgba(20, 184, 166, 0.62)" stroke-width="1.4" />
+                    <rect x={aboveBreakLastPoint.x - 218} y={aboveBreakLastPoint.y - 44} width="204" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(20, 184, 166, 0.3)" />
+                    <text x={aboveBreakLastPoint.x - 205} y={aboveBreakLastPoint.y - 27} fill="#99f6e4" font-size="11" font-weight="800">Above break: {aboveBreakChange}</text>
+                  </g>
+                {/if}
 
                 {#if distanceActivePoint}
                   <g pointer-events="none">

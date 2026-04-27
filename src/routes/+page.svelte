@@ -1,15 +1,23 @@
 <script lang="ts">
   import CoordinatedShotEvolution from '$lib/components/CoordinatedShotEvolution.svelte';
   import DistanceProfileSection from '$lib/components/home/DistanceProfileSection.svelte';
+  import ExploreDataSection from '$lib/components/home/ExploreDataSection.svelte';
   import Heatmap3DSection from '$lib/components/home/Heatmap3DSection.svelte';
   import HeatmapComparisonSection from '$lib/components/home/HeatmapComparisonSection.svelte';
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
   import PipelineNotice from '$lib/components/home/PipelineNotice.svelte';
   import PlayerFocusStickySection from '$lib/components/home/PlayerFocusStickySection.svelte';
   import ShotTimelineShowcaseSection from '$lib/components/home/ShotTimelineShowcaseSection.svelte';
+  import { deriveThesisMetrics } from '$lib/content/shotEvolutionStory';
   import type { PageData } from './$types';
 
   export let data: PageData;
+
+  $: thesisMetrics = deriveThesisMetrics(
+    data.seasonDistance?.all ?? [],
+    data.shotTypeTrend?.all ?? [],
+    data.zoneTrend?.all ?? []
+  );
 </script>
 
 <svelte:head>
@@ -21,7 +29,7 @@
 </svelte:head>
 
 <div class="min-h-screen overflow-x-clip">
-  <HeroHeader />
+  <HeroHeader metrics={thesisMetrics} />
 
   <main class="mx-auto max-w-[118rem] px-4 pb-16 sm:px-6 lg:px-8">
     {#if !data.pipelineReady}
@@ -46,6 +54,13 @@
         <ShotTimelineShowcaseSection
           heatmap={data.heatmap}
           seasons={data.seasons}
+          players={data.playerDistance?.players ?? []}
+        />
+
+        <ExploreDataSection
+          seasons={data.seasons}
+          distance={data.distance}
+          heatmap={data.heatmap}
           players={data.playerDistance?.players ?? []}
         />
       </div>

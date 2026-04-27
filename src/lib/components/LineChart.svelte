@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Line } from 'svelte-chartjs';
+  import ChartCanvas from '$lib/components/ChartCanvas.svelte';
   import {
     CategoryScale,
     Chart as ChartJS,
@@ -133,9 +133,9 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[18rem]">
+<div class="h-[22rem] lg:h-[28rem]">
   {#if data.length}
-    <Line data={chartData} {options} />
+    <ChartCanvas type="line" data={chartData} {options} />
   {:else}
     <div class="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-slate-400">
       No monthly trend data is available for the current filter.

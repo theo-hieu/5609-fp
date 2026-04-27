@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Line } from 'svelte-chartjs';
+  import ChartCanvas from '$lib/components/ChartCanvas.svelte';
   import {
     CategoryScale,
     Chart as ChartJS,
+    Filler,
     Legend,
     LineElement,
     LinearScale,
@@ -19,7 +20,7 @@
   export let shotOutcome: ShotOutcome = 'all';
   export let revealProgress = 100;
 
-  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
   function withOpacity(hex: string, opacity: number) {
     const normalized = hex.replace('#', '');
@@ -177,9 +178,9 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[26rem]">
+<div class="h-[30rem] lg:h-[38rem]">
   {#if player}
-    <Line data={chartData} {options} />
+    <ChartCanvas type="line" data={chartData} {options} />
   {:else}
     <div class="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-slate-400">
       No player distance trend data is available yet. Re-run the data pipeline to generate it.

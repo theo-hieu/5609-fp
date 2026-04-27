@@ -1,17 +1,8 @@
 export type ShotOutcome = 'all' | 'made' | 'missed';
-export type SceneId = 1 | 2 | 3;
 
 export interface FilterState {
   shotOutcome: ShotOutcome;
   season: string;
-}
-
-export interface SceneCopy {
-  id: SceneId;
-  eyebrow: string;
-  title: string;
-  description: string;
-  paragraphs: string[];
 }
 
 export interface AggregateStats {

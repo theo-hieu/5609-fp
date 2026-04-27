@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Line } from 'svelte-chartjs';
+  import ChartCanvas from '$lib/components/ChartCanvas.svelte';
   import {
     CategoryScale,
     Chart as ChartJS,
@@ -136,9 +136,9 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[22rem]">
+<div class="h-[28rem] lg:h-[34rem]">
   {#if data.length}
-    <Line data={chartData} {options} plugins={[revealPlugin as never]} />
+    <ChartCanvas type="line" data={chartData} {options} plugins={[revealPlugin as never]} />
   {:else}
     <div class="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-slate-400">
       No shot type trend data is available yet. Re-run the data pipeline to generate it.

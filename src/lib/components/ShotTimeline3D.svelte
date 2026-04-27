@@ -812,6 +812,7 @@
     controls.target.set(0, 6, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
+    controls.enableZoom = false;
     controls.minDistance = 25;
     controls.maxDistance = 130;
     controls.maxPolarAngle = Math.PI * 0.495;
@@ -898,7 +899,7 @@
   });
 </script>
 
-<div class="relative h-[34rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70">
+<div class="relative h-[38rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 lg:h-[calc(100vh-8rem)] lg:min-h-[44rem]">
   <div bind:this={host} class="h-full w-full"></div>
 
   <div class="pointer-events-none absolute left-3 top-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs">
@@ -906,7 +907,7 @@
     <div class="mt-1 text-sm font-semibold text-white">{activeSeason || 'No season data'}</div>
     <div class="mt-1 text-slate-400">
       {profileMode === 'player' && playerTargetDistance !== null
-        ? `Player weighted · target ${playerTargetDistance.toFixed(1)} ft`
+        ? `Player weighted - target ${playerTargetDistance.toFixed(1)} ft`
         : 'League weighted distribution'}
     </div>
   </div>
@@ -924,7 +925,7 @@
   {/if}
 
   <div class="pointer-events-none absolute bottom-3 left-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">
-    Drag to rotate · Scroll to zoom
+    Drag to rotate. Page scroll stays active.
   </div>
 
   <div class="pointer-events-none absolute bottom-3 right-3 flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">

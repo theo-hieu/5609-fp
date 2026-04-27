@@ -171,7 +171,13 @@
   .viz {
     position: sticky;
     top: max(calc(var(--scrolly-margin, 0) * 1px), var(--scrolly-viz-top, 2em));
-    max-height: 100vh;
+    align-self: start;
+    display: flex;
+    min-height: calc(100vh - max(calc(var(--scrolly-margin, 0) * 1px), var(--scrolly-viz-top, 2em)) - 1rem);
+  }
+
+  .viz :global(> *) {
+    width: 100%;
   }
 
   @container style(--scrolly-layout: viz-first) {
@@ -213,6 +219,7 @@
     .viz {
       position: relative;
       top: auto;
+      min-height: auto;
       max-height: none;
       order: -1;
     }

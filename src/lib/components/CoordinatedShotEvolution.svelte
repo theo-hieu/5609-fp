@@ -12,22 +12,21 @@
   type Series = { key: string; label: string; color: string; values: number[]; points: Point[] };
 
   const width = 920;
-  const height = 640;
+  const height = 584;
   const left = 72;
   const right = 36;
   const plotWidth = width - left - right;
   const panels = [
-    { key: 'distance', title: 'Average distance', y: 56, height: 136, unit: 'ft' },
-    { key: 'mix', title: 'Shot type share', y: 250, height: 136, unit: '%' },
-    { key: 'zone', title: 'Zone share', y: 444, height: 136, unit: '%' }
+    { key: 'distance', title: 'Average distance', y: 44, height: 122, unit: 'ft' },
+    { key: 'mix', title: 'Shot type share', y: 218, height: 122, unit: '%' },
+    { key: 'zone', title: 'Zone share', y: 392, height: 122, unit: '%' }
   ];
 
   const zoneColors: Record<string, string> = {
     'Restricted Area': '#fde68a',
     'In The Paint (Non-RA)': '#fbbf24',
     'Mid-Range': '#fb923c',
-    'Left Corner 3': '#38bdf8',
-    'Right Corner 3': '#0ea5e9',
+    'Corner 3': '#38bdf8',
     'Above the Break 3': '#14b8a6',
     Backcourt: '#64748b'
   };
@@ -35,6 +34,7 @@
   let progress = 0;
   let hoverIndex: number | null = null;
   let hoverX: number | null = null;
+  let hoverY: number | null = null;
   let svgElement: SVGSVGElement | null = null;
   let filterStartIndex = 0;
   let filterEndIndex: number | null = null;
@@ -137,11 +137,15 @@
     return season === 'N/A' ? 'Season unavailable' : `Season: ${season}`;
   }
 
-  function eventToViewX(event: PointerEvent) {
-    if (!svgElement) return left;
+  function eventToViewPoint(event: PointerEvent): { x: number; y: number } {
+    if (!svgElement) return { x: left, y: panels[0].y };
     const rect = svgElement.getBoundingClientRect();
     const viewX = ((event.clientX - rect.left) / Math.max(rect.width, 1)) * width;
-    return Math.min(Math.max(viewX, left), left + plotWidth);
+    const viewY = ((event.clientY - rect.top) / Math.max(rect.height, 1)) * height;
+    return {
+      x: Math.min(Math.max(viewX, left), left + plotWidth),
+      y: Math.min(Math.max(viewY, 0), height)
+    };
   }
 
   function indexFromViewX(viewX: number, total: number) {
@@ -152,12 +156,13 @@
   function handlePointerDown(event: PointerEvent) {
     if (!visibleSeasons.length) return;
     event.preventDefault();
-    const viewX = eventToViewX(event);
-    dragStartX = viewX;
-    dragCurrentX = viewX;
-    hoverX = viewX;
+    const viewPoint = eventToViewPoint(event);
+    dragStartX = viewPoint.x;
+    dragCurrentX = viewPoint.x;
+    hoverX = viewPoint.x;
+    hoverY = viewPoint.y;
     isDragging = true;
-    hoverIndex = indexFromViewX(viewX, visibleSeasons.length);
+    hoverIndex = indexFromViewX(viewPoint.x, visibleSeasons.length);
     (event.currentTarget as HTMLElement).setPointerCapture?.(event.pointerId);
   }
 
@@ -167,15 +172,16 @@
       hoverIndex = 0;
       return;
     }
-    const viewX = eventToViewX(event);
-    hoverX = viewX;
-    if (isDragging) dragCurrentX = viewX;
-    hoverIndex = indexFromViewX(viewX, visibleSeasons.length);
+    const viewPoint = eventToViewPoint(event);
+    hoverX = viewPoint.x;
+    hoverY = viewPoint.y;
+    if (isDragging) dragCurrentX = viewPoint.x;
+    hoverIndex = indexFromViewX(viewPoint.x, visibleSeasons.length);
   }
 
   function handlePointerUp(event: PointerEvent) {
     if (!isDragging) return;
-    const endX = eventToViewX(event);
+    const endX = eventToViewPoint(event).x;
     dragCurrentX = endX;
     (event.currentTarget as HTMLElement).releasePointerCapture?.(event.pointerId);
 
@@ -199,6 +205,7 @@
     if (isDragging) return;
     hoverIndex = null;
     hoverX = null;
+    hoverY = null;
   }
 
   function resetRange() {
@@ -206,6 +213,7 @@
     filterEndIndex = null;
     hoverIndex = null;
     hoverX = null;
+    hoverY = null;
     isDragging = false;
     dragStartX = null;
     dragCurrentX = null;
@@ -280,11 +288,20 @@
   } satisfies Series;
 
   $: zoneSeasons = visibleZoneTrend.map((row) => row.season);
-  $: featuredZones = ['Mid-Range', 'Left Corner 3', 'Right Corner 3', 'Above the Break 3'].filter(
+  $: featuredZones = ['Mid-Range', 'Corner 3', 'Above the Break 3'].filter(
     (zone) => zones.includes(zone) || zoneTrend.some((row) => row.zones.some((entry) => entry.zone === zone))
+      || zone === 'Corner 3'
   );
   $: zoneValuesByName = featuredZones.map((zone) =>
-    visibleZoneTrend.map((row) => +(100 * (rowByZone(row, zone)?.share ?? 0)).toFixed(1))
+    visibleZoneTrend.map((row) => {
+      if (zone === 'Corner 3') {
+        const leftCornerShare = rowByZone(row, 'Left Corner 3')?.share ?? 0;
+        const rightCornerShare = rowByZone(row, 'Right Corner 3')?.share ?? 0;
+        return +(100 * (leftCornerShare + rightCornerShare)).toFixed(1);
+      }
+
+      return +(100 * (rowByZone(row, zone)?.share ?? 0)).toFixed(1);
+    })
   );
   $: zoneMax = Math.max(8, Math.ceil((Math.max(0, ...zoneValuesByName.flat()) + 2) / 2) * 2);
   $: zoneTicks = [0, zoneMax / 2, zoneMax];
@@ -297,13 +314,13 @@
   })) satisfies Series[];
 
   $: aboveBreakSeries = zoneSeries.find((series) => series.key === 'Above the Break 3') ?? null;
-  $: leftCornerSeries = zoneSeries.find((series) => series.key === 'Left Corner 3') ?? null;
-  $: rightCornerSeries = zoneSeries.find((series) => series.key === 'Right Corner 3') ?? null;
+  $: cornerSeries = zoneSeries.find((series) => series.key === 'Corner 3') ?? null;
   $: midRangeSeries = zoneSeries.find((series) => series.key === 'Mid-Range') ?? null;
 
-  $: distanceReveal = stageReveal(0, 30);
-  $: mixReveal = stageReveal(24, 62);
-  $: zoneReveal = stageReveal(58, 94);
+  $: coordinatedReveal = stageReveal(0, 96);
+  $: distanceReveal = coordinatedReveal;
+  $: mixReveal = coordinatedReveal;
+  $: zoneReveal = coordinatedReveal;
   $: distanceClipWidth = plotWidth * distanceReveal;
   $: mixClipWidth = plotWidth * mixReveal;
   $: zoneClipWidth = plotWidth * zoneReveal;
@@ -319,13 +336,26 @@
   $: mixLegend = [twoPointSeries, threePointSeries].map(({ key, label, color }) => ({ key, label, color }));
   $: zoneLegend = zoneSeries.map(({ key, label, color }) => ({ key, label, color }));
   $: tooltipWidth = 224;
-  $: tooltipX = Math.min(activeGuideX + 14, left + plotWidth - tooltipWidth - 6);
-  $: tooltipY = panels[0].y + 10;
+  $: tooltipHeight = 166;
+  $: tooltipGap = 14;
+  $: tooltipFitsRight = activeGuideX + tooltipGap + tooltipWidth <= left + plotWidth;
+  $: tooltipX = tooltipFitsRight
+    ? activeGuideX + tooltipGap
+    : Math.max(left + 6, activeGuideX - tooltipWidth - tooltipGap);
+  $: hoverYValue = hoverY;
+  $: hoveredPanel = hoverYValue == null
+    ? panels[0]
+    : panels.find((panel) => hoverYValue >= panel.y - 18 && hoverYValue <= panel.y + panel.height + 30) ?? panels[0];
+  $: tooltipY = Math.min(
+    Math.max((hoveredPanel?.y ?? panels[0].y) + 10, 8),
+    height - tooltipHeight - 8
+  );
   $: tooltipRows = [
     { label: 'Avg distance', value: seriesValue(distanceSeries, activeIndex, 'ft'), color: distanceSeries.color },
     { label: '3PT share', value: seriesValue(threePointSeries, activeIndex, '%'), color: threePointSeries.color },
     { label: '2PT share', value: seriesValue(twoPointSeries, activeIndex, '%'), color: twoPointSeries.color },
     { label: 'Above break', value: seriesValue(aboveBreakSeries, activeIndex, '%'), color: aboveBreakSeries?.color ?? '#14b8a6' },
+    { label: 'Corner 3', value: seriesValue(cornerSeries, activeIndex, '%'), color: cornerSeries?.color ?? '#38bdf8' },
     { label: 'Mid-range', value: seriesValue(midRangeSeries, activeIndex, '%'), color: midRangeSeries?.color ?? '#fb923c' }
   ];
 
@@ -405,8 +435,8 @@
             in-between attempts.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
-            Above the break is the curved part of the 3-point line near the top and wings. Corner threes come from the
-            short straight sections near the baseline, while mid-range shots live between the paint and the arc.
+            Above the break is the curved part of the 3-point line near the top and wings. Corner threes combine both
+            baseline corners, while mid-range shots live between the paint and the arc.
           </p>
           <div class="mt-5 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
             <p class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3">
@@ -416,10 +446,7 @@
               <span class="font-semibold text-orange-200">Mid-range:</span> {shareChange(midRangeSeries)}
             </p>
             <p class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3">
-              <span class="font-semibold text-sky-200">Left corner:</span> {shareChange(leftCornerSeries)}
-            </p>
-            <p class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3">
-              <span class="font-semibold text-blue-200">Right corner:</span> {shareChange(rightCornerSeries)}
+              <span class="font-semibold text-sky-200">Corner 3:</span> {shareChange(cornerSeries)}
             </p>
           </div>
         </article>
@@ -428,18 +455,18 @@
 
     {#snippet viz()}
       <article class="panel coordinated-viz overflow-hidden border border-amber-300/20 bg-slate-900/90">
-        <div class="border-b border-white/10 px-5 py-5 sm:px-6 lg:px-8">
+        <div class="border-b border-white/10 px-4 py-3 sm:px-5 lg:px-6">
           <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">Coordinated View</p>
-              <h3 class="mt-2 text-2xl font-bold text-white">How shot distance, shot type, and court zones move together</h3>
-              <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+              <h3 class="mt-1 text-xl font-bold text-white sm:text-2xl">How shot distance, shot type, and court zones move together</h3>
+              <p class="mt-1 max-w-3xl text-sm leading-6 text-slate-400">
                 Scroll anywhere on the page to reveal the causal chain instead of reading three disconnected charts.
               </p>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-300">
+            <div class="stage-badge rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-2 text-sm text-slate-300">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Stage</p>
-              <p class="mt-1 font-bold text-white">
+              <p class="mt-1 whitespace-nowrap font-bold text-white">
                 {stage === 1 ? 'The court stretches' : stage === 2 ? 'Threes absorb the attempts' : 'The middle disappears'}
               </p>
               {#if isRangeFiltered}
@@ -458,7 +485,7 @@
           </div>
         </div>
 
-        <div class="p-3 sm:p-5 lg:p-6">
+        <div class="coordinated-chart-body p-2 sm:p-3 lg:p-4">
           {#if hasCoordinatedData}
             <div
               class="mechanism-board rounded-3xl border border-white/10 bg-slate-950/70 p-2 sm:p-4"
@@ -572,7 +599,7 @@
                   {/each}
                 </g>
 
-                <g opacity={stage >= 1 ? 1 : 0.55} clip-path="url(#distance-clip)">
+                <g opacity="1" clip-path="url(#distance-clip)">
                   <path d={pathFromPoints(distanceSeries.points)} fill="none" stroke={distanceSeries.color} stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
                   {#each distanceSeries.points as point, index}
                     {#if index === 0 || index === distanceSeries.points.length - 1 || index === activeIndex}
@@ -588,13 +615,13 @@
                   </g>
                 {/if}
 
-                <g opacity={stage >= 2 ? 1 : 0.22} clip-path="url(#mix-clip)">
+                <g opacity="1" clip-path="url(#mix-clip)">
                   {#each [twoPointSeries, threePointSeries] as series}
                     <path d={pathFromPoints(series.points)} fill="none" stroke={series.color} stroke-width={series.key === 'three' ? 4.5 : 3.5} stroke-linecap="round" stroke-linejoin="round" />
                   {/each}
                 </g>
 
-                <g opacity={stage >= 3 ? 1 : 0.18} clip-path="url(#zone-clip)">
+                <g opacity="1" clip-path="url(#zone-clip)">
                   {#each zoneSeries as series}
                     <path
                       d={pathFromPoints(series.points)}
@@ -608,54 +635,16 @@
                   {/each}
                 </g>
 
-                <g opacity={stage >= 2 ? 1 : 0} pointer-events="none">
-                  <rect x={left + plotWidth * 0.42} y={panels[1].y - 30} width="270" height="22" rx="11" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(20, 184, 166, 0.24)" />
-                  <text x={left + plotWidth * 0.435} y={panels[1].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">3PT share: {threePointChange}</text>
-                </g>
-
-                <g opacity={stage >= 3 ? 1 : 0} pointer-events="none">
-                  <rect x={left + plotWidth * 0.32} y={panels[2].y - 30} width="392" height="22" rx="11" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(20, 184, 166, 0.24)" />
-                  <text x={left + plotWidth * 0.335} y={panels[2].y - 15} fill="#e2e8f0" font-size="11" font-weight="700">Mid-range: {midRangeChange} | Above break: {aboveBreakChange}</text>
-                </g>
-
-                {#if distanceLastPoint}
-                  <g opacity={distanceReveal > 0.86 ? 1 : 0} pointer-events="none">
-                    <line x1={distanceLastPoint.x - 90} x2={distanceLastPoint.x - 8} y1={distanceLastPoint.y - 28} y2={distanceLastPoint.y - 4} stroke="rgba(251, 191, 36, 0.62)" stroke-width="1.4" />
-                    <rect x={distanceLastPoint.x - 210} y={distanceLastPoint.y - 48} width="196" height="26" rx="13" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(251, 191, 36, 0.32)" />
-                    <text x={distanceLastPoint.x - 196} y={distanceLastPoint.y - 31} fill="#fde68a" font-size="11" font-weight="800">Avg distance: {distanceChange}</text>
-                  </g>
-                {/if}
-
-                {#if threePointLastPoint}
-                  <g opacity={mixReveal > 0.86 ? 1 : 0} pointer-events="none">
-                    <line x1={threePointLastPoint.x - 82} x2={threePointLastPoint.x - 8} y1={threePointLastPoint.y - 24} y2={threePointLastPoint.y - 4} stroke="rgba(45, 212, 191, 0.62)" stroke-width="1.4" />
-                    <rect x={threePointLastPoint.x - 188} y={threePointLastPoint.y - 44} width="174" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(45, 212, 191, 0.3)" />
-                    <text x={threePointLastPoint.x - 175} y={threePointLastPoint.y - 27} fill="#99f6e4" font-size="11" font-weight="800">3PT share: {threePointChange}</text>
-                  </g>
-                {/if}
-
-                {#if midRangeLastPoint && aboveBreakLastPoint}
-                  <g opacity={zoneReveal > 0.86 ? 1 : 0} pointer-events="none">
-                    <line x1={midRangeLastPoint.x - 86} x2={midRangeLastPoint.x - 8} y1={midRangeLastPoint.y + 24} y2={midRangeLastPoint.y + 4} stroke="rgba(251, 146, 60, 0.62)" stroke-width="1.4" />
-                    <rect x={midRangeLastPoint.x - 198} y={midRangeLastPoint.y + 18} width="184" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(251, 146, 60, 0.3)" />
-                    <text x={midRangeLastPoint.x - 185} y={midRangeLastPoint.y + 35} fill="#fed7aa" font-size="11" font-weight="800">Mid-range: {midRangeChange}</text>
-
-                    <line x1={aboveBreakLastPoint.x - 94} x2={aboveBreakLastPoint.x - 8} y1={aboveBreakLastPoint.y - 24} y2={aboveBreakLastPoint.y - 4} stroke="rgba(20, 184, 166, 0.62)" stroke-width="1.4" />
-                    <rect x={aboveBreakLastPoint.x - 218} y={aboveBreakLastPoint.y - 44} width="204" height="25" rx="12.5" fill="rgba(15, 23, 42, 0.92)" stroke="rgba(20, 184, 166, 0.3)" />
-                    <text x={aboveBreakLastPoint.x - 205} y={aboveBreakLastPoint.y - 27} fill="#99f6e4" font-size="11" font-weight="800">Above break: {aboveBreakChange}</text>
-                  </g>
-                {/if}
-
                 {#if distanceActivePoint}
                   <g pointer-events="none">
                     <circle cx={distanceActivePoint.x} cy={distanceActivePoint.y} r={isHovering ? 7 : 5.5} fill="#fff7ed" stroke={distanceSeries.color} stroke-width="2.6" />
                     {#each mixActivePoints as point, index}
-                      {#if point && (stage >= 2 || isHovering)}
+                      {#if point}
                         <circle cx={point.x} cy={point.y} r={isHovering ? 5.5 : 4.5} fill="#0f172a" stroke={index === 0 ? twoPointSeries.color : threePointSeries.color} stroke-width="2.4" />
                       {/if}
                     {/each}
                     {#each zoneActivePoints as point, index}
-                      {#if point && (stage >= 3 || isHovering)}
+                      {#if point}
                         <circle cx={point.x} cy={point.y} r={isHovering ? 5 : 4} fill="#0f172a" stroke={zoneSeries[index].color} stroke-width="2.2" opacity={zoneSeries[index].key === 'Above the Break 3' || zoneSeries[index].key === 'Mid-Range' ? 1 : 0.78} />
                       {/if}
                     {/each}
@@ -672,7 +661,7 @@
 
                 {#if isHovering}
                   <g transform={`translate(${tooltipX} ${tooltipY})`} pointer-events="none">
-                    <rect width={tooltipWidth} height="150" rx="12" fill="rgba(2, 6, 23, 0.94)" stroke="rgba(226, 232, 240, 0.2)" />
+                    <rect width={tooltipWidth} height={tooltipHeight} rx="12" fill="rgba(2, 6, 23, 0.94)" stroke="rgba(226, 232, 240, 0.2)" />
                     <text x="14" y="22" fill="#f8fafc" font-size="13" font-weight="800">{activeSeason}</text>
                     <text x={tooltipWidth - 14} y="22" fill="#94a3b8" font-size="10" font-weight="700" text-anchor="end">hover values</text>
                     {#each tooltipRows as row, index}
@@ -682,7 +671,7 @@
                         <text x={tooltipWidth - 28} y="0" fill="#f8fafc" font-size="11" font-weight="800" text-anchor="end">{row.value}</text>
                       </g>
                     {/each}
-                    <text x={tooltipWidth - 14} y="136" fill="#64748b" font-size="10.5" font-weight="700" text-anchor="end">{activeSeasonDate}</text>
+                    <text x={tooltipWidth - 14} y="153" fill="#64748b" font-size="10.5" font-weight="700" text-anchor="end">{activeSeasonDate}</text>
                   </g>
                 {/if}
 
@@ -718,15 +707,21 @@
     transform: translateY(-2px);
   }
 
+  .stage-badge {
+    min-width: 15rem;
+  }
+
   .mechanism-board svg {
     display: block;
     width: 100%;
-    height: auto;
-    min-height: min(42rem, calc(100vh - 14rem));
+    height: 100%;
+    min-height: 0;
   }
 
   .mechanism-board {
     cursor: crosshair;
+    height: 100%;
+    min-height: 0;
     touch-action: none;
   }
 
@@ -736,7 +731,15 @@
   }
 
   .coordinated-viz {
-    min-height: calc(100vh - 4rem);
+    display: flex;
+    height: calc(100vh - 2rem);
+    min-height: 38rem;
+    flex-direction: column;
+  }
+
+  .coordinated-chart-body {
+    flex: 1;
+    min-height: 0;
   }
 
   @media (max-width: 640px) {
@@ -749,5 +752,15 @@
       min-height: 30rem;
     }
   }
-</style>
 
+  @media (max-width: 1023px) {
+    .coordinated-viz {
+      height: auto;
+      min-height: 0;
+    }
+
+    .mechanism-board {
+      min-height: 30rem;
+    }
+  }
+</style>

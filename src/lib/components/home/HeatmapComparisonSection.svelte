@@ -15,25 +15,25 @@
       key: "rim",
       label: "Rim pressure remains",
       title: "The best shots never leave the restricted area.",
-      body: "Both eras still light up near the basket. The revolution is not a rejection of layups and dunks; it is the search for cleaner ways to create them.",
+      body: "Both eras still light up near the basket. The modern era is not a rejection of layups and dunks. It is the search for cleaner and more efficienct ways to make them.",
     },
     {
       key: "midrange",
       label: "The middle quiets down",
-      title: "The in-between floor loses its old volume.",
-      body: "The mid-range used to absorb a huge number of possessions. In the modern map, that space becomes noticeably quieter.",
+      title: "The mid-range space loses its old volume.",
+      body: "The mid-range used to absorb a huge number of possessions as we can see through the darker parts in the heatmap. In the modern era, that space becomes noticeably lighter.",
     },
     {
       key: "corners",
       label: "Corners grow",
-      title: "Corner threes matter, but they are not the whole boom.",
-      body: "The corners are valuable because the line is shorter there. They grow, but the bigger spatial change is still waiting above the break.",
+      title: "Corner threes matter, but they are not the whole story.",
+      body: "The corners are valuable because the line is shorter there. They grow, but the bigger change is still waiting above the break.",
     },
     {
       key: "above-break",
       label: "Above the break expands",
       title: "The arc above the break carries the modern spacing shift.",
-      body: "This is where the new geometry becomes obvious: the league stretches the curved part of the arc while the middle fades.",
+      body: "This is where the shift becomes apparent. The league stretches out along the curved part of the arc while the middle fades.",
     },
   ] as const;
 

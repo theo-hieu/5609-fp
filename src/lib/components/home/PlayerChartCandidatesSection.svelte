@@ -144,6 +144,29 @@
     };
   }
 
+  function computeLeagueSummary(profiles: PlayerSummary[]) {
+    if (!profiles || !profiles.length) return null;
+    const n = profiles.length;
+
+    const avgShotDistance = profiles.reduce((s, p) => s + (p.avgShotDistance ?? 0), 0) / n;
+    const avgMadeShotDistance = profiles.reduce((s, p) => s + (p.avgMadeShotDistance ?? 0), 0) / n;
+    const avgMissedShotDistance = profiles.reduce((s, p) => s + (p.avgMissedShotDistance ?? 0), 0) / n;
+    const attempts = profiles.reduce((s, p) => s + (p.attempts ?? 0), 0) / n;
+    const made = profiles.reduce((s, p) => s + (p.made ?? 0), 0) / n;
+
+    return {
+      player: 'Player average',
+      color: '#94a3b8',
+      attempts,
+      made,
+      avgShotDistance,
+      avgMadeShotDistance,
+      avgMissedShotDistance,
+      seasonsPlayed: 0,
+      isLeague: true
+    } as PlayerSummary & { isLeague?: boolean };
+  }
+
   function radarPoint(index: number, radius: number) {
     const angle = -Math.PI / 2 + (index / radarMetrics.length) * Math.PI * 2;
     return {
@@ -227,7 +250,8 @@
   $: comparisonSeries = players.find((player) => player.player === comparisonPlayer);
   $: selectedSeasonSummary = selectedScope === 'career' ? selectedSummary : playerSeasonSummary(selectedSeries, selectedScope);
   $: comparisonSeasonSummary = selectedScope === 'career' ? comparisonSummary : playerSeasonSummary(comparisonSeries, selectedScope);
-  $: radarSummaries = [comparisonSeasonSummary, selectedSeasonSummary].filter(Boolean) as PlayerSummary[];
+  $: leagueSummary = computeLeagueSummary(radarScaleProfiles);
+  $: radarSummaries = [leagueSummary, comparisonSeasonSummary, selectedSeasonSummary].filter(Boolean) as (PlayerSummary & { isLeague?: boolean })[];
   $: selectedHeatmapCells = playerHeatmapCells(selectedPlayer, selectedScope);
   $: comparisonHeatmapCells = playerHeatmapCells(comparisonPlayer, selectedScope);
   $: playerHeatmapComparisons = [
@@ -261,8 +285,7 @@
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-violet-200/80">Player chart candidates</p>
         <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Do stars adapt to the shot revolution differently?</h2>
         <p class="mt-4 text-sm leading-7 text-slate-300">
-          This experimental view uses the player trend data instead of repeating zone distribution. The radar compares
-          two players across either their full careers or one selected season.
+          From this section, we can see how individual players playstyles are shown and compared through the radar and heatmap. The radar gives a quick shape to how the player shoots, while the heatmap shows exactly where their shots are coming from. Both of these are useful for comparing players across eras and seeing how different styles adapt to the changing strategic landscape.
         </p>
       </div>
 
@@ -291,7 +314,7 @@
                 <h3 class="mt-2 text-xl font-bold text-white">Profile shape and shot chart side by side</h3>
                 <p class="mt-2 text-sm leading-6 text-slate-400">
                   Choose Career for the full player profile, or select a season to compare only that year. The radar
-                  summarizes profile shape; the courts show where those shots happen.
+                  summarizes profile shape while the courts show where those shots happen.
                 </p>
               </div>
 
@@ -367,10 +390,11 @@
                     <path
                       d={radarPath(summary)}
                       fill={summary.color}
-                      fill-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.12' : '0.26'}
+                      fill-opacity={summary.isLeague ? '0.12' : hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.12' : '0.26'}
                       stroke={summary.color}
-                      stroke-width={hoveredRadarPlayer === summary.player ? '4' : '3'}
-                      stroke-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.62' : '1'}
+                      stroke-width={summary.isLeague ? '3' : hoveredRadarPlayer === summary.player ? '4' : '3'}
+                      stroke-opacity={summary.isLeague ? '0.95' : hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.62' : '1'}
+                      stroke-dasharray={summary.isLeague ? '6 4' : undefined}
                     />
                     {#each radarMetrics as metric, index}
                       {@const point = radarMetricPoint(summary, index)}

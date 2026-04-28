@@ -106,8 +106,7 @@
             <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/70">Career range</p>
             <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">{selectedPlayer}&apos;s distance extremes.</h2>
             <p class="mt-4 text-sm leading-7 text-slate-300">
-              This view keeps the player fixed while the line reveals season by season. The key question is not only
-              whether the line rises, but where the selected player&apos;s shot profile stretched or compressed the most.
+              We can see how shot distances change over time for specific players. Here are the peak and lowest average shot distances for the selected player, along with their biggest season-to-season jump and drop.
             </p>
             {#if selectedPlayerStats}
               <div class="mt-6 grid gap-4 sm:grid-cols-2">

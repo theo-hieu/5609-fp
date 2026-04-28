@@ -1,5 +1,12 @@
 <script lang="ts">
   import type { StoryMetric } from '$lib/content/shotEvolutionStory';
+  
+  type Definition = {
+    key: string;
+    label: string;
+    definition: string;
+    read_more?: string;
+  };
 
   type ShotDot = {
     x: number;
@@ -42,6 +49,55 @@
   ];
 
   export let metrics: StoryMetric[] = [];
+  const definitions: Definition[] = [
+    {
+      key: 'three_point_line',
+      label: 'Three-point line',
+      definition:
+        'The arc on the basketball court beyond which a successful field goal is worth three points instead of two. The line is 22 feet in the corners and extends to 23.75 feet at the top of the key.',
+      read_more: 'https://en.wikipedia.org/wiki/Three-point_field_goal'
+    },
+    {
+      key: 'rim',
+      label: 'Rim',
+      definition: 'The metal hoop attached to the backboard, 10 feet above the playing surface, through which players attempt to score.',
+    },
+    {
+      key: 'midrange',
+      label: 'Mid-range',
+      definition:
+        'The area inside the three-point arc but away from the rim; historically common but less favored in modern offenses.',
+      read_more: 'https://www.breakthroughbasketball.com/training/midrange-mastery'
+    },
+    {
+      key: 'field_goal_percentage',
+      label: 'Field goal percentage',
+      definition: 'The ratio of made shots to attempted shots, expressed as a percentage.',
+      read_more: 'https://jr.nba.com/field-goal-percentage-fg/'
+    },
+    {
+      key: 'attempts',
+      label: 'Attempts',
+      definition: 'The total number of shot attempts from a location or player.',
+    },
+    {
+      key: 'season',
+      label: 'Season',
+      definition:
+        'The NBA season typically runs from October to April, with playoffs extending into June. For example, the 2023-24 season started in October 2023 and will conclude in June 2024.',
+      read_more: 'https://en.wikipedia.org/wiki/2025%E2%80%9326_NBA_season'
+    },
+    {
+      key: 'above_the_break',
+      label: 'Above the break',
+      definition:
+        'Shots taken from the area of the three-point arc that is above the free-throw line, as opposed to the corners. These shots are slightly farther from the basket and often have a lower conversion rate than corner threes.',
+      read_more: 'https://abovethebreak.substack.com/p/whats-winning-in-the-nba-playoffs'
+    }
+  ];
+
+  let selectedDefKey = '';
+  $: selectedDefinition = definitions.find((d) => d.key === selectedDefKey) ?? null;
 </script>
 
 <header class="shot-hero relative isolate min-h-screen overflow-hidden">
@@ -75,7 +131,7 @@
     <div class="data-trace trace-two"></div>
   </div>
 
-  <div class="relative z-10 mx-auto flex min-h-screen max-w-[118rem] flex-col justify-center px-5 py-20 sm:px-8 lg:px-12">
+  <div class="relative z-10 mx-auto flex max-w-[118rem] flex-col justify-center px-5 py-20 sm:px-8 lg:px-12">
     <div class="max-w-5xl">
       <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/90 sm:text-sm">
         NBA Shot Evolution
@@ -84,8 +140,8 @@
         The NBA Didn&apos;t Just Move Back. It Gave Up the Middle.
       </h1>
       <p class="mt-6 max-w-3xl text-base leading-8 text-slate-200 sm:text-lg">
-        From 2003-04 through 2023-24, millions of attempts show a league rewiring its geometry: fewer possessions ending
-        in the in-between space, more pressure at the rim, and a much larger share of shots launched above the arc.
+        From 2003-04 through 2023-24, millions of attempts show a league rewiring itself. Fewer possessions ending
+        in the mid-range space, more pressure at the rim, and a much larger share of shots launched above the arc.
       </p>
       <p class="mt-4 max-w-3xl text-xs italic leading-5 text-slate-400 sm:text-sm">
         Note: Data from the 2020-21 season may show irregular patterns due to the COVID-19 pandemic and schedule disruption.
@@ -103,6 +159,40 @@
         </div>
       {/if}
     </div>
+
+    <div class="mt-8 max-w-3xl">
+      <label class="grid gap-1 text-sm text-slate-300">
+        <span class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Definitions</span>
+        <select
+          class="rounded-xl border border-white/10 bg-slate-950/90 px-3 py-2 text-sm text-white outline-none transition focus:border-amber-300/60"
+          bind:value={selectedDefKey}
+        >
+          <option value="">Select a term</option>
+          {#each definitions as def}
+            <option value={def.key}>{def.label}</option>
+          {/each}
+        </select>
+      </label>
+
+      {#if selectedDefinition}
+        <div class="mt-3 rounded-2xl border border-white/10 bg-slate-950/80 p-3 text-sm text-slate-200">
+          <p class="font-semibold text-white">{selectedDefinition.label}</p>
+          <p class="mt-1 text-slate-300">{selectedDefinition.definition}</p>
+          {#if selectedDefinition.read_more}
+            <a
+              href={selectedDefinition.read_more}
+              class="mt-2 inline-block text-xs font-bold uppercase tracking-[0.14em] text-amber-200 underline decoration-amber-400/40 underline-offset-4"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read more
+            </a>
+          {/if}
+        </div>
+      {/if}
+    </div>
+
+    
 
     <div class="absolute bottom-8 left-5 right-5 z-10 mx-auto flex max-w-[118rem] items-center justify-between gap-6 px-0 text-xs font-semibold uppercase tracking-[0.22em] text-slate-300 sm:left-8 sm:right-8 lg:left-12 lg:right-12">
       <span class="hidden h-px flex-1 bg-gradient-to-r from-amber-300/45 via-teal-300/30 to-transparent sm:block"></span>

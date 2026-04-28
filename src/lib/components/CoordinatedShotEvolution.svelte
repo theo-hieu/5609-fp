@@ -389,12 +389,11 @@
           <p class="text-xs font-semibold uppercase tracking-[0.24em] text-amber-300/80">The court stretches</p>
           <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The first clue is distance.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            Average shot distance rises from {firstSeason} to {lastSeason}. That is the headline, but not the story.
+            Average shot distance rises from {firstSeason} to {lastSeason}.
             The important question is what disappeared to make room for those farther attempts.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
-            Think of shot distance as the league&apos;s center of gravity. When that center moves, the rest of the court
-            has to explain why.
+            When the league as a whole is taking more distant shots, it means something fundamental is changing about how offenses are structured and how defenses respond.
           </p>
           <div class="mt-5 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
             <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Distance Change</p>
@@ -407,8 +406,8 @@
           <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300/80">Threes absorb the attempts</p>
           <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">The arc becomes a bigger share of the offense.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            The middle layer answers the first question: three-point share climbs while two-point share falls. The
-            league is not merely taking longer twos; it is reallocating possessions across the scoring boundary.
+            We can see that three's are going up while mid range shots are decreasing. The
+            league is not just taking longer twos, it is shifting the shot mix towards the arc and away from mid-range attempts.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
             Shot share means the percentage of all attempts that belong to a category. A rising 3PT share means more

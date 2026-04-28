@@ -81,14 +81,13 @@
     <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1.85fr)] lg:px-8">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.24em] text-indigo-200/80">Recap in motion</p>
-        <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Watch the court transform after the evidence lands.</h2>
+        <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">Watch how shot distance changes over time with a 3d visualization.</h2>
           <p class="mt-4 text-sm leading-7 text-slate-300">
-            The story ends by putting the pieces back on the floor. Each shot launches from a sampled court location,
-            letting the rim, corners, above-the-break arc, and quieter middle appear as one moving system.
+            This timeline shows every shot taken in the league across all seasons, shown on an actual court. With this, we are able to see the full evolution of shot distance and how it interacts with the court as a whole. Based off of this, we are able to determine how the league&apos;s center of gravity shifts over time and how that changes the strategic value of different court regions.
           </p>
           <p class="mt-3 text-sm leading-7 text-slate-400">
-            Leave the timeline in league mode for the guided recap, then use the controls below to pause, replay, or
-            compare specific seasons before moving into the free exploration panel.
+            Leave the timeline in the all seasons mode for a guided recap, then use the controls below to pause, replay, or
+            compare specific seasons. Try selecting a player-weighted profile to see how a specifc player&apos;s shot distribution changes the story.
           </p>
       </div>
 
@@ -106,8 +105,8 @@
         <div class="rounded-3xl border border-white/10 bg-slate-950/70 px-5 py-5">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">What to watch</p>
           <p class="mt-2 text-sm leading-6 text-slate-400">
-            Teal arcs are makes and orange arcs are misses. The recap should feel like the same thesis in motion:
-            fewer in-between launches, more activity bending the defense toward the arc.
+            Teal arcs are makes and orange arcs are misses. The recap should feel like the you are watching the seasons in motion with
+            fewer mid-range shots and more coming beyond the arc.
           </p>
         </div>
       </div>

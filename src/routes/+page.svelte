@@ -1,7 +1,7 @@
 <script lang="ts">
   import CoordinatedShotEvolution from '$lib/components/CoordinatedShotEvolution.svelte';
   import DistanceProfileSection from '$lib/components/home/DistanceProfileSection.svelte';
-  import Heatmap3DSection from '$lib/components/home/Heatmap3DSection.svelte';
+  
   import HeatmapComparisonSection from '$lib/components/home/HeatmapComparisonSection.svelte';
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
   import PlayerChartCandidatesSection from '$lib/components/home/PlayerChartCandidatesSection.svelte';
@@ -46,8 +46,6 @@
         <DistanceProfileSection seasons={data.seasons} distance={data.distance} />
 
         <HeatmapComparisonSection heatmap={data.heatmap} seasons={data.seasons} />
-
-        <Heatmap3DSection heatmap={data.heatmap} seasons={data.seasons} />
 
         <ShotTimelineShowcaseSection
           heatmap={data.heatmap}

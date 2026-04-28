@@ -7,7 +7,6 @@
 
   let shotOutcome: ShotOutcome = 'all';
   let distanceHighlightActive = true;
-  let distanceChartsMerged = false;
 
   function selectCollection<T>(collection: { all: T[]; bySeason: Record<string, T[]> } | null, season: string): T[] {
     if (!collection) return [];
@@ -29,11 +28,7 @@
         <p class="mt-4 text-sm leading-7 text-slate-300">
           Shots near the rim are still the easiest to convert. The strange part is what happens farther away:
           attempts behind the arc can survive lower accuracy because they are worth an extra point. That boundary is
-          the hinge of the whole story.
-        </p>
-        <p class="mt-3 text-sm leading-7 text-slate-400">
-          This chapter keeps the full-league view fixed and highlights the three-point range, so the chart reads as
-          evidence rather than a filter exercise.
+          the three-point line.
         </p>
       </div>
 
@@ -48,7 +43,7 @@
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">What To Notice</p>
           <p class="mt-2 text-sm leading-6 text-slate-300">
             The highlighted region starts near the corner three distance. The league gives up some accuracy there,
-            but the point value keeps those attempts central to modern offense.
+            but the high point value is what keeps teams shooting from long range.
           </p>
         </div>
       </div>
@@ -61,7 +56,7 @@
             <span class="font-semibold text-white">Rim:</span> highest conversion, still the cleanest shot on the floor.
           </p>
           <p class="rounded-2xl border border-amber-300/20 bg-amber-400/10 px-4 py-3">
-            <span class="font-semibold text-amber-100">Arc:</span> lower accuracy can still work because the reward changes.
+            <span class="font-semibold text-amber-100">Three point line:</span> lower accuracy can still work because the reward changes.
           </p>
           <p class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3">
             <span class="font-semibold text-white">Middle:</span> caught between easier twos and more valuable threes.
@@ -76,14 +71,7 @@
           >
             3PT range
           </button>
-          <button
-            type="button"
-            class:active-toggle={distanceChartsMerged}
-            class="rounded-xl border border-white/10 bg-slate-950/90 px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-slate-300 transition hover:border-amber-300/40 hover:text-white"
-            on:click={() => (distanceChartsMerged = !distanceChartsMerged)}
-          >
-            {distanceChartsMerged ? 'Merged' : 'Split'}
-          </button>
+          
         </div>
       </div>
     </div>
@@ -95,7 +83,7 @@
         longDistanceBucket={distance?.metadata.longDistanceBucket ?? 40}
         bucketSize={distance?.metadata.bucketSize ?? 2}
         highlightThreePointRange={distanceHighlightActive}
-        merged={distanceChartsMerged}
+        merged={false}
       />
     </div>
   </article>

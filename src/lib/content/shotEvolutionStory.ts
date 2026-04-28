@@ -46,7 +46,7 @@ export const playerStoryCases: PlayerStoryCase[] = [
     label: 'The exception',
     title: 'Durant keeps the middle alive.',
     body:
-      'He is useful because he complicates the thesis: the league abandoned the middle, but elite shot-makers can still live there.'
+      'He is useful because he complicates the direction of the league. While the league abandoned the middle, elite shot-makers can still live there.'
   },
   {
     player: 'Nikola Jokic',

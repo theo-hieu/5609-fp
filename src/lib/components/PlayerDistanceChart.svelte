@@ -19,6 +19,7 @@
   export let player: PlayerDistanceSeries | null = null;
   export let shotOutcome: ShotOutcome = 'all';
   export let revealProgress = 100;
+  export let yDomain: { min: number; max: number } | null = null;
 
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
@@ -92,8 +93,8 @@
   $: fullSeriesMin = currentPoints.length ? Math.min(...currentPoints) : 0;
   $: fullSeriesMax = currentPoints.length ? Math.max(...currentPoints) : 0;
   $: yPadding = Math.max(0.35, (fullSeriesMax - fullSeriesMin) * 0.18);
-  $: fixedYMin = Math.max(0, +(fullSeriesMin - yPadding).toFixed(2));
-  $: fixedYMax = +(fullSeriesMax + yPadding).toFixed(2);
+  $: fixedYMin = yDomain?.min ?? 0;
+  $: fixedYMax = yDomain?.max ?? +(fullSeriesMax + yPadding).toFixed(2);
   $: datasets = [
     ...(player
       ? [
@@ -178,7 +179,7 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[30rem] lg:h-[38rem]">
+<div class="h-[22rem] lg:h-[27rem]">
   {#if player}
     <ChartCanvas type="line" data={chartData} {options} />
   {:else}

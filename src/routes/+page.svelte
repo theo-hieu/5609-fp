@@ -1,7 +1,6 @@
 <script lang="ts">
   import CoordinatedShotEvolution from '$lib/components/CoordinatedShotEvolution.svelte';
   import DistanceProfileSection from '$lib/components/home/DistanceProfileSection.svelte';
-  import ExploreDataSection from '$lib/components/home/ExploreDataSection.svelte';
   import Heatmap3DSection from '$lib/components/home/Heatmap3DSection.svelte';
   import HeatmapComparisonSection from '$lib/components/home/HeatmapComparisonSection.svelte';
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
@@ -50,21 +49,18 @@
 
         <Heatmap3DSection heatmap={data.heatmap} seasons={data.seasons} />
 
-        <PlayerFocusStickySection players={data.playerDistance?.players ?? []} />
-
         <ShotTimelineShowcaseSection
           heatmap={data.heatmap}
           seasons={data.seasons}
           players={data.playerDistance?.players ?? []}
         />
 
-        <ExploreDataSection
-          seasons={data.seasons}
-          distance={data.distance}
-          heatmap={data.heatmap}
+        <PlayerFocusStickySection players={data.playerDistance?.players ?? []} />
+
+        <PlayerChartCandidatesSection
           players={data.playerDistance?.players ?? []}
+          playerHeatmap={data.playerHeatmap}
         />
-        <PlayerChartCandidatesSection players={data.playerDistance?.players ?? []} />
       </div>
 
       <footer class="pb-4 text-sm text-slate-400">

@@ -114,6 +114,18 @@ export interface PlayerDistancePayload {
   players: PlayerDistanceSeries[];
 }
 
+export interface PlayerHeatmapSeries {
+  player: string;
+  all: HeatmapCell[];
+  bySeason: Record<string, HeatmapCell[]>;
+}
+
+export interface PlayerHeatmapPayload {
+  metadata: HeatmapMetadata;
+  seasons: string[];
+  players: PlayerHeatmapSeries[];
+}
+
 export interface ShotTypeTrendPayload {
   metadata: DataMetadata;
   seasons: string[];

@@ -3,6 +3,7 @@ import type {
   HeatmapPayload,
   MonthlyPayload,
   ShotTypeTrendPayload,
+  PlayerHeatmapPayload,
   PlayerDistancePayload,
   SeasonDistancePayload,
   ZoneTrendPayload
@@ -61,7 +62,7 @@ function deriveSeasonDistancePayload(distance: DistancePayload | null): SeasonDi
 export const load: PageLoad = async () => {
   // Use Vite's dynamic imports to safely load the JSON files from $lib/data.
   // This works in the browser and during static prerendering, completely replacing node:fs.
-  let heatmap = null, monthly = null, distance = null, seasonDistance = null, playerDistance = null,
+  let heatmap = null, monthly = null, distance = null, seasonDistance = null, playerDistance = null, playerHeatmap = null,
     shotTypeTrend = null, zoneTrend = null;
   const optionalDataModules = import.meta.glob('../lib/data/*.json');
 
@@ -70,6 +71,7 @@ export const load: PageLoad = async () => {
   try { distance = (await import('$lib/data/distance-profile.json')).default as DistancePayload; } catch {}
   try { seasonDistance = (await import('$lib/data/season-distance-trend.json')).default as SeasonDistancePayload; } catch {}
   try { playerDistance = (await import('$lib/data/player-distance-trend.json')).default as PlayerDistancePayload; } catch {}
+  try { playerHeatmap = (await import('$lib/data/player-heatmap.json')).default as PlayerHeatmapPayload; } catch {}
   try {
     const importer = optionalDataModules['../lib/data/shot-type-trend.json'];
     if (importer) shotTypeTrend = ((await importer()) as { default: ShotTypeTrendPayload }).default;
@@ -89,6 +91,7 @@ export const load: PageLoad = async () => {
     distance,
     seasonDistance: resolvedSeasonDistance,
     playerDistance,
+    playerHeatmap,
     shotTypeTrend,
     zoneTrend,
     seasons: ready && heatmap ? heatmap.seasons : []

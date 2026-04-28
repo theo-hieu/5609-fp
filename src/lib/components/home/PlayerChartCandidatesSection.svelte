@@ -1,7 +1,9 @@
 <script lang="ts">
-  import type { PlayerDistanceSeries } from '$lib/types';
+  import CourtHeatmap from '$lib/components/CourtHeatmap.svelte';
+  import type { HeatmapCell, PlayerDistanceSeries, PlayerHeatmapPayload } from '$lib/types';
 
   export let players: PlayerDistanceSeries[] = [];
+  export let playerHeatmap: PlayerHeatmapPayload | null = null;
 
   type PlayerSummary = {
     player: string;
@@ -24,18 +26,39 @@
     shortLabel: string;
   };
 
-  const featuredPlayers = ['LeBron James', 'Stephen Curry', 'James Harden', 'Kevin Durant'];
+  const featuredPlayers = [
+    'LeBron James',
+    'Stephen Curry',
+    'James Harden',
+    'Kevin Durant',
+    'Nikola Jokic',
+    'Luka Doncic',
+    'Anthony Edwards',
+    'Kobe Bryant',
+    'Tim Duncan',
+    'Giannis Antetokounmpo',
+    "Shaquille O'Neal",
+    'Jayson Tatum'
+  ];
   const playerColors: Record<string, string> = {
     'LeBron James': '#8b5cf6',
     'Stephen Curry': '#fdb927',
     'James Harden': '#ce1141',
-    'Kevin Durant': '#007ac1'
+    'Kevin Durant': '#007ac1',
+    'Nikola Jokic': '#fbbf24',
+    'Luka Doncic': '#38bdf8',
+    'Anthony Edwards': '#78be20',
+    'Kobe Bryant': '#fdb927',
+    'Tim Duncan': '#cbd5e1',
+    'Giannis Antetokounmpo': '#10b981',
+    "Shaquille O'Neal": '#60a5fa',
+    'Jayson Tatum': '#22c55e'
   };
 
-  const radarWidth = 430;
-  const radarHeight = 376;
-  const radarCenter = { x: 215, y: 188 };
-  const radarRadius = 112;
+  const radarWidth = 360;
+  const radarHeight = 328;
+  const radarCenter = { x: 180, y: 166 };
+  const radarRadius = 90;
 
   const radarMetrics: MetricConfig[] = [
     { key: 'avgShotDistance', label: 'Average shot distance', shortLabel: 'Avg dist' },
@@ -171,6 +194,13 @@
     return scope === 'career' ? 'Career' : scope;
   }
 
+  function playerHeatmapCells(playerName: string, scope: string): HeatmapCell[] {
+    const series = playerHeatmap?.players.find((player) => player.player === playerName);
+    if (!series) return [];
+    if (scope === 'career') return series.all;
+    return series.bySeason[scope] ?? [];
+  }
+
   $: summaries = players
     .filter((player) => featuredPlayers.includes(player.player) && player.seasons.length)
     .map(playerSummary)
@@ -198,6 +228,20 @@
   $: selectedSeasonSummary = selectedScope === 'career' ? selectedSummary : playerSeasonSummary(selectedSeries, selectedScope);
   $: comparisonSeasonSummary = selectedScope === 'career' ? comparisonSummary : playerSeasonSummary(comparisonSeries, selectedScope);
   $: radarSummaries = [comparisonSeasonSummary, selectedSeasonSummary].filter(Boolean) as PlayerSummary[];
+  $: selectedHeatmapCells = playerHeatmapCells(selectedPlayer, selectedScope);
+  $: comparisonHeatmapCells = playerHeatmapCells(comparisonPlayer, selectedScope);
+  $: playerHeatmapComparisons = [
+    {
+      player: comparisonPlayer,
+      color: comparisonSummary?.color ?? '#cbd5e1',
+      cells: comparisonHeatmapCells
+    },
+    {
+      player: selectedPlayer,
+      color: selectedSummary?.color ?? '#cbd5e1',
+      cells: selectedHeatmapCells
+    }
+  ];
   $: radarScaleProfiles = [
     ...(selectedScope === 'career'
       ? summaries
@@ -210,7 +254,7 @@
   $: hoveredRadarTooltip = hoveredRadarMetricIndex == null ? null : radarTooltipPosition(hoveredRadarMetricIndex);
 </script>
 
-<section class="order-11 mt-10">
+<section class="order-12 mt-10">
   <article class="panel overflow-hidden border border-violet-300/20 bg-slate-900/90">
     <div class="grid gap-8 border-b border-white/10 px-6 py-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)] lg:px-8">
       <div>
@@ -226,7 +270,7 @@
         <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Radar</p>
           <p class="mt-2 text-xl font-bold text-white">Profile comparison</p>
-          <p class="mt-2 text-sm leading-6 text-slate-400">Useful for seeing Curry, Harden, LeBron, and Durant as different adaptations.</p>
+          <p class="mt-2 text-sm leading-6 text-slate-400">Useful for comparing older interior stars, midrange creators, and newer perimeter-heavy players.</p>
         </div>
 
         <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
@@ -237,29 +281,21 @@
       </div>
     </div>
 
-    <div class="border-b border-white/10 px-6 py-5 lg:px-8">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p class="max-w-3xl text-sm leading-6 text-slate-400">
-          Choose Career for the full player profile, or select a season to compare only that year.
-        </p>
-      </div>
-    </div>
-
     <div class="px-4 py-5 lg:px-6 lg:py-6">
       {#if summaries.length}
-        <section class="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70">
+        <section class="mx-auto max-w-[105rem] overflow-hidden rounded-3xl border border-white/10 bg-slate-950/70">
           <div class="border-b border-white/10 px-5 py-4">
             <div class="grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
               <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">Radar comparison</p>
-                <h3 class="mt-2 text-xl font-bold text-white">Player shot-profile shape</h3>
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">Player comparison board</p>
+                <h3 class="mt-2 text-xl font-bold text-white">Profile shape and shot chart side by side</h3>
                 <p class="mt-2 text-sm leading-6 text-slate-400">
-                  Values are normalized across all featured player-seasons. Hover a vertex to compare exact values for
-                  the selected scope.
+                  Choose Career for the full player profile, or select a season to compare only that year. The radar
+                  summarizes profile shape; the courts show where those shots happen.
                 </p>
               </div>
 
-              <div class="grid gap-3 sm:grid-cols-3 xl:min-w-[34rem]">
+              <div class="grid gap-3 sm:grid-cols-3 xl:min-w-[32rem]">
                 <label class="grid gap-1 text-sm text-slate-300">
                   <span class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Scope</span>
                   <select
@@ -300,118 +336,158 @@
             </div>
           </div>
 
-          <div class="overflow-x-auto p-3">
-            <svg viewBox={`0 0 ${radarWidth} ${radarHeight}`} class="mx-auto min-w-[26rem] max-w-[30rem]" role="img" aria-label="Radar chart comparing player shot profiles">
-              {#each [0.25, 0.5, 0.75, 1] as ring}
-                <path
-                  d={`${radarMetrics.map((_, index) => {
-                    const point = radarPoint(index, radarRadius * ring);
-                    return `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
-                  }).join(' ')} Z`}
-                  fill="none"
-                  stroke="rgba(148, 163, 184, 0.16)"
-                />
-              {/each}
+          <div class="grid gap-4 px-4 py-5 xl:grid-cols-[minmax(20rem,0.78fr)_minmax(0,1fr)_minmax(0,1fr)]">
+            <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-3">
+              <div class="mb-3 px-2">
+                <p class="text-sm font-bold text-white">Radar profile</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{scopeLabel(selectedScope)}</p>
+              </div>
 
-              {#each radarMetrics as metric, index}
-                {@const point = radarPoint(index, radarRadius)}
-                {@const labelPoint = radarPoint(index, radarRadius + 38)}
-                <line x1={radarCenter.x} y1={radarCenter.y} x2={point.x} y2={point.y} stroke="rgba(148, 163, 184, 0.18)" />
-                <text x={labelPoint.x} y={labelPoint.y} fill="#cbd5e1" font-size="12" font-weight="800" text-anchor="middle">{metric.shortLabel}</text>
-              {/each}
-
-              {#each radarSummaries as summary}
-                <path
-                  d={radarPath(summary)}
-                  fill={summary.color}
-                  fill-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.12' : '0.26'}
-                  stroke={summary.color}
-                  stroke-width={hoveredRadarPlayer === summary.player ? '4' : '3'}
-                  stroke-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.62' : '1'}
-                />
-                {#each radarMetrics as metric, index}
-                  {@const point = radarMetricPoint(summary, index)}
-                  <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r={hoveredRadarMetricIndex === index && hoveredRadarPlayer === summary.player ? 7 : 4.5}
-                    fill="#020617"
-                    stroke={summary.color}
-                    stroke-width="2.4"
-                    pointer-events="none"
-                  />
-                {/each}
-              {/each}
-
-              {#each radarSummaries as summary}
-                {#each radarMetrics as metric, index}
-                  {@const point = radarMetricPoint(summary, index)}
-                  <g
-                    role="button"
-                    tabindex="0"
-                    aria-label={`${summary.player} ${metric.label}: ${formatMetric(summary, metric.key)}`}
-                    on:pointerenter={() => {
-                      hoveredRadarMetricIndex = index;
-                      hoveredRadarPlayer = summary.player;
-                    }}
-                    on:pointerleave={() => {
-                      hoveredRadarMetricIndex = null;
-                      hoveredRadarPlayer = null;
-                    }}
-                    on:focus={() => {
-                      hoveredRadarMetricIndex = index;
-                      hoveredRadarPlayer = summary.player;
-                    }}
-                    on:blur={() => {
-                      hoveredRadarMetricIndex = null;
-                      hoveredRadarPlayer = null;
-                    }}
-                  >
-                    <circle cx={point.x} cy={point.y} r="18" fill="transparent" />
-                  </g>
-                {/each}
-              {/each}
-
-              <g transform="translate(22 22)">
-                {#each radarSummaries as summary, index}
-                  <g transform={`translate(0 ${index * 24})`}>
-                    <circle cx="0" cy="0" r="6" fill={summary.color} />
-                    <text x="14" y="4" fill="#f8fafc" font-size="13" font-weight="800">{summary.player}</text>
-                  </g>
-                {/each}
-              </g>
-
-              {#if hoveredRadarMetric && hoveredRadarTooltip}
-                <g transform={`translate(${hoveredRadarTooltip.x} ${hoveredRadarTooltip.y})`} pointer-events="none">
-                  <rect
-                    width={hoveredRadarTooltip.width}
-                    height={hoveredRadarTooltip.height}
-                    rx="14"
-                    fill="rgba(2, 6, 23, 0.95)"
-                    stroke="rgba(226, 232, 240, 0.2)"
-                  />
-                  <text x="14" y="22" fill="#f8fafc" font-size="13" font-weight="900">{hoveredRadarMetric.label}</text>
-                  {#each radarSummaries as summary, index}
-                    <g transform={`translate(14 ${46 + index * 24})`}>
-                      <circle cx="0" cy="-4" r="4" fill={summary.color} />
-                      <text x="12" y="0" fill="#cbd5e1" font-size="11" font-weight="800">{summary.player}</text>
-                      <text x={hoveredRadarTooltip.width - 28} y="0" fill="#f8fafc" font-size="11" font-weight="900" text-anchor="end">
-                        {formatMetric(summary, hoveredRadarMetric.key)}
-                      </text>
-                    </g>
+              <div class="overflow-x-auto">
+                <svg viewBox={`0 0 ${radarWidth} ${radarHeight}`} class="mx-auto min-w-[20rem] max-w-[22rem]" role="img" aria-label="Radar chart comparing player shot profiles">
+                  {#each [0.25, 0.5, 0.75, 1] as ring}
+                    <path
+                      d={`${radarMetrics.map((_, index) => {
+                        const point = radarPoint(index, radarRadius * ring);
+                        return `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+                      }).join(' ')} Z`}
+                      fill="none"
+                      stroke="rgba(148, 163, 184, 0.16)"
+                    />
                   {/each}
-                </g>
-              {/if}
-            </svg>
-          </div>
 
-          <div class="grid gap-3 border-t border-white/10 px-5 py-4 sm:grid-cols-2">
-            {#each radarSummaries as summary}
-              <div class="rounded-2xl border border-white/10 bg-slate-900/70 px-4 py-3">
-                <p class="text-sm font-bold text-white">{summary.player}</p>
-                <p class="mt-1 text-xs leading-5 text-slate-400">
-                  {scopeLabel(selectedScope)}: {feet(summary.avgShotDistance)} avg distance, {compactNumber(summary.attempts)} attempts
-                </p>
+                  {#each radarMetrics as metric, index}
+                    {@const point = radarPoint(index, radarRadius)}
+                    {@const labelPoint = radarPoint(index, radarRadius + 32)}
+                    <line x1={radarCenter.x} y1={radarCenter.y} x2={point.x} y2={point.y} stroke="rgba(148, 163, 184, 0.18)" />
+                    <text x={labelPoint.x} y={labelPoint.y} fill="#cbd5e1" font-size="10.5" font-weight="800" text-anchor="middle">{metric.shortLabel}</text>
+                  {/each}
+
+                  {#each radarSummaries as summary}
+                    <path
+                      d={radarPath(summary)}
+                      fill={summary.color}
+                      fill-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.12' : '0.26'}
+                      stroke={summary.color}
+                      stroke-width={hoveredRadarPlayer === summary.player ? '4' : '3'}
+                      stroke-opacity={hoveredRadarPlayer && hoveredRadarPlayer !== summary.player ? '0.62' : '1'}
+                    />
+                    {#each radarMetrics as metric, index}
+                      {@const point = radarMetricPoint(summary, index)}
+                      <circle
+                        cx={point.x}
+                        cy={point.y}
+                        r={hoveredRadarMetricIndex === index && hoveredRadarPlayer === summary.player ? 7 : 4.5}
+                        fill="#020617"
+                        stroke={summary.color}
+                        stroke-width="2.4"
+                        pointer-events="none"
+                      />
+                    {/each}
+                  {/each}
+
+                  {#each radarSummaries as summary}
+                    {#each radarMetrics as metric, index}
+                      {@const point = radarMetricPoint(summary, index)}
+                      <g
+                        role="button"
+                        tabindex="0"
+                        aria-label={`${summary.player} ${metric.label}: ${formatMetric(summary, metric.key)}`}
+                        on:pointerenter={() => {
+                          hoveredRadarMetricIndex = index;
+                          hoveredRadarPlayer = summary.player;
+                        }}
+                        on:pointerleave={() => {
+                          hoveredRadarMetricIndex = null;
+                          hoveredRadarPlayer = null;
+                        }}
+                        on:focus={() => {
+                          hoveredRadarMetricIndex = index;
+                          hoveredRadarPlayer = summary.player;
+                        }}
+                        on:blur={() => {
+                          hoveredRadarMetricIndex = null;
+                          hoveredRadarPlayer = null;
+                        }}
+                      >
+                        <circle cx={point.x} cy={point.y} r="18" fill="transparent" />
+                      </g>
+                    {/each}
+                  {/each}
+
+                  <g transform="translate(18 20)">
+                    {#each radarSummaries as summary, index}
+                      <g transform={`translate(0 ${index * 22})`}>
+                        <circle cx="0" cy="0" r="5.5" fill={summary.color} />
+                        <text x="12" y="4" fill="#f8fafc" font-size="12" font-weight="800">{summary.player}</text>
+                      </g>
+                    {/each}
+                  </g>
+
+                  {#if hoveredRadarMetric && hoveredRadarTooltip}
+                    <g transform={`translate(${hoveredRadarTooltip.x} ${hoveredRadarTooltip.y})`} pointer-events="none">
+                      <rect
+                        width={hoveredRadarTooltip.width}
+                        height={hoveredRadarTooltip.height}
+                        rx="14"
+                        fill="rgba(2, 6, 23, 0.95)"
+                        stroke="rgba(226, 232, 240, 0.2)"
+                      />
+                      <text x="14" y="22" fill="#f8fafc" font-size="13" font-weight="900">{hoveredRadarMetric.label}</text>
+                      {#each radarSummaries as summary, index}
+                        <g transform={`translate(14 ${46 + index * 24})`}>
+                          <circle cx="0" cy="-4" r="4" fill={summary.color} />
+                          <text x="12" y="0" fill="#cbd5e1" font-size="11" font-weight="800">{summary.player}</text>
+                          <text x={hoveredRadarTooltip.width - 28} y="0" fill="#f8fafc" font-size="11" font-weight="900" text-anchor="end">
+                            {formatMetric(summary, hoveredRadarMetric.key)}
+                          </text>
+                        </g>
+                      {/each}
+                    </g>
+                  {/if}
+                </svg>
+              </div>
+
+              <div class="mt-3 grid gap-2">
+                {#each radarSummaries as summary}
+                  <div class="rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2">
+                    <p class="text-xs font-bold text-white">{summary.player}</p>
+                    <p class="mt-1 text-[0.72rem] leading-5 text-slate-400">
+                      {feet(summary.avgShotDistance)} avg distance, {compactNumber(summary.attempts)} attempts
+                    </p>
+                  </div>
+                {/each}
+              </div>
+            </div>
+
+            {#each playerHeatmapComparisons as comparison}
+              <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-3">
+                <div class="mb-3 flex items-center justify-between gap-3 px-2">
+                  <div class="flex items-center gap-2">
+                    <span class="h-3 w-3 rounded-full" style={`background: ${comparison.color}`}></span>
+                    <div>
+                      <p class="text-sm font-bold text-white">{comparison.player}</p>
+                      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">{scopeLabel(selectedScope)}</p>
+                    </div>
+                  </div>
+                  <p class="text-xs font-semibold text-slate-400">{comparison.cells.length.toLocaleString()} bins</p>
+                </div>
+
+                <div class="h-[26rem] min-h-0 xl:h-[30rem]">
+                  {#if comparison.cells.length}
+                    <CourtHeatmap
+                      cells={comparison.cells}
+                      shotOutcome="all"
+                      cellSize={playerHeatmap?.metadata.cellSize ?? 2}
+                      halfCourtLength={playerHeatmap?.metadata.halfCourtLength ?? 47}
+                      halfCourtWidth={playerHeatmap?.metadata.halfCourtWidth ?? 25}
+                    />
+                  {:else}
+                    <div class="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-slate-400">
+                      No shot chart data for this player and scope.
+                    </div>
+                  {/if}
+                </div>
               </div>
             {/each}
           </div>

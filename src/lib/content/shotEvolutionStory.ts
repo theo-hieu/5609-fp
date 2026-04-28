@@ -47,6 +47,62 @@ export const playerStoryCases: PlayerStoryCase[] = [
     title: 'Durant keeps the middle alive.',
     body:
       'He is useful because he complicates the thesis: the league abandoned the middle, but elite shot-makers can still live there.'
+  },
+  {
+    player: 'Nikola Jokic',
+    label: 'Modern center skill',
+    title: 'Jokic stretches the center archetype.',
+    body:
+      'His profile shows how modern bigs can bend defenses without looking like traditional perimeter guards, mixing touch, range, and playmaking gravity.'
+  },
+  {
+    player: 'Luka Doncic',
+    label: 'Young heliocentric creator',
+    title: 'Luka enters with the modern map already built.',
+    body:
+      'His career starts after the three-point boom is normal, making him useful for seeing how newer stars inherit deep pull-ups and spread spacing as a baseline.'
+  },
+  {
+    player: 'Anthony Edwards',
+    label: 'Next-wave pressure',
+    title: 'Edwards represents the newer scoring wing.',
+    body:
+      'His early career sits in the fully modern shot economy, where downhill rim pressure and confident perimeter attempts are expected from young stars.'
+  },
+  {
+    player: 'Kobe Bryant',
+    label: 'Pre-boom shot-maker',
+    title: 'Kobe anchors the midrange era.',
+    body:
+      'His profile gives the project an older star comparison: high-volume shot creation before the league fully reorganized around threes and rim attempts.'
+  },
+  {
+    player: 'Tim Duncan',
+    label: 'Interior foundation',
+    title: 'Duncan shows the old big-man baseline.',
+    body:
+      'His career is a strong contrast case because his value was rooted near the basket and in the post, not in expanding farther behind the arc.'
+  },
+  {
+    player: 'Giannis Antetokounmpo',
+    label: 'Rim pressure in the modern era',
+    title: 'Giannis keeps the paint central.',
+    body:
+      'He shows that the modern revolution did not eliminate interior dominance; it made spacing around elite rim pressure even more important.'
+  },
+  {
+    player: "Shaquille O'Neal",
+    label: 'Pure interior force',
+    title: 'Shaq is the clearest no-three contrast.',
+    body:
+      'His profile is a useful extreme: almost everything is built around power near the rim, making the modern spacing shift easier to compare against.'
+  },
+  {
+    player: 'Jayson Tatum',
+    label: 'Modern wing volume',
+    title: 'Tatum reflects the contemporary star wing.',
+    body:
+      'His shot profile belongs to the era where large wings are expected to create from three, attack mismatches, and scale their range with volume.'
   }
 ];
 

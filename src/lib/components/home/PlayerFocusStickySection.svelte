@@ -9,7 +9,6 @@
   let progress = 0;
   let playerDistanceOutcome: ShotOutcome = 'all';
   let selectedPlayer = 'LeBron James';
-  let manualSelection = false;
 
   function clampIndex(index: number) {
     return Math.max(0, Math.min(index, Math.max(playerStoryCases.length - 1, 0)));
@@ -17,25 +16,68 @@
 
   function handlePlayerChange(event: Event) {
     selectedPlayer = (event.currentTarget as HTMLSelectElement).value;
-    manualSelection = true;
   }
 
-  $: activeCaseIndex = clampIndex(Math.floor((progress / 100) * playerStoryCases.length));
-  $: activeCase = playerStoryCases[activeCaseIndex] ?? playerStoryCases[0];
-  $: if (!manualSelection && activeCase) {
-    selectedPlayer = activeCase.player;
+  function playerDistanceValue(
+    row: PlayerDistanceSeries['seasons'][number],
+    selectedOutcome: ShotOutcome
+  ) {
+    if (selectedOutcome === 'made') return row.avgMadeShotDistance;
+    if (selectedOutcome === 'missed') return row.avgMissedShotDistance;
+    return row.avgShotDistance;
   }
+
+  function playerDistanceStats(series: PlayerDistanceSeries | null, selectedOutcome: ShotOutcome) {
+    const seasons = series?.seasons ?? [];
+    if (!seasons.length) return null;
+
+    const rows = seasons.map((season) => ({
+      season: season.season,
+      value: playerDistanceValue(season, selectedOutcome)
+    }));
+    const peak = rows.reduce((best, row) => (row.value > best.value ? row : best), rows[0]);
+    const low = rows.reduce((best, row) => (row.value < best.value ? row : best), rows[0]);
+    const changes = rows.slice(1).map((row, index) => {
+      const previous = rows[index];
+      return {
+        from: previous.season,
+        to: row.season,
+        delta: row.value - previous.value
+      };
+    });
+    const biggestJump = changes.reduce(
+      (best, change) => (!best || change.delta > best.delta ? change : best),
+      null as { from: string; to: string; delta: number } | null
+    );
+    const biggestDrop = changes.reduce(
+      (best, change) => (!best || change.delta < best.delta ? change : best),
+      null as { from: string; to: string; delta: number } | null
+    );
+
+    return { peak, low, biggestJump, biggestDrop };
+  }
+
   $: if (players.length && !players.some((player) => player.player === selectedPlayer)) {
     selectedPlayer = players[0].player;
-    manualSelection = false;
   }
   $: selectedPlayerSeries = players.find((player) => player.player === selectedPlayer) ?? null;
-  $: selectedPlayerStory = playerStoryCases.find((storyCase) => storyCase.player === selectedPlayer) ?? activeCase;
+  $: selectedPlayerStory =
+    playerStoryCases.find((storyCase) => storyCase.player === selectedPlayer) ?? playerStoryCases[0];
+  $: activeCaseIndex = clampIndex(playerStoryCases.findIndex((storyCase) => storyCase.player === selectedPlayer));
+  $: selectedPlayerStats = playerDistanceStats(selectedPlayerSeries, playerDistanceOutcome);
+  $: sharedPlayerDistanceValues = players.flatMap((player) =>
+    player.seasons.map((season) => playerDistanceValue(season, playerDistanceOutcome))
+  );
+  $: sharedPlayerDistanceMax = sharedPlayerDistanceValues.length ? Math.max(...sharedPlayerDistanceValues) : 0;
+  $: sharedPlayerDistanceDomain = {
+    min: 0,
+    max: Math.max(1, +(sharedPlayerDistanceMax * 1.12).toFixed(2))
+  };
   $: playerDistanceLabel =
     playerDistanceOutcome === 'made' ? 'Made shots' : playerDistanceOutcome === 'missed' ? 'Missed shots' : 'All shots';
 </script>
 
-<section class="order-8 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-4 sm:px-6 lg:px-8">
+<section class="order-11 relative left-1/2 mt-10 w-screen -translate-x-1/2 px-4 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-[118rem]">
     <Scroll
       bind:progress
@@ -47,23 +89,68 @@
     >
       {#snippet children()}
         <div class="space-y-6">
-          {#each playerStoryCases as storyCase, index}
-            <article
-              class:active={activeCaseIndex === index && !manualSelection}
-              class="player-story-card panel min-h-[66vh] border border-teal-300/20 bg-slate-900/90 p-6 sm:p-8"
-            >
-              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">{storyCase.label}</p>
-              <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">{storyCase.title}</h2>
-              <p class="mt-4 text-sm leading-7 text-slate-300">{storyCase.body}</p>
-              <div class="mt-6 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
-                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Player evidence</p>
-                <p class="mt-2 text-xl font-bold text-white">{storyCase.player}</p>
-                <p class="mt-2 text-sm leading-6 text-slate-400">
-                  {playerDistanceSummary(players.find((player) => player.player === storyCase.player) ?? null)}
-                </p>
+          <article class="player-story-card active panel min-h-[66vh] border border-teal-300/20 bg-slate-900/90 p-6 sm:p-8">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">{selectedPlayerStory?.label}</p>
+            <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">{selectedPlayerStory?.title}</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-300">{selectedPlayerStory?.body}</p>
+            <div class="mt-6 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Player evidence</p>
+              <p class="mt-2 text-xl font-bold text-white">{selectedPlayer}</p>
+              <p class="mt-2 text-sm leading-6 text-slate-400">
+                {playerDistanceSummary(selectedPlayerSeries)}
+              </p>
+            </div>
+          </article>
+
+          <article class="panel min-h-[66vh] border border-white/10 bg-slate-900/75 p-6 sm:p-8">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/70">Career range</p>
+            <h2 class="mt-3 text-2xl font-bold text-white sm:text-3xl">{selectedPlayer}&apos;s distance extremes.</h2>
+            <p class="mt-4 text-sm leading-7 text-slate-300">
+              This view keeps the player fixed while the line reveals season by season. The key question is not only
+              whether the line rises, but where the selected player&apos;s shot profile stretched or compressed the most.
+            </p>
+            {#if selectedPlayerStats}
+              <div class="mt-6 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-2xl border border-teal-300/20 bg-teal-400/10 px-4 py-4">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-teal-100">Peak distance</p>
+                  <p class="mt-2 text-2xl font-bold text-white">{selectedPlayerStats.peak.value.toFixed(2)} ft</p>
+                  <p class="mt-1 text-sm text-slate-300">{selectedPlayerStats.peak.season}</p>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Lowest distance</p>
+                  <p class="mt-2 text-2xl font-bold text-white">{selectedPlayerStats.low.value.toFixed(2)} ft</p>
+                  <p class="mt-1 text-sm text-slate-400">{selectedPlayerStats.low.season}</p>
+                </div>
               </div>
-            </article>
-          {/each}
+
+              <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Biggest jump</p>
+                  <p class="mt-2 text-xl font-bold text-white">
+                    {selectedPlayerStats.biggestJump ? `+${selectedPlayerStats.biggestJump.delta.toFixed(2)} ft` : 'N/A'}
+                  </p>
+                  <p class="mt-1 text-sm text-slate-400">
+                    {selectedPlayerStats.biggestJump
+                      ? `${selectedPlayerStats.biggestJump.from} to ${selectedPlayerStats.biggestJump.to}`
+                      : 'No season-to-season change available'}
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-4">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Biggest drop</p>
+                  <p class="mt-2 text-xl font-bold text-white">
+                    {selectedPlayerStats.biggestDrop ? `${selectedPlayerStats.biggestDrop.delta.toFixed(2)} ft` : 'N/A'}
+                  </p>
+                  <p class="mt-1 text-sm text-slate-400">
+                    {selectedPlayerStats.biggestDrop
+                      ? `${selectedPlayerStats.biggestDrop.from} to ${selectedPlayerStats.biggestDrop.to}`
+                      : 'No season-to-season change available'}
+                  </p>
+                </div>
+              </div>
+            {/if}
+          </article>
         </div>
       {/snippet}
 
@@ -74,9 +161,7 @@
               <p class="text-xs font-semibold uppercase tracking-[0.24em] text-teal-300/80">Player cases</p>
               <h3 class="mt-3 text-2xl font-bold text-white">{selectedPlayerStory?.title ?? 'Player distance trend'}</h3>
               <p class="mt-3 text-sm leading-6 text-slate-400">
-                {manualSelection
-                  ? 'Manual player view is active. Use Follow story to return to scroll-driven player cases.'
-                  : 'The chart follows the active story card as you scroll.'}
+                The selected player stays fixed while the career line reveals with scroll.
               </p>
             </div>
 
@@ -93,16 +178,6 @@
                   {/each}
                 </select>
               </label>
-
-              {#if manualSelection}
-                <button
-                  type="button"
-                  class="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-teal-300/40 hover:text-white"
-                  on:click={() => (manualSelection = false)}
-                >
-                  Follow story
-                </button>
-              {/if}
             </div>
           </div>
 
@@ -131,11 +206,12 @@
             </div>
           </div>
 
-          <div class="px-4 py-6 sm:px-6 lg:px-8">
+          <div class="px-4 py-4 sm:px-6 lg:px-6">
             <PlayerDistanceChart
               player={selectedPlayerSeries}
               shotOutcome={playerDistanceOutcome}
-              revealProgress={manualSelection ? 100 : progress}
+              revealProgress={progress}
+              yDomain={sharedPlayerDistanceDomain}
             />
           </div>
         </article>

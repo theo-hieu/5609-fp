@@ -7,7 +7,9 @@
   import HeroHeader from '$lib/components/home/HeroHeader.svelte';
   import PipelineNotice from '$lib/components/home/PipelineNotice.svelte';
   import PlayerFocusStickySection from '$lib/components/home/PlayerFocusStickySection.svelte';
+  import ShotRecipeSection from '$lib/components/home/ShotRecipeSection.svelte';
   import ShotTimelineShowcaseSection from '$lib/components/home/ShotTimelineShowcaseSection.svelte';
+  import ShotValueTerrainSection from '$lib/components/home/ShotValueTerrainSection.svelte';
   import { deriveThesisMetrics } from '$lib/content/shotEvolutionStory';
   import type { PageData } from './$types';
 
@@ -48,6 +50,10 @@
         <HeatmapComparisonSection heatmap={data.heatmap} seasons={data.seasons} />
 
         <Heatmap3DSection heatmap={data.heatmap} seasons={data.seasons} />
+
+        <ShotValueTerrainSection heatmap={data.heatmap} seasons={data.seasons} />
+
+        <ShotRecipeSection zoneTrend={data.zoneTrend} />
 
         <PlayerFocusStickySection players={data.playerDistance?.players ?? []} />
 

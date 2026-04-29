@@ -447,6 +447,7 @@
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enablePan = false;
+    controls.enableZoom = false;
     controls.dampingFactor = 0.08;
 
     const ambient = new THREE.HemisphereLight(0xe2e8f0, 0x020617, 1.25);
@@ -535,7 +536,7 @@
   <div bind:this={host} class="h-full min-h-[28rem] w-full overflow-hidden rounded-3xl bg-slate-950/70"></div>
 
   <div class="pointer-events-none absolute bottom-4 left-4 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs text-slate-300">
-    Drag to orbit and scroll to zoom
+    Drag to orbit. Page scroll stays active.
   </div>
 
   {#if !renderableCells.length}

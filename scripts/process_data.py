@@ -26,6 +26,14 @@ PLAYER_FOCUS_NAMES = (
     "Stephen Curry",
     "James Harden",
     "Kevin Durant",
+    "Nikola Jokic",
+    "Luka Doncic",
+    "Anthony Edwards",
+    "Kobe Bryant",
+    "Tim Duncan",
+    "Giannis Antetokounmpo",
+    "Shaquille O'Neal",
+    "Jayson Tatum",
 )
 SHOT_TYPE_ORDER = ("2PT Field Goal", "3PT Field Goal")
 ZONE_ORDER = (
@@ -239,6 +247,12 @@ def main() -> None:
     player_distance_by_player: dict[str, dict[str, dict[str, float]]] = {
         player: defaultdict(make_distance_counter) for player in PLAYER_FOCUS_NAMES
     }
+    player_heatmap_all: dict[str, dict[tuple[float, float], dict[str, int]]] = {
+        player: defaultdict(make_counter) for player in PLAYER_FOCUS_NAMES
+    }
+    player_heatmap_by_season: dict[str, dict[str, dict[tuple[float, float], dict[str, int]]]] = {
+        player: defaultdict(lambda: defaultdict(make_counter)) for player in PLAYER_FOCUS_NAMES
+    }
     player_name_map = {normalize_name(player): player for player in PLAYER_FOCUS_NAMES}
 
     seasons_set: set[str] = set()
@@ -293,6 +307,8 @@ def main() -> None:
         matched_player = player_name_map.get(normalize_name(player_name))
         if matched_player:
             update_distance_counter(player_distance_by_player[matched_player][season], shot_distance, made)
+            update_counter(player_heatmap_all[matched_player][(cell_x, cell_y)], made)
+            update_counter(player_heatmap_by_season[matched_player][season][(cell_x, cell_y)], made)
         seasons_set.add(season)
 
     log(f"Loaded {processed_rows:,} shots from {len(csv_files)} CSV files.")
@@ -391,6 +407,43 @@ def main() -> None:
         ],
     }
 
+    player_heatmap_payload = {
+        "metadata": {
+            **metadata,
+            "cellSize": HEATMAP_CELL_SIZE,
+            "fullCourtLength": FULL_COURT_LENGTH,
+            "halfCourtLength": HALF_COURT_LENGTH,
+            "halfCourtWidth": HALF_COURT_WIDTH,
+        },
+        "seasons": seasons,
+        "players": [
+            {
+                "player": player,
+                "all": [
+                    {
+                        "x": key[0],
+                        "y": key[1],
+                        **finalize_counter(player_heatmap_all[player][key]),
+                    }
+                    for key in sorted(player_heatmap_all[player])
+                ],
+                "bySeason": {
+                    season: [
+                        {
+                            "x": key[0],
+                            "y": key[1],
+                            **finalize_counter(player_heatmap_by_season[player][season][key]),
+                        }
+                        for key in sorted(player_heatmap_by_season[player][season])
+                    ]
+                    for season in seasons
+                    if season in player_heatmap_by_season[player]
+                },
+            }
+            for player in PLAYER_FOCUS_NAMES
+        ],
+    }
+
     shot_type_payload = {
         "metadata": metadata,
         "seasons": seasons,
@@ -471,6 +524,7 @@ def main() -> None:
     write_json(out_dir, "distance-profile.json", distance_payload)
     write_json(out_dir, "season-distance-trend.json", season_distance_payload)
     write_json(out_dir, "player-distance-trend.json", player_distance_payload)
+    write_json(out_dir, "player-heatmap.json", player_heatmap_payload)
     write_json(out_dir, "shot-type-trend.json", shot_type_payload)
     write_json(out_dir, "zone-trend.json", zone_trend_payload)
 

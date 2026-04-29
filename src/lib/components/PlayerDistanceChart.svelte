@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Line } from 'svelte-chartjs';
+  import ChartCanvas from '$lib/components/ChartCanvas.svelte';
   import {
     CategoryScale,
     Chart as ChartJS,
+    Filler,
     Legend,
     LineElement,
     LinearScale,
@@ -18,8 +19,9 @@
   export let player: PlayerDistanceSeries | null = null;
   export let shotOutcome: ShotOutcome = 'all';
   export let revealProgress = 100;
+  export let yDomain: { min: number; max: number } | null = null;
 
-  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+  ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
   function withOpacity(hex: string, opacity: number) {
     const normalized = hex.replace('#', '');
@@ -91,8 +93,8 @@
   $: fullSeriesMin = currentPoints.length ? Math.min(...currentPoints) : 0;
   $: fullSeriesMax = currentPoints.length ? Math.max(...currentPoints) : 0;
   $: yPadding = Math.max(0.35, (fullSeriesMax - fullSeriesMin) * 0.18);
-  $: fixedYMin = Math.max(0, +(fullSeriesMin - yPadding).toFixed(2));
-  $: fixedYMax = +(fullSeriesMax + yPadding).toFixed(2);
+  $: fixedYMin = yDomain?.min ?? 0;
+  $: fixedYMax = yDomain?.max ?? +(fullSeriesMax + yPadding).toFixed(2);
   $: datasets = [
     ...(player
       ? [
@@ -177,9 +179,9 @@
   } satisfies ChartOptions<'line'>;
 </script>
 
-<div class="h-[26rem]">
+<div class="h-[22rem] lg:h-[27rem]">
   {#if player}
-    <Line data={chartData} {options} />
+    <ChartCanvas type="line" data={chartData} {options} />
   {:else}
     <div class="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 text-sm text-slate-400">
       No player distance trend data is available yet. Re-run the data pipeline to generate it.

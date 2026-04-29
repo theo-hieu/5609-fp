@@ -517,7 +517,7 @@
                 {#each panels as panel, panelIndex}
                   <g>
                     <rect x={left} y={panel.y} width={plotWidth} height={panel.height} rx="18" fill="rgba(15, 23, 42, 0.76)" stroke="rgba(148, 163, 184, 0.13)" />
-                    <text x="24" y={panel.y + 22} fill="#cbd5e1" font-size="15" font-weight="700">{panel.title}</text>
+                    <text x={left} y={panel.y - 12} fill="#cbd5e1" font-size="15" font-weight="700">{panel.title}</text>
                     <text x={left - 44} y={panel.y + 43} fill="#64748b" font-size="10" font-weight="700" text-anchor="middle">{panel.unit}</text>
                     <line x1={left} x2={left + plotWidth} y1={panel.y + panel.height} y2={panel.y + panel.height} stroke="rgba(148, 163, 184, 0.28)" />
                     <line x1={left} x2={left} y1={panel.y} y2={panel.y + panel.height} stroke="rgba(148, 163, 184, 0.24)" />

@@ -256,14 +256,14 @@
   $: comparisonHeatmapCells = playerHeatmapCells(comparisonPlayer, selectedScope);
   $: playerHeatmapComparisons = [
     {
-      player: comparisonPlayer,
-      color: comparisonSummary?.color ?? '#cbd5e1',
-      cells: comparisonHeatmapCells
-    },
-    {
       player: selectedPlayer,
       color: selectedSummary?.color ?? '#cbd5e1',
       cells: selectedHeatmapCells
+    },
+    {
+      player: comparisonPlayer,
+      color: comparisonSummary?.color ?? '#cbd5e1',
+      cells: comparisonHeatmapCells
     }
   ];
   $: radarScaleProfiles = [
@@ -484,7 +484,7 @@
               </div>
             </div>
 
-            {#each playerHeatmapComparisons as comparison}
+            {#each playerHeatmapComparisons as comparison (`${comparison.player}-${selectedScope}`)}
               <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-3">
                 <div class="mb-3 flex items-center justify-between gap-3 px-2">
                   <div class="flex items-center gap-2">

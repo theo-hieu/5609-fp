@@ -1,0 +1,101 @@
+Team Axis
+
+Strengths: I like the story throughout the page. It has a clear goal and story answering your questions.
+
+Area of Improvement: I don't have a lot of comments on that and not so much an area of improvement but maybe preference, so I'll add to suggestions.
+
+Suggestions: In the final 3d visualization that shows the shots between seasons, maybe giving the user more control to go between seasons to see the shots made. Right now it looks like it loops through the seasons one by one, I'd want to click the seasons and change between and maybe play and repeat.
+- Anonymous User
+Apr 14 at 6:26pm
+Peer Review for Axis
+
+a. Strengths
+
+I really liked the 3d visualization of the heatmap, I think it made the data a lot more clear than the 2d heatmap alone. I liked how you focused on the conclusion that teams began focusing more on 3 point shots than 2 points over time, and I think it was effective to highlight that in the shot distribution by zone graph. I also thought the color choices looked nice and that everything was very readable.
+
+b. Areas for Improvement
+
+I also really liked the 3d shot visualization at the end because it helps you imagine the data, but I think that the camera placement in the 3d scene could be improved to focus more on the side of the court with the visualization.
+
+c. Suggestions
+
+For the first graph, I think the scrolling info on the left side for every single season feels a little unnecessary. I think the change from the previous season could be included in the information box when you hover over a point and the left side would be alright with just the highlights of key events.
+
+Overall, I think the story is easy to follow even if you don’t know basketball very well and the visualizations are effective in conveying your findings.
+- Anonymous User
+Apr 16 at 11:59pm
+This project really stood out in the previous milestone, though it feels a bit less distinctive now as other groups are making strong progress.
+
+Think about how to move beyond showing three separate line charts. Right now, the first three charts feel somewhat repetitive, and the current animation of the lines simply growing is a bit basic. It may be more effective to use animation to show the relationships among the three line chart. For example, the increase in average shot distance is coming from taking more 3-point shots and fewer 2-point shots (2nd line chart), which can be further explained that above-the-break 3s increase a lot, while left- and right-corner 3s stay fairly similar. Highlighting these transitions could make the story much clearer.
+
+You could also consider using more meaningful color encoding for the lines based on distance. For example, left-corner 3 could use a darker tone than shots closer to the restricted area.
+
+For the double y-axis chart, instead of placing two axes in the same figure, you might try a stacked bar chart for the histogram, with made and missed shots stacked together. Then animation could help transition between showing percentages on the y-axis and showing number of attempts.
+
+Since the final project is expected to go beyond standard visualizations, keep thinking about how to address that more clearly.
+
+It may also help to explore a multi-view design that better connects the currently separate views (line, heatmap). Right now, users may need more guidance on how to read and compare the heatmap visualizations, e.g., which year to choose and how to compare across years. Looking back at the class examples may give you some ideas
+
+- Qianwen Wang
+Apr 18 at 11:11am
+Group Axis:
+Strengths: As a sports enthusiast that's recently started to get interested in the nba, I found the topic really interesting. the beginning graph, using scrollytelling, made for a really interesting pattern. I really liked the highlights of introduction of players like Stephen Curry and how that influenced the line graph. I also liked the line graph comparison and highlight of 3 pointers against mid range and 2 pointers. The correlation color change with the attempted and made shots was really visually striking and appealing as well. The 3d shot timeline was a cool visual at the end as well.
+
+Areas for Improvement: The Volume and efficiency by distance graphs isn't very compelling, and a bit confusing. Similarly, the Shots in 3D could be shown better. Right now, its not very appealing to look and interact with.
+
+Suggestions: Replace the scene 1 with a more visually striking graph like a a LOESS curve with a shaded confidence interval. You can try to add more interesting features like how the height of the players influence the attempted and made shots as well. Replace or remove the shots in 3D as the correlation scene 2 graph already covers it.
+- Anonymous User
+Apr 19 at 6:54pm
+a. Strengths
+I really liked the overall styling of the project. It looked clean and was pretty engaging to go through. The topic is also interesting, and I thought the main idea came across clearly. The updated graph order and added transitions helped the story feel smoother, and the annotations were helpful too.
+b. Areas for Improvement
+One thing that could be better is the scrolling. It was a little confusing that it seemed to work mostly on the left side, so having scroll work across the whole page would make it more natural. I also think the visualizations could be a bit bigger, since making them closer to full viewport size would make them easier to read and feel more immersive. For people who do not know basketball that well, a little more explanation in some parts could also help.
+c. Suggestions
+It could be cool to let users choose a team, player, or shot type to focus on, so the experience feels a little more interactive and personal. I also think adding a short takeaway at the start of each section could help make the story even easier to follow. Overall though, I thought the project looked polished and had a strong idea behind it.
+- Anonymous User
+Apr 19 at 8:55pm
+Strengths:
+- Color scheme is easy to read and has good contrast
+- Animations are smooth
+- Really like the implementation of 3D, i think it fits well for the data your'e showing
+
+Areas for improvement:
+
+- The layout for the graph feels a bit clunky, specifically the blocks moving on the left side and the graphs staying fixed on the right
+- Similarly, i wish i didnt have to scroll up to filter between All Shots, Made shots, and Missed
+
+Suggestions
+- Maybe try to consoloidate the 3 shots into one graph
+- Maybe try to reduce the amount of text for the Scenes if possible
+
+Feedback questions:
+1. I think some of the terminology might be difficult for people not into basketball (high-usage wing era, perimeter freedom rules)
+2. I think the animations are fine
+3. The order is fine as well, just focus on the layout
+4. The 3D sections stood out the most to me and I felt the first graph needed the most work
+- Anonymous User
+Apr 19 at 10:10pm
+The 1st graph is nice as it shows the average shot distance over time, with a unique design that helps the viewer remember this website. Nice use of scrolling to see the changes that happen over time for basketball shots for the 1st, 2nd and 3rd graphs. The volume and efficiency graph is nice for getting a more detailed view of the shots made and missed. Being able to see where shots were made and their success was nice for the 5th, 6th and 7th 3D animation was nice, as it gives the viewer a better understanding of what sort of throws were being able with there success. Interactive graphs are very nice.
+
+Room for improvements, for the 1st graph you don't need to list how much the average shot distance changed in text, for each year it gets cluttered, instead just list out the league highlights as a small list, as well as the number of attempts for each year as a list. Add an explanation for why we use range for years (2009-2010) . Give an explanation for this, why don't you use just one year to indicate the end of the season, it gets cluttered like this. Perhaps have the 2d player focus graph, start at y axis of 0 instead of 8.94 feet to better show scale and proportion with each other.
+
+The 3rd graph of shots in 3D does not scale properly, proportional it seems they are very close to each other when they are not actually, make the height of each of the columns proportional. Add explain the 3D shot timeline as to why the shots were being made closer and closer as the years progressed. The shot density graph in addition to shots made, and missed shots could have a percentage for the percentage of successful shots over total shots to highlight areas that were more likely to score. The 3D timeline showing balls being thrown can be improved by letting us select years and and adjust so we can compare them instead of needing to go through the timeline to see where shots are being made.
+- Anonymous User
+Apr 19 at 10:48pm
+Group: Axis
+Strengths: The project has a clear and easy-to-follow story about how NBA shots have changed over time, especially showing the increase in shot distance and three-point attempts while midrange shots decline . The flow is logical, and reordering the graphs helps improve the narrative. The animations and transitions also make the visualization more engaging. Areas for Improvement: Some graphs could use more explanation, especially for users who are not familiar with basketball. Suggestions: add some animations explanation so they better support the story instead of distracting from it.
+- Anonymous User
+Apr 19 at 11:44pm
+1. Stories and data points are straightforward, renovated story flow are strong, and the scrolling and animation are immersive, making it a full story, not just some simple charts.
+2. Lacking some perspectives for non-basketball players and audient. Also lacking some filtering stuff.
+3. Could really consider adding up the filtering, also provide some common or knowledgeable perspectives for those who are not familiar with this area.
+- Anonymous User
+Apr 22 at 10:11am
+Group: Axis
+a.
+All the visualizations were engaging to look at and interact with. Scrolling was smooth and made changes in the data easy to follow. The lines showing the change in time with specific call outs as the user scrolls is very effective.
+b.
+Some bits of the narrative felt repetitive in places especially when the same sentence is repeated to describe an increase or decrease year to year. For the Volume and efficiency by distance graph as someone who barely knows anything about basketball some of the terms are hard to follow and the 2 different y-axis are slightly confusing. I am particularly confused by the different colored bars on this chart with only one color in the heading/key.
+c.
+I would suggest in the scrollytelling elements add a bit more explanation for why things are important especially for those who might not have a strong grasp on how the sport works
+- Anonymous User

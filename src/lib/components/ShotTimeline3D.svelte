@@ -899,7 +899,7 @@
   });
 </script>
 
-<div class="relative h-[38rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 lg:h-[calc(100vh-8rem)] lg:min-h-[44rem]">
+<div class="relative h-[30rem] w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-950/70 lg:h-[34rem] xl:h-[36rem]">
   <div bind:this={host} class="h-full w-full"></div>
 
   <div class="pointer-events-none absolute left-3 top-3 rounded-xl border border-white/10 bg-slate-950/85 px-3 py-2 text-xs">

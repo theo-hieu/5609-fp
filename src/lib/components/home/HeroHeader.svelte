@@ -54,7 +54,7 @@
       key: 'three_point_line',
       label: 'Three-point line',
       definition:
-        'The arc on the basketball court beyond which a successful field goal is worth three points instead of two. The line is 22 feet in the corners and extends to 23.75 feet at the top of the key.',
+        'The arc where shots become worth three points instead of two. It is 22 feet in the corners and 23.75 feet above the break.',
       read_more: 'https://en.wikipedia.org/wiki/Three-point_field_goal'
     },
     {
@@ -84,20 +84,17 @@
       key: 'season',
       label: 'Season',
       definition:
-        'The NBA season typically runs from October to April, with playoffs extending into June. For example, the 2023-24 season started in October 2023 and will conclude in June 2024.',
+        'An NBA year, usually written across two calendar years, such as 2023-24. The regular season typically runs from October to April.',
       read_more: 'https://en.wikipedia.org/wiki/2025%E2%80%9326_NBA_season'
     },
     {
       key: 'above_the_break',
       label: 'Above the break',
       definition:
-        'Shots taken from the area of the three-point arc that is above the free-throw line, as opposed to the corners. These shots are slightly farther from the basket and often have a lower conversion rate than corner threes.',
+        'Three-point shots taken from anywhere other than the corners. These shots are farther from the basket than corner threes.',
       read_more: 'https://abovethebreak.substack.com/p/whats-winning-in-the-nba-playoffs'
     }
   ];
-
-  let selectedDefKey = '';
-  $: selectedDefinition = definitions.find((d) => d.key === selectedDefKey) ?? null;
 </script>
 
 <header class="shot-hero relative isolate min-h-screen overflow-hidden">
@@ -160,36 +157,28 @@
       {/if}
     </div>
 
-    <div class="mt-8 max-w-3xl">
-      <label class="grid gap-1 text-sm text-slate-300">
-        <span class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Definitions</span>
-        <select
-          class="rounded-xl border border-white/10 bg-slate-950/90 px-3 py-2 text-sm text-white outline-none transition focus:border-amber-300/60"
-          bind:value={selectedDefKey}
-        >
-          <option value="">Select a term</option>
-          {#each definitions as def}
-            <option value={def.key}>{def.label}</option>
-          {/each}
-        </select>
-      </label>
-
-      {#if selectedDefinition}
-        <div class="mt-3 rounded-2xl border border-white/10 bg-slate-950/80 p-3 text-sm text-slate-200">
-          <p class="font-semibold text-white">{selectedDefinition.label}</p>
-          <p class="mt-1 text-slate-300">{selectedDefinition.definition}</p>
-          {#if selectedDefinition.read_more}
-            <a
-              href={selectedDefinition.read_more}
-              class="mt-2 inline-block text-xs font-bold uppercase tracking-[0.14em] text-amber-200 underline decoration-amber-400/40 underline-offset-4"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read more
-            </a>
-          {/if}
-        </div>
-      {/if}
+    <div class="mt-8 max-w-6xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">Definitions</p>
+      <div class="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        {#each definitions as def}
+          <div class="rounded-xl border border-white/10 bg-slate-950/72 p-3 text-sm text-slate-200 shadow-lg shadow-slate-950/20 backdrop-blur">
+            <div class="flex items-start justify-between gap-3">
+              <p class="font-semibold text-white">{def.label}</p>
+              {#if def.read_more}
+                <a
+                  href={def.read_more}
+                  class="shrink-0 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-amber-200 underline decoration-amber-400/40 underline-offset-4"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  More
+                </a>
+              {/if}
+            </div>
+            <p class="mt-1 line-clamp-3 text-xs leading-5 text-slate-300">{def.definition}</p>
+          </div>
+        {/each}
+      </div>
     </div>
 
     

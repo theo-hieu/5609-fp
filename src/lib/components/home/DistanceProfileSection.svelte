@@ -69,14 +69,14 @@
             class="rounded-xl border border-white/10 bg-slate-950/90 px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-slate-300 transition hover:border-amber-300/40 hover:text-white"
             on:click={() => (distanceHighlightActive = !distanceHighlightActive)}
           >
-            3PT range
+            Toggle 3PT highlight
           </button>
           
         </div>
       </div>
     </div>
 
-    <div class="min-h-[32rem] px-6 py-6 lg:min-h-[44rem] lg:px-8">
+    <div class="min-h-[28rem] px-6 py-5 lg:min-h-[36rem] lg:px-8">
       <DistanceChart
         data={selectedDistance}
         {shotOutcome}

@@ -255,6 +255,11 @@
       border-radius 260ms ease;
   }
 
+  .court-spotlight::before,
+  .court-spotlight::after {
+    pointer-events: none;
+  }
+
   .court-spotlight.rim {
     left: 38%;
     bottom: 6%;
@@ -264,39 +269,97 @@
   }
 
   .court-spotlight.midrange {
-    left: 24%;
-    bottom: 8%;
-    width: 52%;
-    height: 36%;
-    border-radius: 1.25rem 1.25rem 999px 999px;
+    left: 38%;
+    bottom: 21%;
+    width: 24%;
+    height: 16%;
+    border-radius: 0.8rem 0.8rem 999px 999px;
+    box-shadow:
+      0 0 0 999px rgba(2, 6, 23, 0.18),
+      0 0 24px rgba(251, 191, 36, 0.3);
+  }
+
+  .court-spotlight.midrange::before,
+  .court-spotlight.midrange::after {
+    content: "";
+    position: absolute;
+    bottom: -68%;
+    width: 70%;
+    height: 170%;
+    border: 2px solid rgba(253, 230, 138, 0.9);
+    background: rgba(253, 230, 138, 0.09);
+    box-shadow: 0 0 24px rgba(251, 191, 36, 0.3);
+  }
+
+  .court-spotlight.midrange::before {
+    right: calc(100% + 4px);
+    border-radius: 999px 0.8rem 0.8rem 999px;
+  }
+
+  .court-spotlight.midrange::after {
+    left: calc(100% + 4px);
+    border-radius: 0.8rem 999px 999px 0.8rem;
   }
 
   .court-spotlight.corners {
-    left: 7%;
-    bottom: 2%;
-    width: 20%;
-    height: 32%;
-    border-radius: 1rem;
+    left: 2.5%;
+    bottom: 8%;
+    width: 14%;
+    height: 23%;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
+  .court-spotlight.corners::before,
   .court-spotlight.corners::after {
     content: "";
     position: absolute;
-    right: -330%;
     bottom: -2px;
     width: 100%;
     height: calc(100% + 4px);
     border: 2px solid rgba(253, 230, 138, 0.9);
-    border-radius: 1rem;
+    border-radius: 0.9rem;
     background: rgba(253, 230, 138, 0.09);
     box-shadow: 0 0 32px rgba(251, 191, 36, 0.34);
   }
 
+  .court-spotlight.corners::before {
+    left: 0;
+    box-shadow:
+      0 0 0 999px rgba(2, 6, 23, 0.18),
+      0 0 32px rgba(251, 191, 36, 0.34);
+  }
+
+  .court-spotlight.corners::after {
+    right: -585%;
+  }
+
   .court-spotlight.above-break {
-    left: 20%;
-    bottom: 14%;
-    width: 60%;
-    height: 42%;
-    border-radius: 999px 999px 1.25rem 1.25rem;
+    left: 14%;
+    bottom: 4%;
+    width: 72%;
+    height: 36%;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: 0 0 0 999px rgba(2, 6, 23, 0.18);
+  }
+
+  .court-spotlight.above-break::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 57%;
+    border: 3px solid rgba(253, 230, 138, 0.92);
+    border-bottom: 0;
+    border-radius: 999px 999px 0 0;
+    background: rgba(253, 230, 138, 0.035);
+    box-shadow:
+      inset 0 16px 26px rgba(253, 230, 138, 0.08),
+      0 0 34px rgba(251, 191, 36, 0.34);
   }
 </style>

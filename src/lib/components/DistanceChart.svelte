@@ -349,11 +349,11 @@
         <ChartCanvas type="bar" data={mergedChartData} options={mergedOptions} />
       </div>
     {:else}
-      <div class="grid min-h-0 flex-1 gap-5 lg:grid-rows-2">
-        <div class="min-h-[18rem]">
+      <div class="grid min-h-0 flex-1 gap-4 lg:grid-rows-2">
+        <div class="min-h-[14rem]">
           <ChartCanvas type="bar" data={efficiencyChartData} options={efficiencyOptions} />
         </div>
-        <div class="min-h-[18rem]">
+        <div class="min-h-[14rem]">
           <ChartCanvas type="line" data={attemptsChartData} options={attemptsOptions} />
         </div>
       </div>

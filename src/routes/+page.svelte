@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AcknowledgementsSection from '$lib/components/home/AcknowledgementsSection.svelte';
   import CoordinatedShotEvolution from '$lib/components/CoordinatedShotEvolution.svelte';
   import DistanceProfileSection from '$lib/components/home/DistanceProfileSection.svelte';
   
@@ -60,18 +61,8 @@
           playerHeatmap={data.playerHeatmap}
         />
       </div>
-
-      <footer class="pb-4 text-sm text-slate-400">
-        Aggregated from Kaggle dataset
-        <a
-          href="https://www.kaggle.com/datasets/mexwell/nba-shots"
-          class="font-semibold text-amber-200 underline decoration-amber-400/40 underline-offset-4"
-          target="_blank"
-          rel="noreferrer"
-        >
-          mexwell/nba-shots
-        </a>
-      </footer>
     {/if}
+
+    <AcknowledgementsSection />
   </main>
 </div>
